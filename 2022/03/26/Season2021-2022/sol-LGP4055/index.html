@@ -1,0 +1,344 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>题解 - P4055 [JSOI2009]游戏 | SunsetGlow95&#39;s Blog</title>
+    <meta name="author" content="SunsetGlow95" />
+    <meta name="description" content="SunsetGlow95's Blog" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>SUNSETGLOW95&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;SUNSETGLOW95&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>题解 - P4055 [JSOI2009]游戏</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2022/3/26
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E9%A2%98%E8%A7%A3/" style="color: #00bcd4">
+                    题解
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <link rel="stylesheet" href="https://lib.baomitu.com/KaTeX/latest/katex.min.css">
+<h2 id="题意"><a class="markdownIt-Anchor" href="#题意"></a> 题意</h2>
+<p>在一个格点图上，两方轮流移动棋子一步，不能移到已走过的位置，移不动者输。问如何设定棋子的初始位置，使得后手必胜？</p>
+<h2 id="分析"><a class="markdownIt-Anchor" href="#分析"></a> 分析</h2>
+<p>将这题可以分类为一类 <strong>二分图博弈</strong> 问题。</p>
+<h3 id="为什么是二分图"><a class="markdownIt-Anchor" href="#为什么是二分图"></a> 为什么是二分图？</h3>
+<p>这是一个常用的转换技巧，在许多网络流题目中体现的更精湛。一般一个网格图按照国际象棋的染色方式，可以被染成一个二分图。</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/lzc6358l.png" alt="染色" /></p>
+<p>对于点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(x,y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>，颜色就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>+</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">x+y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> 的奇偶。</p>
+<h3 id="转换后要怎么做"><a class="markdownIt-Anchor" href="#转换后要怎么做"></a> 转换后要怎么做？</h3>
+<p>首先给出一个大家都知道的结论：<strong>在这个博弈中，如果初始在二分图的所有最大匹配上，那么先手必胜，反之后手必胜。</strong></p>
+<h3 id="为什么我是对的"><a class="markdownIt-Anchor" href="#为什么我是对的"></a> 为什么我是对的？</h3>
+<p>先给出样例的拟图：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/ts6mmiuw.png" alt="二分图" /></p>
+<p>其中加粗的点为在任意最大匹配上的点。不妨先称为“粗点”，相对地有“细点”。</p>
+<p>可以发现，从一个粗点出发（如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2,2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span>），只需要任意选择一个在任意一个最大匹配上的匹配点（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2,3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(3,2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span>）即可。只要先手走的是最大匹配，无论后手怎么走，因为题目要求不能回头，所以一定可以继续沿着一个最大匹配走。</p>
+<p>梳理一下这是怎么回事：只要先手在粗点，那么无论对方怎么走，永远可以再次走最大匹配。如果不可以，这就与最大匹配的“最大”矛盾了。</p>
+<p>反之，如果在细点上，那么后手一定可以在一个粗点上出发，即后手必胜。</p>
+<p>所以，题目所求的就转化为：<strong>求在一个二分图上，有哪些点不一定在最大匹配上。</strong></p>
+<p>只要求出这个细点集，空（也就是说，存在完美匹配，任意点皆为粗点）即输出 <code>LOSE</code>，非空输出 <code>WIN</code> 即可。</p>
+<h2 id="具体地怎么实现"><a class="markdownIt-Anchor" href="#具体地怎么实现"></a> 具体地怎么实现？</h2>
+<p>首先用任意可以解决二分图最大匹配问题的算法（匈牙利或 Dinic）都可以。此时我们知道，不在当前匹配的点必然是细点。</p>
+<p>接下去，我们可以做一个 DFS。如果一个点 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span> 已被证实是细点，设它有一边连着 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">Q</span></span></span></span>，且 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">Q</span></span></span></span> 在最大匹配上，则 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Q</mi></mrow><annotation encoding="application/x-tex">Q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">Q</span></span></span></span> 的匹配点也是细点。如样例，如果当前 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2,2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 匹配 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2,3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span>，当我们从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(3,2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 开始 DFS 时，就会发现 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2,3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 是细点。想想看，将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2,2)\Rightarrow(2,3)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">3</span><span class="mclose">)</span></span></span></span> 换成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>2</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mn>3</mn><mo separator="true">,</mo><mn>2</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(2,2)\Rightarrow(3,2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mclose">)</span></span></span></span> 都是最大匹配。根据这样的性质，找出所有的细点即可。</p>
+<h2 id="主要代码"><a class="markdownIt-Anchor" href="#主要代码"></a> 主要代码</h2>
+<pre class="highlight"><code class="cpp"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> MXN = <span class="hljs-number">101</span>;
+<span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> MXPTS = <span class="hljs-number">10001</span>;
+
+<span class="hljs-type">bool</span> enable[MXPTS];
+<span class="hljs-type">int</span> n, m, pts;
+
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">id</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span> </span>&#123; <span class="hljs-keyword">return</span> x * m + y; &#125;
+
+<span class="hljs-type">int</span> head[MXPTS], to[MXPTS &lt;&lt; <span class="hljs-number">2</span>], nxt[MXPTS &lt;&lt; <span class="hljs-number">2</span>], es;  <span class="hljs-comment">// for base graph</span>
+<span class="hljs-type">int</span> link[MXPTS], vis[MXPTS];                           <span class="hljs-comment">// for bi-graph</span>
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;
+  <span class="hljs-built_in">fill</span>(head, head + pts, <span class="hljs-number">-1</span>);
+  <span class="hljs-built_in">fill</span>(link, link + pts, <span class="hljs-number">-1</span>);
+  <span class="hljs-built_in">fill</span>(vis, vis + pts, <span class="hljs-number">-1</span>);
+&#125;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">addedge</span><span class="hljs-params">(<span class="hljs-type">int</span> f, <span class="hljs-type">int</span> t)</span> </span>&#123;
+  to[es] = t;
+  nxt[es] = head[f];
+  head[f] = es++;
+&#125;
+<span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">ask</span><span class="hljs-params">(<span class="hljs-type">int</span> cur, <span class="hljs-type">int</span> t)</span> </span>&#123;
+  <span class="hljs-keyword">if</span> (vis[cur] == t) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  vis[cur] = t;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(head[cur]); ~i; i = nxt[i]) &#123;
+    <span class="hljs-keyword">if</span> (!~link[to[i]] || <span class="hljs-built_in">ask</span>(link[to[i]], t)) &#123;
+      link[to[i]] = cur;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">makepair</span><span class="hljs-params">()</span> </span>&#123;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != n; ++i) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">j</span>(<span class="hljs-number">0</span>); j != m; ++j) &#123;
+      <span class="hljs-keyword">if</span> (!((i + j) &amp; <span class="hljs-number">1</span>) &amp;&amp; enable[<span class="hljs-built_in">id</span>(i, j)]) <span class="hljs-built_in">ask</span>(<span class="hljs-built_in">id</span>(i, j), <span class="hljs-built_in">id</span>(i, j));
+    &#125;
+  &#125;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != pts; ++i) &#123;
+    <span class="hljs-keyword">if</span> (~link[i]) link[link[i]] = i;
+  &#125;
+&#125;
+
+<span class="hljs-type">bool</span> cango[MXPTS], ans;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">findfake</span><span class="hljs-params">(<span class="hljs-type">int</span> cur)</span> </span>&#123;
+  ans = cango[cur] = <span class="hljs-literal">true</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(head[cur]); ~i; i = nxt[i]) &#123;
+    <span class="hljs-keyword">if</span> (~link[to[i]] &amp;&amp; !cango[link[to[i]]]) <span class="hljs-built_in">findfake</span>(link[to[i]]);
+  &#125;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+  cin &gt;&gt; n &gt;&gt; m;
+  pts = n * m;
+  <span class="hljs-built_in">init</span>();
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != pts; ++i) &#123;
+    <span class="hljs-type">char</span> c;
+    cin &gt;&gt; c;
+    <span class="hljs-keyword">if</span> (c == <span class="hljs-string">&#x27;.&#x27;</span>) enable[i] = <span class="hljs-literal">true</span>;
+  &#125;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != n; ++i) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">j</span>(<span class="hljs-number">0</span>); j != m; ++j) &#123;
+      <span class="hljs-keyword">if</span> (enable[<span class="hljs-built_in">id</span>(i, j)]) &#123;
+        <span class="hljs-keyword">if</span> (i != n - <span class="hljs-number">1</span> &amp;&amp; enable[<span class="hljs-built_in">id</span>(i + <span class="hljs-number">1</span>, j)])
+          <span class="hljs-built_in">addedge</span>(<span class="hljs-built_in">id</span>(i, j), <span class="hljs-built_in">id</span>(i + <span class="hljs-number">1</span>, j)), <span class="hljs-built_in">addedge</span>(<span class="hljs-built_in">id</span>(i + <span class="hljs-number">1</span>, j), <span class="hljs-built_in">id</span>(i, j));
+        <span class="hljs-keyword">if</span> (j != m - <span class="hljs-number">1</span> &amp;&amp; enable[<span class="hljs-built_in">id</span>(i, j + <span class="hljs-number">1</span>)])
+          <span class="hljs-built_in">addedge</span>(<span class="hljs-built_in">id</span>(i, j), <span class="hljs-built_in">id</span>(i, j + <span class="hljs-number">1</span>)), <span class="hljs-built_in">addedge</span>(<span class="hljs-built_in">id</span>(i, j + <span class="hljs-number">1</span>), <span class="hljs-built_in">id</span>(i, j));
+      &#125;
+    &#125;
+  &#125;
+  <span class="hljs-built_in">makepair</span>();
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != pts; ++i) &#123;
+    <span class="hljs-keyword">if</span> (enable[i] &amp;&amp; !~link[i]) &#123;
+      <span class="hljs-built_in">findfake</span>(i);
+    &#125;
+  &#125;
+  <span class="hljs-built_in">puts</span>(ans ? <span class="hljs-string">&quot;WIN&quot;</span> : <span class="hljs-string">&quot;LOSE&quot;</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != n; ++i) &#123;
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">j</span>(<span class="hljs-number">0</span>); j != m; ++j) &#123;
+      <span class="hljs-keyword">if</span> (cango[<span class="hljs-built_in">id</span>(i, j)]) cout &lt;&lt; i + <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-string">&#x27; &#x27;</span> &lt;&lt; j + <span class="hljs-number">1</span> &lt;&lt; endl;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;
+</code></pre>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 SunsetGlow95&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;SunsetGlow95
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

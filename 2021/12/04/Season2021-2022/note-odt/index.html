@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>学习笔记 - 珂朵莉树 | SunsetGlow95&#39;s Blog</title>
+    <meta name="author" content="SunsetGlow95" />
+    <meta name="description" content="SunsetGlow95's Blog" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>SUNSETGLOW95&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;SUNSETGLOW95&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>学习笔记 - 珂朵莉树</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2021/12/4
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="color: #00bcd4">
+                    学习笔记
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <link rel="stylesheet" href="https://lib.baomitu.com/KaTeX/latest/katex.min.css">
+<p>珂朵莉树，是一个暴力数据结构。它可用于含有区间赋值的区间维护题目，最好数据随机。其起源于 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/CF896C">CF896C</a>。</p>
+<hr />
+<h2 id="例题cf896c-willem-chtholly-and-seniorious"><a class="markdownIt-Anchor" href="#例题cf896c-willem-chtholly-and-seniorious"></a> 例题：CF896C Willem, Chtholly and Seniorious</h2>
+<p>请你写一种奇怪的数据结构，支持：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>：将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 区间所有数加上 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>；</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>：将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 区间所有数改成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>；</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>：输出将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 区间从小到大排序后的第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 个数是多少（即区间第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 小，数字大小相同算多次，保证 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>x</mi><mo>≤</mo><mi>r</mi><mo>−</mo><mi>l</mi><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1 \leq x \leq r-l+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>）；</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi></mrow><annotation encoding="application/x-tex">l</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>：输出 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 区间每个数字的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 次方的和模 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> 的值（即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mi>l</mi></mrow><mi>r</mi></msubsup><msubsup><mi>a</mi><mi>i</mi><mi>x</mi></msubsup><mo stretchy="false">)</mo><mtext> </mtext><mo lspace="0.22em" rspace="0.22em"><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">d</mi></mrow></mo><mtext> </mtext><mi>y</mi></mrow><annotation encoding="application/x-tex">(\sum^r_{i=l}a_i^x) \bmod y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.104002em;vertical-align:-0.29971000000000003em;"></span><span class="mopen">(</span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mrel mtight">=</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-2.441336em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.258664em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin"><span class="mord"><span class="mord mathrm">m</span><span class="mord mathrm">o</span><span class="mord mathrm">d</span></span></span><span class="mspace" style="margin-right:0.05555555555555555em;"></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>）。</li>
+</ul>
+<p><strong>【输入格式】：</strong></p>
+<p>这道题目的输入格式比较特殊，需要选手通过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>e</mi><mi>e</mi><mi>d</mi></mrow><annotation encoding="application/x-tex">seed</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">e</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span></span></span></span> 自己生成输入数据。</p>
+<p>输入一行四个整数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo separator="true">,</mo><mi>s</mi><mi>e</mi><mi>e</mi><mi>d</mi><mo separator="true">,</mo><msub><mi>v</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">n, m, seed, v_{max}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">m</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">e</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>（<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>n</mi><mo separator="true">,</mo><mi>m</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup><mo separator="true">,</mo><mn>0</mn><mo>≤</mo><mi>s</mi><mi>e</mi><mi>e</mi><mi>d</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup><mo>+</mo><mn>7</mn><mo separator="true">,</mo><mn>1</mn><mo>≤</mo><mi>v</mi><mi>m</mi><mi>a</mi><mi>x</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">1 \leq n,m \leq 10^5, 0 \leq seed \leq 10^9+7, 1 \leq vmax \leq 10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">n</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">m</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.008548em;vertical-align:-0.19444em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">e</span><span class="mord mathnormal">e</span><span class="mord mathnormal">d</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">7</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span>）。</p>
+<p>其中 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 表示数列长度，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">m</span></span></span></span> 表示操作次数，后面两个用于生成输入数据。</p>
+<p>数据生成的伪代码如下</p>
+<p><img src="https://cdn.luogu.org/upload/pic/13887.png" alt="数据生成的伪代码" /></p>
+<p>其中上面的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>o</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">op</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">o</span><span class="mord mathnormal">p</span></span></span></span> 指题面中提到的四个操作。</p>
+<p><strong>【输出格式】：</strong></p>
+<p>对于每个操作 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">3</span></span></span></span> 和 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn></mrow><annotation encoding="application/x-tex">4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">4</span></span></span></span>，输出一行仅一个数。</p>
+<hr />
+<h2 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h2>
+<p><strong>友情提示，代码多用前闭后开区间。</strong></p>
+<p>珂朵莉树的核心思想是把一段值相同的区间存成一个块。</p>
+<h3 id="块"><a class="markdownIt-Anchor" href="#块"></a> 块</h3>
+<p>珂朵莉树使用 <code>set</code> 来维护每个块。</p>
+<p>对于每个块，只需要维护其左端点、右端点与其值即可。</p>
+<pre class="highlight"><code class="cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>
+&#123;
+  ull l, r;
+  <span class="hljs-keyword">mutable</span> ull v;
+  <span class="hljs-built_in">Node</span>(ull _l = <span class="hljs-number">0</span>, ull _r = <span class="hljs-number">0</span>, ull _v = <span class="hljs-number">0</span>): <span class="hljs-built_in">l</span>(_l), <span class="hljs-built_in">r</span>(_r), <span class="hljs-built_in">v</span>(_v) &#123;&#125;
+&#125;;
+
+<span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&lt;(Node lhs, Node rhs) &#123; <span class="hljs-keyword">return</span> lhs.l &lt; rhs.l; &#125;
+</code></pre>
+<p>至于为什么有 <code>mutable</code> 一词出现，可以试试不加，会 CE。<code>operator&lt;</code> 是要每个块在 <code>set</code> 中以左端点排序。</p>
+<h3 id="核心操作split"><a class="markdownIt-Anchor" href="#核心操作split"></a> 核心操作：split</h3>
+<p>这个操作用于将 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>l</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[l,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 的块拆成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>l</mi><mo separator="true">,</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[l,pos-1]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span> 与 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[pos,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">p</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 的两个块。返回的是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>p</mi><mi>o</mi><mi>s</mi><mo separator="true">,</mo><mi>r</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[pos,r]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">p</span><span class="mord mathnormal">o</span><span class="mord mathnormal">s</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mclose">]</span></span></span></span> 的迭代器。</p>
+<pre class="highlight"><code class="cpp"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">ChtholyTree</span>
+&#123;
+  set&lt;Node&gt; nodes;
+  set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">split</span><span class="hljs-params">(ull pos)</span>
+  </span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">i</span><span class="hljs-params">(nodes.lower_bound(Node(pos)))</span></span>;
+    <span class="hljs-keyword">if</span> (i != nodes.<span class="hljs-built_in">end</span>() &amp;&amp; i-&gt;l == pos) <span class="hljs-keyword">return</span> i;
+    --i;
+    <span class="hljs-keyword">if</span> (i-&gt;r &lt;= pos) <span class="hljs-keyword">return</span> nodes.<span class="hljs-built_in">end</span>();
+    <span class="hljs-function">ull <span class="hljs-title">l</span><span class="hljs-params">(i-&gt;l)</span>, <span class="hljs-title">r</span><span class="hljs-params">(i-&gt;r)</span>, <span class="hljs-title">v</span><span class="hljs-params">(i-&gt;v)</span></span>;
+    nodes.<span class="hljs-built_in">erase</span>(i);
+    nodes.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">Node</span>(l, pos, v));
+    <span class="hljs-keyword">return</span> nodes.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">Node</span>(pos, r, v)).first;
+  &#125;
+&#125;;
+</code></pre>
+<p>首先用 <code>lower_bound</code>，来找到起点大于等于 <code>pos</code> 的最左块。</p>
+<p>如果这个块的起点刚好是 <code>pos</code>，显然不需要再分裂，直接 <code>return</code> 即可。</p>
+<p>否则，含有 <code>pos</code> 的块就必然是前面一块。</p>
+<p>如果此时，<code>pos</code> 依然不在当前块中，显然 <code>pos</code> 必然不合法，返回 <code>end()</code> 迭代器。</p>
+<p>当我找到了 <code>pos</code> 的所在块，我们就暴力分裂。将原来的块 <code>erase</code>，将两个新块分别 <code>insert</code>。</p>
+<p><code>set.insert()</code> 返回 <code>pair&lt;iterator, bool&gt;</code>，前者即是我们要的，<code>return</code> 即可。</p>
+<p><strong><code>split</code> 操作是珂朵莉树的核心。它是所有的其它<s>暴力</s>操作的基石。</strong></p>
+<h3 id="操作一区间加"><a class="markdownIt-Anchor" href="#操作一区间加"></a> 操作一：区间加</h3>
+<p>我们只要找到左右两个端点之间的所有块，分别加，即可。</p>
+<pre class="highlight"><code class="cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">add</span><span class="hljs-params">(ull l, ull r, ull v)</span>
+</span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    <span class="hljs-keyword">while</span> (lp != rp)
+        lp-&gt;v += v, ++lp;
+&#125;
+</code></pre>
+<h3 id="操作二区间赋值推平"><a class="markdownIt-Anchor" href="#操作二区间赋值推平"></a> 操作二：区间赋值（推平）</h3>
+<p>我们将左右两端点之间的所有块全删了，然后添加一个新的大块即可。</p>
+<pre class="highlight"><code class="cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">assign</span><span class="hljs-params">(ull l, ull r, ull v)</span>
+</span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    nodes.<span class="hljs-built_in">erase</span>(lp, rp);
+    nodes.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">Node</span>(l, r, v));
+&#125;
+</code></pre>
+<p>暴力吧？</p>
+<h3 id="操作三区间第-k-小"><a class="markdownIt-Anchor" href="#操作三区间第-k-小"></a> 操作三：区间第 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 小</h3>
+<p>将两端点中的每个块抽出来，保留其值与大小。对抽出来的块的值进行排序，从前往后扫，扫到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 就得出答案。</p>
+<pre class="highlight"><code class="cpp"><span class="hljs-function">ull <span class="hljs-title">kth</span><span class="hljs-params">(ull l, ull r, ull k)</span>
+</span>&#123;
+    vector&lt;pair&lt;ull, ull&gt; &gt; rnks;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    <span class="hljs-keyword">while</span> (lp != rp)
+        rnks.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">make_pair</span>(lp-&gt;v, lp-&gt;r - lp-&gt;l)), ++lp;
+    <span class="hljs-built_in">sort</span>(rnks.<span class="hljs-built_in">begin</span>(), rnks.<span class="hljs-built_in">end</span>());
+    <span class="hljs-keyword">for</span> (vector&lt;pair&lt;ull, ull&gt; &gt;::const_iterator <span class="hljs-built_in">i</span>(rnks.<span class="hljs-built_in">begin</span>()); i != rnks.<span class="hljs-built_in">end</span>(); ++i) &#123;
+        <span class="hljs-keyword">if</span> (i-&gt;second &gt;= k) <span class="hljs-keyword">return</span> i-&gt;first;
+        k -= i-&gt;second;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+&#125;
+</code></pre>
+<h3 id="操作四区间乘幂求和"><a class="markdownIt-Anchor" href="#操作四区间乘幂求和"></a> 操作四：区间乘幂求和</h3>
+<p>对每个块的值使用快速幂，乘该块的大小，求和即可。</p>
+<pre class="highlight"><code class="cpp"><span class="hljs-function">ull <span class="hljs-title">pow</span><span class="hljs-params">(ull a, ull p, ull b)</span>
+</span>&#123;
+  <span class="hljs-function">ull <span class="hljs-title">res</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>; a %= b;
+  <span class="hljs-keyword">while</span> (p) &#123;
+    <span class="hljs-keyword">if</span> (p &amp; <span class="hljs-number">1</span>) res = res * a % b;
+    a = a * a % b;
+    p &gt;&gt;= <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-keyword">return</span> res % b;
+&#125;
+
+<span class="hljs-function">ull <span class="hljs-title">pow</span><span class="hljs-params">(ull l, ull r, ull x, ull y)</span>
+</span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    <span class="hljs-function">ull <span class="hljs-title">res</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;
+    <span class="hljs-keyword">while</span> (lp != rp)
+        res = (res + (lp-&gt;r - lp-&gt;l) * ::<span class="hljs-built_in">pow</span>(lp-&gt;v, x, y) % y) % y, ++lp;
+    <span class="hljs-keyword">return</span> res;
+&#125;
+</code></pre>
+<h3 id="细节"><a class="markdownIt-Anchor" href="#细节"></a> 细节</h3>
+<p>注意，对于所有衍生操作，<code>split</code> 的时候一定是先右再左！不然可能会使指针无效。</p>
+<p>对于块，注意 <code>mutable</code> 和 <code>operator&lt;</code>。</p>
+<p>珂朵莉树在数据比较合理的情况下，跑的很快。同是维护区间数据的数据结构，思维难度比线段树简单，但是时间复杂度不太稳。珂朵莉树的时间复杂度其实比较玄学，如果块太散，是很慢的。有适当的区间推平操作，珂朵莉树才有用。并且，如果数据不随机，也可能卡掉，数据随机会比较稳。</p>
+<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
+<pre class="highlight"><code class="cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">typedef</span> <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> ull;
+
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>
+&#123;
+  ull l, r;
+  <span class="hljs-keyword">mutable</span> ull v;
+  <span class="hljs-built_in">Node</span>(ull _l = <span class="hljs-number">0</span>, ull _r = <span class="hljs-number">0</span>, ull _v = <span class="hljs-number">0</span>): <span class="hljs-built_in">l</span>(_l), <span class="hljs-built_in">r</span>(_r), <span class="hljs-built_in">v</span>(_v) &#123;&#125;
+&#125;;
+
+<span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&lt;(Node lhs, Node rhs) &#123; <span class="hljs-keyword">return</span> lhs.l &lt; rhs.l; &#125;
+
+<span class="hljs-function">ull <span class="hljs-title">pow</span><span class="hljs-params">(ull a, ull p, ull b)</span>
+</span>&#123;
+  <span class="hljs-function">ull <span class="hljs-title">res</span><span class="hljs-params">(<span class="hljs-number">1</span>)</span></span>; a %= b;
+  <span class="hljs-keyword">while</span> (p) &#123;
+    <span class="hljs-keyword">if</span> (p &amp; <span class="hljs-number">1</span>) res = res * a % b;
+    a = a * a % b;
+    p &gt;&gt;= <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-keyword">return</span> res % b;
+&#125;
+
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">ChtholyTree</span>
+&#123;
+  set&lt;Node&gt; nodes;
+  <span class="hljs-built_in">ChtholyTree</span>() &#123;&#125;
+  <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">addnode</span><span class="hljs-params">(ull l, ull r, ull v)</span> </span>&#123; nodes.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">Node</span>(l, r, v)); &#125;
+  set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">split</span><span class="hljs-params">(ull pos)</span>
+  </span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">i</span><span class="hljs-params">(nodes.lower_bound(Node(pos)))</span></span>;
+    <span class="hljs-keyword">if</span> (i != nodes.<span class="hljs-built_in">end</span>() &amp;&amp; i-&gt;l == pos) <span class="hljs-keyword">return</span> i;
+    --i;
+    <span class="hljs-keyword">if</span> (i-&gt;r &lt;= pos) <span class="hljs-keyword">return</span> nodes.<span class="hljs-built_in">end</span>();
+    <span class="hljs-function">ull <span class="hljs-title">l</span><span class="hljs-params">(i-&gt;l)</span>, <span class="hljs-title">r</span><span class="hljs-params">(i-&gt;r)</span>, <span class="hljs-title">v</span><span class="hljs-params">(i-&gt;v)</span></span>;
+    nodes.<span class="hljs-built_in">erase</span>(i);
+    nodes.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">Node</span>(l, pos, v));
+    <span class="hljs-keyword">return</span> nodes.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">Node</span>(pos, r, v)).first;
+  &#125;
+  <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">add</span><span class="hljs-params">(ull l, ull r, ull v)</span>
+  </span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    <span class="hljs-keyword">while</span> (lp != rp)
+      lp-&gt;v += v, ++lp;
+  &#125;
+  <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">assign</span><span class="hljs-params">(ull l, ull r, ull v)</span>
+  </span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    nodes.<span class="hljs-built_in">erase</span>(lp, rp);
+    nodes.<span class="hljs-built_in">insert</span>(<span class="hljs-built_in">Node</span>(l, r, v));
+  &#125;
+  <span class="hljs-function">ull <span class="hljs-title">kth</span><span class="hljs-params">(ull l, ull r, ull k)</span>
+  </span>&#123;
+    vector&lt;pair&lt;ull, ull&gt; &gt; rnks;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    <span class="hljs-keyword">while</span> (lp != rp)
+      rnks.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">make_pair</span>(lp-&gt;v, lp-&gt;r - lp-&gt;l)), ++lp;
+    <span class="hljs-built_in">sort</span>(rnks.<span class="hljs-built_in">begin</span>(), rnks.<span class="hljs-built_in">end</span>());
+    <span class="hljs-keyword">for</span> (vector&lt;pair&lt;ull, ull&gt; &gt;::const_iterator <span class="hljs-built_in">i</span>(rnks.<span class="hljs-built_in">begin</span>()); i != rnks.<span class="hljs-built_in">end</span>(); ++i) &#123;
+      <span class="hljs-keyword">if</span> (i-&gt;second &gt;= k) <span class="hljs-keyword">return</span> i-&gt;first;
+      k -= i-&gt;second;
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  &#125;
+  <span class="hljs-function">ull <span class="hljs-title">pow</span><span class="hljs-params">(ull l, ull r, ull x, ull y)</span>
+  </span>&#123;
+    set&lt;Node&gt;::<span class="hljs-function">iterator <span class="hljs-title">rp</span><span class="hljs-params">(split(r))</span>, <span class="hljs-title">lp</span><span class="hljs-params">(split(l))</span></span>;
+    <span class="hljs-function">ull <span class="hljs-title">res</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;
+    <span class="hljs-keyword">while</span> (lp != rp)
+      res = (res + (lp-&gt;r - lp-&gt;l) * ::<span class="hljs-built_in">pow</span>(lp-&gt;v, x, y) % y) % y, ++lp;
+    <span class="hljs-keyword">return</span> res;
+  &#125;
+&#125;;
+
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">RandMachine</span>
+&#123;
+  ull seed;
+  <span class="hljs-built_in">RandMachine</span>(ull s): <span class="hljs-built_in">seed</span>(s) &#123;&#125;
+  <span class="hljs-function">ull <span class="hljs-title">operator</span><span class="hljs-params">()</span><span class="hljs-params">()</span>
+  </span>&#123;
+    <span class="hljs-function">ull <span class="hljs-title">ret</span><span class="hljs-params">(seed)</span></span>;
+    seed = (seed * <span class="hljs-number">7</span> + <span class="hljs-number">13</span>) % <span class="hljs-number">1000000007</span>;
+    <span class="hljs-keyword">return</span> ret;
+  &#125;
+&#125;;
+
+<span class="hljs-function">ull <span class="hljs-title">read</span><span class="hljs-params">()</span>
+</span>&#123;
+  <span class="hljs-function">ull <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>; <span class="hljs-function"><span class="hljs-type">char</span> <span class="hljs-title">c</span><span class="hljs-params">(getchar())</span></span>;
+  <span class="hljs-keyword">while</span> (c &lt; <span class="hljs-string">&#x27;0&#x27;</span> || c &gt; <span class="hljs-string">&#x27;9&#x27;</span>) c = <span class="hljs-built_in">getchar</span>();
+  <span class="hljs-keyword">while</span> (c &gt;= <span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; c &lt;= <span class="hljs-string">&#x27;9&#x27;</span>) x = (x &lt;&lt; <span class="hljs-number">3</span>) + (x &lt;&lt; <span class="hljs-number">1</span>) + (c ^ <span class="hljs-number">48</span>), c = <span class="hljs-built_in">getchar</span>();
+  <span class="hljs-keyword">return</span> x;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>&#123;
+  <span class="hljs-function"><span class="hljs-type">const</span> ull <span class="hljs-title">N</span><span class="hljs-params">(read())</span>, <span class="hljs-title">M</span><span class="hljs-params">(read())</span>, <span class="hljs-title">SEED</span><span class="hljs-params">(read())</span>, <span class="hljs-title">VMAX</span><span class="hljs-params">(read())</span></span>;
+  <span class="hljs-function">RandMachine <span class="hljs-title">rnd</span><span class="hljs-params">(SEED)</span></span>;
+  ChtholyTree tree;
+  <span class="hljs-keyword">for</span> (ull <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != N; ++i) &#123;
+    tree.<span class="hljs-built_in">addnode</span>(i, i + <span class="hljs-number">1</span>, <span class="hljs-built_in">rnd</span>() % VMAX + <span class="hljs-number">1</span>);
+  &#125;
+  <span class="hljs-keyword">for</span> (ull op, l, r, x, y, <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != M; ++i) &#123;
+    op = <span class="hljs-built_in">rnd</span>() % <span class="hljs-number">4</span> + <span class="hljs-number">1</span>;
+    l = <span class="hljs-built_in">rnd</span>() % N + <span class="hljs-number">1</span>;
+    r = <span class="hljs-built_in">rnd</span>() % N + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span> (l &gt; r) <span class="hljs-built_in">swap</span>(l, r);
+    <span class="hljs-keyword">if</span> (op == <span class="hljs-number">3</span>) x = <span class="hljs-built_in">rnd</span>() % (r - l + <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">else</span> x = <span class="hljs-built_in">rnd</span>() % VMAX + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span> (op == <span class="hljs-number">4</span>) y = <span class="hljs-built_in">rnd</span>() % VMAX + <span class="hljs-number">1</span>;
+    --l;
+    <span class="hljs-keyword">switch</span> (op)
+    &#123;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+      tree.<span class="hljs-built_in">add</span>(l, r, x); <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+      tree.<span class="hljs-built_in">assign</span>(l, r, x); <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%llu\n&quot;</span>, tree.<span class="hljs-built_in">kth</span>(l, r, x)); <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%llu\n&quot;</span>, tree.<span class="hljs-built_in">pow</span>(l, r, x, y)); <span class="hljs-keyword">break</span>;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;
+</code></pre>
+<h2 id="练习"><a class="markdownIt-Anchor" href="#练习"></a> 练习</h2>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5568">P5568 [SDOI2008] 校门外的区间</a></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 SunsetGlow95&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;SunsetGlow95
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>

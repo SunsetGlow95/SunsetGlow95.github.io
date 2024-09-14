@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>学习笔记 - 树链剖分-轻重链剖分 | SunsetGlow95&#39;s Blog</title>
+    <meta name="author" content="SunsetGlow95" />
+    <meta name="description" content="SunsetGlow95's Blog" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>SUNSETGLOW95&#39;S BLOG</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;Home</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;About</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;Archives</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;Categories</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;Tags</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;SUNSETGLOW95&#39;S BLOG</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Home</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">About</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Archives</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Categories</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">Tags</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>学习笔记 - 树链剖分-轻重链剖分</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2022/2/28
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="color: #ff7d73">
+                    学习笔记
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <link rel="stylesheet" href="https://lib.baomitu.com/KaTeX/latest/katex.min.css">
+<p>树链剖分，是<s>强行增加码量至 100+ 行的东西</s>将一棵树拆分为若干条链，套用数据结构，以便于维护路径与子树信息的一种转换。</p>
+<h2 id="例题-p3384-模板轻重链剖分树链剖分"><a class="markdownIt-Anchor" href="#例题-p3384-模板轻重链剖分树链剖分"></a> 例题 P3384 【模板】轻重链剖分/树链剖分</h2>
+<p>如题，已知一棵包含 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> 个结点的树（连通且无环），每个节点上包含一个数值，需要支持以下操作：</p>
+<ul>
+<li><code>1 x y z</code>，表示将树从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> 结点最短路径上所有节点的值都加上 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>。</li>
+<li><code>2 x y</code>，表示求树从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span> 结点最短路径上所有节点的值之和。</li>
+<li><code>3 x z</code>，表示将以 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 为根节点的子树内所有节点值都加上 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>。</li>
+<li><code>4 x</code> 表示求以 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span> 为根节点的子树内所有节点值之和。</li>
+</ul>
+<h2 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h2>
+<p>我们先考虑前两问。</p>
+<p>如果这是在一个序列上，那么这就是线段树/树状数组模板题。</p>
+<p>可惜不是。</p>
+<p>那可不可以把它摊成一个区间再处理？</p>
+<p>它毕竟是树，这做不到。</p>
+<p>如果多个区间呢？能不能把一条路径拆成多个区间，也就是……链？</p>
+<h3 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义</h3>
+<ul>
+<li>重儿子：对于树上一个非叶子结点，它的儿子中所在子树最大的儿子即为其重儿子。</li>
+<li>轻儿子：对于树上一个非叶子结点，它的儿子中不是重儿子的都是轻儿子。</li>
+<li>重边：对于树上一个非叶子结点，它连向重儿子的边为重边。</li>
+<li>轻边：对于树上一个非叶子结点，它连向轻儿子的边为轻边。</li>
+<li>重链：由重边连接而成的链为重链。</li>
+</ul>
+<p>例如：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/m7s211pv.png" alt="图示" /></p>
+<p>如果这样子定义，是不是就可以保证全树被剖分为若干条重链了呢？</p>
+<p>我们来确定几个性质。</p>
+<h3 id="性质分析"><a class="markdownIt-Anchor" href="#性质分析"></a> 性质分析</h3>
+<h4 id="1-每个点在且仅在一条重链上"><a class="markdownIt-Anchor" href="#1-每个点在且仅在一条重链上"></a> 1. 每个点在且仅在一条重链上</h4>
+<p>对于一个重儿子，它自然是父亲传下来的重边的接续；对于一个轻儿子/根，它所在的链头就是自己。</p>
+<p>因为一个非叶子结点只有一个重儿子，一条重链不可能分叉。</p>
+<h4 id="2-每条链从上往下深度递增以叶子结点结束"><a class="markdownIt-Anchor" href="#2-每条链从上往下深度递增以叶子结点结束"></a> 2. 每条链从上往下深度递增，以叶子结点结束</h4>
+<p>这个也很好理解，毕竟重链是父传子的，直到传不下去为止。</p>
+<h4 id="3-从上往下遍历每经过一条轻边余下的子树大小至少减少一半"><a class="markdownIt-Anchor" href="#3-从上往下遍历每经过一条轻边余下的子树大小至少减少一半"></a> 3. 从上往下遍历，每经过一条轻边，余下的子树大小至少减少一半</h4>
+<p>因为这个儿子有个兄弟，兄弟的子树不比自己小。显然，这样跳也就至少能减少一半。</p>
+<p>换言之，在一棵大小为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 的树上，对于一条从上往下深度依次递增的路径，<strong>其至多经过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> 条重链</strong>。</p>
+<h4 id="4-对于树的-dfs-序列如果向下拓展时先走重儿子则每条重链的映射即-dfn是连续的-每颗子树的映射也是连续的"><a class="markdownIt-Anchor" href="#4-对于树的-dfs-序列如果向下拓展时先走重儿子则每条重链的映射即-dfn是连续的-每颗子树的映射也是连续的"></a> 4. 对于树的 DFS 序列，如果向下拓展时先走重儿子，则每条重链的映射（即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>f</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">dfn</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord mathnormal">n</span></span></span></span>）是连续的。每颗子树的映射也是连续的</h4>
+<h3 id="预处理"><a class="markdownIt-Anchor" href="#预处理"></a> 预处理</h3>
+<p>在树链剖分中，我们要维护 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>7</mn></mrow><annotation encoding="application/x-tex">7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">7</span></span></span></span> 个数组（虽然许多时候只要 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>6</mn></mrow><annotation encoding="application/x-tex">6</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span></span></span></span> 个）：</p>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><msub><mi>a</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">fa_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：每个节点的父亲。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>o</mi><msub><mi>n</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">son_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：每个节点的<strong>重</strong>儿子。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>e</mi><mi>p</mi><mi>t</mi><msub><mi>h</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">depth_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mord mathnormal">p</span><span class="mord mathnormal">t</span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：每个节点的深度。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>i</mi><msub><mi>z</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">siz_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.80952em;vertical-align:-0.15em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：每个节点子树的大小。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>n</mi><msub><mi>c</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">anc_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">n</span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：每个节点所在重链的链头。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">dfn_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：记录每个点的映射。</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">rdfn_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：记录每个映射对应的点（事实上许多时候不需要维护）。</li>
+</ul>
+<p>我们分为两次。第一次处理前四个很容易处理的数组。第二次处理后三个。其实现只需要用基本的 dfs 即可。</p>
+<h3 id="回答最近公共祖先"><a class="markdownIt-Anchor" href="#回答最近公共祖先"></a> 回答：最近公共祖先</h3>
+<p>既然轻重链剖分的优势就是只要跳 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> 次重链，我们就考虑两边分别向上跳重链。</p>
+<p>那么我们就只有两个问题：每次由谁跳？跳到啥时候算完？</p>
+<p>第二个问题比较好处理：如果两个点在同一重链上，其中深度低的必然就是最近公共祖先。</p>
+<p>对于每次由谁跳，我们想想判断的依据。因为每次都是直接跳到节点所在链头之上，所以起决定作用的应该是两节点所在链头的深度。</p>
+<p>显然，如果先跳链头低的，一定不会超过最近公共祖先。否则，如果先跳链头高的，可能就会超高了。</p>
+<h3 id="回答路径修改查询"><a class="markdownIt-Anchor" href="#回答路径修改查询"></a> 回答：路径修改/查询</h3>
+<p>我们知道一条重链上的点，映射是连续的。所以我们只需要套一个 LCA 的求法，用数据结构维护映射后的数组，每次修改/查询就是多个区间的修改/查询。</p>
+<h3 id="回答子树修改查询"><a class="markdownIt-Anchor" href="#回答子树修改查询"></a> 回答：子树修改/查询</h3>
+<p>我们还知道，在 DFS 序里，同一子树的映射也是连续的（即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>u</mi></msub><mo separator="true">,</mo><mi>d</mi><mi>f</mi><msub><mi>n</mi><mi>u</mi></msub><mo>+</mo><mi>s</mi><mi>i</mi><msub><mi>z</mi><mi>u</mi></msub><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[dfn_u, dfn_u + siz_u]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.04398em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">u</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">]</span></span></span></span>）。所以我们甚至不用跳，直接一次区间修改/查询即可。</p>
+<h3 id="数据结构选用"><a class="markdownIt-Anchor" href="#数据结构选用"></a> 数据结构选用</h3>
+<p>我们的数据结构要支持区间修改/区间查询和，而且最好和每次询问的访问数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span> 契合。显然，线段树是不二之选。当然，树状数组可能也可以。</p>
+<h3 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h3>
+<pre class="highlight"><code class="cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+
+<span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> MXV = <span class="hljs-number">100005</span>;
+<span class="hljs-type">int</span> val[MXV];
+<span class="hljs-type">int</span> DVS;
+<span class="hljs-type">int</span> root, V, opts;
+
+<span class="hljs-type">int</span> to[MXV &lt;&lt; <span class="hljs-number">1</span>], nxt[MXV &lt;&lt; <span class="hljs-number">1</span>], head[MXV], egsz;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">addedge</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> </span>&#123;
+  to[egsz] = b;
+  nxt[egsz] = head[a];
+  head[a] = egsz++;
+&#125;
+
+<span class="hljs-type">int</span> siz[MXV], depth[MXV], fa[MXV], son[MXV];
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">init1</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> f, <span class="hljs-type">int</span> h)</span> </span>&#123;
+  siz[x] = <span class="hljs-number">1</span>;
+  depth[x] = h;
+  fa[x] = f;
+  son[x] = <span class="hljs-number">-1</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(head[x]); ~i; i = nxt[i]) &#123;
+    <span class="hljs-keyword">if</span> (to[i] != f) &#123;
+      <span class="hljs-built_in">init1</span>(to[i], x, h + <span class="hljs-number">1</span>);
+      siz[x] += siz[to[i]];
+      <span class="hljs-keyword">if</span> (!~son[x] || siz[to[i]] &gt; siz[son[x]]) son[x] = to[i];
+    &#125;
+  &#125;
+&#125;
+
+<span class="hljs-type">int</span> anc[MXV], ptoi[MXV], itop[MXV], dfn;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">init2</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> a)</span> </span>&#123;
+  anc[x] = a;
+  ptoi[x] = dfn, itop[dfn++] = x;
+  <span class="hljs-keyword">if</span> (~son[x]) &#123;
+    <span class="hljs-built_in">init2</span>(son[x], a);
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(head[x]); ~i; i = nxt[i])
+      <span class="hljs-keyword">if</span> (to[i] != fa[x] &amp;&amp; to[i] != son[x]) <span class="hljs-built_in">init2</span>(to[i], to[i]);
+  &#125;
+&#125;
+
+<span class="hljs-type">int</span> sum[MXV &lt;&lt; <span class="hljs-number">2</span>], tag[MXV &lt;&lt; <span class="hljs-number">2</span>];
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">init3</span><span class="hljs-params">(<span class="hljs-type">int</span> cur, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> </span>&#123;
+  <span class="hljs-keyword">if</span> (r - l == <span class="hljs-number">1</span>) &#123;
+    sum[cur] = val[itop[l]] % DVS;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">mid</span><span class="hljs-params">((l + r) &gt;&gt; <span class="hljs-number">1</span>)</span></span>;
+  <span class="hljs-built_in">init3</span>((cur &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>, l, mid);
+  <span class="hljs-built_in">init3</span>((cur + <span class="hljs-number">1</span>) &lt;&lt; <span class="hljs-number">1</span>, mid, r);
+  sum[cur] = (sum[(cur &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>] + sum[(cur + <span class="hljs-number">1</span>) &lt;&lt; <span class="hljs-number">1</span>]) % DVS;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">pushdown</span><span class="hljs-params">(<span class="hljs-type">int</span> p, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r)</span> </span>&#123;
+  <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">ls</span><span class="hljs-params">((p &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>)</span>, <span class="hljs-title">rs</span><span class="hljs-params">((p + <span class="hljs-number">1</span>) &lt;&lt; <span class="hljs-number">1</span>)</span>, <span class="hljs-title">mid</span><span class="hljs-params">((r + l) &gt;&gt; <span class="hljs-number">1</span>)</span></span>;
+  tag[ls] = (tag[ls] + tag[p]) % DVS;
+  sum[ls] = (sum[ls] + (mid - l) % DVS * tag[p] % DVS) % DVS;
+  tag[rs] = (tag[rs] + tag[p]) % DVS;
+  sum[rs] = (sum[rs] + (r - mid) % DVS * tag[p] % DVS) % DVS;
+  tag[p] = <span class="hljs-number">0</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> <span class="hljs-title">pushup</span><span class="hljs-params">(<span class="hljs-type">int</span> p)</span> </span>&#123;
+  sum[p] = (sum[(p &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>] + sum[(p + <span class="hljs-number">1</span>) &lt;&lt; <span class="hljs-number">1</span>]) % DVS;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-type">int</span> cur, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r, <span class="hljs-type">int</span> curl, <span class="hljs-type">int</span> curr, <span class="hljs-type">int</span> k)</span> </span>&#123;
+  <span class="hljs-keyword">if</span> (curr &lt;= l || curl &gt;= r) <span class="hljs-keyword">return</span>;
+  <span class="hljs-keyword">if</span> (curl &gt;= l &amp;&amp; curr &lt;= r) &#123;
+    tag[cur] = (tag[cur] + k) % DVS;
+    sum[cur] = (sum[cur] + (curr - curl) % DVS * k % DVS) % DVS;
+    <span class="hljs-keyword">return</span>;
+  &#125;
+  <span class="hljs-built_in">pushdown</span>(cur, curl, curr);
+  <span class="hljs-built_in">add</span>((cur &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>, l, r, curl, (curl + curr) &gt;&gt; <span class="hljs-number">1</span>, k);
+  <span class="hljs-built_in">add</span>((cur + <span class="hljs-number">1</span>) &lt;&lt; <span class="hljs-number">1</span>, l, r, (curl + curr) &gt;&gt; <span class="hljs-number">1</span>, curr, k);
+  <span class="hljs-built_in">pushup</span>(cur);
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">ask</span><span class="hljs-params">(<span class="hljs-type">int</span> cur, <span class="hljs-type">int</span> l, <span class="hljs-type">int</span> r, <span class="hljs-type">int</span> curl, <span class="hljs-type">int</span> curr)</span> </span>&#123;
+  <span class="hljs-keyword">if</span> (curr &lt;= l || curl &gt;= r) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">if</span> (curl &gt;= l &amp;&amp; curr &lt;= r) <span class="hljs-keyword">return</span> sum[cur];
+  <span class="hljs-built_in">pushdown</span>(cur, curl, curr);
+  <span class="hljs-keyword">return</span> (<span class="hljs-built_in">ask</span>((cur &lt;&lt; <span class="hljs-number">1</span>) + <span class="hljs-number">1</span>, l, r, curl, (curl + curr) &gt;&gt; <span class="hljs-number">1</span>) +
+          <span class="hljs-built_in">ask</span>((cur + <span class="hljs-number">1</span>) &lt;&lt; <span class="hljs-number">1</span>, l, r, (curl + curr) &gt;&gt; <span class="hljs-number">1</span>, curr)) %
+         DVS;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">read</span><span class="hljs-params">()</span> </span>&#123;
+  <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">x</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;
+  <span class="hljs-function"><span class="hljs-type">char</span> <span class="hljs-title">c</span><span class="hljs-params">(getchar())</span></span>;
+  <span class="hljs-keyword">while</span> (c &lt; <span class="hljs-string">&#x27;0&#x27;</span> || c &gt; <span class="hljs-string">&#x27;9&#x27;</span>) c = <span class="hljs-built_in">getchar</span>();
+  <span class="hljs-keyword">while</span> (c &gt;= <span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; c &lt;= <span class="hljs-string">&#x27;9&#x27;</span>)
+    x = (x &lt;&lt; <span class="hljs-number">3</span>) + (x &lt;&lt; <span class="hljs-number">1</span>) + (c ^ <span class="hljs-number">48</span>), c = <span class="hljs-built_in">getchar</span>();
+  <span class="hljs-keyword">return</span> x;
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">write</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> </span>&#123;
+  <span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">10</span>) <span class="hljs-built_in">write</span>(x / <span class="hljs-number">10</span>);
+  <span class="hljs-built_in">putchar</span>((x % <span class="hljs-number">10</span>) | <span class="hljs-number">48</span>);
+&#125;
+
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+  V = <span class="hljs-built_in">read</span>(), opts = <span class="hljs-built_in">read</span>(), root = <span class="hljs-built_in">read</span>() - <span class="hljs-number">1</span>, DVS = <span class="hljs-built_in">read</span>();
+  <span class="hljs-built_in">fill</span>(head, head + V, <span class="hljs-number">-1</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">0</span>); i != V; ++i) cin &gt;&gt; val[i];
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-built_in">i</span>(<span class="hljs-number">1</span>), a, b; i != V; ++i) &#123;
+    a = <span class="hljs-built_in">read</span>() - <span class="hljs-number">1</span>, b = <span class="hljs-built_in">read</span>() - <span class="hljs-number">1</span>;
+    <span class="hljs-built_in">addedge</span>(a, b), <span class="hljs-built_in">addedge</span>(b, a);
+  &#125;
+  <span class="hljs-built_in">init1</span>(root, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>);
+  <span class="hljs-built_in">init2</span>(root, root);
+  <span class="hljs-built_in">init3</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, V);
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> opt, x, y, z; opts--;) &#123;
+    opt = <span class="hljs-built_in">read</span>(), x = <span class="hljs-built_in">read</span>() - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">switch</span> (opt) &#123;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: &#123;
+        y = <span class="hljs-built_in">read</span>() - <span class="hljs-number">1</span>;
+        z = <span class="hljs-built_in">read</span>() % DVS;
+        <span class="hljs-keyword">while</span> (anc[x] != anc[y]) &#123;
+          <span class="hljs-keyword">if</span> (depth[anc[x]] &lt; depth[anc[y]]) <span class="hljs-built_in">swap</span>(x, y);
+          <span class="hljs-built_in">add</span>(<span class="hljs-number">0</span>, ptoi[anc[x]], ptoi[x] + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, V, z);
+          x = fa[anc[x]];
+        &#125;
+        <span class="hljs-keyword">if</span> (depth[x] &lt; depth[y]) <span class="hljs-built_in">swap</span>(x, y);
+        <span class="hljs-built_in">add</span>(<span class="hljs-number">0</span>, ptoi[y], ptoi[x] + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, V, z);
+        <span class="hljs-keyword">break</span>;
+      &#125;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: &#123;
+        y = <span class="hljs-built_in">read</span>() - <span class="hljs-number">1</span>;
+        <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">sum</span><span class="hljs-params">(<span class="hljs-number">0</span>)</span></span>;
+        <span class="hljs-keyword">while</span> (anc[x] != anc[y]) &#123;
+          <span class="hljs-keyword">if</span> (depth[anc[x]] &lt; depth[anc[y]]) <span class="hljs-built_in">swap</span>(x, y);
+          sum = (sum + <span class="hljs-built_in">ask</span>(<span class="hljs-number">0</span>, ptoi[anc[x]], ptoi[x] + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, V)) % DVS;
+          x = fa[anc[x]];
+        &#125;
+        <span class="hljs-keyword">if</span> (depth[x] &lt; depth[y]) <span class="hljs-built_in">swap</span>(x, y);
+        <span class="hljs-built_in">write</span>((sum + <span class="hljs-built_in">ask</span>(<span class="hljs-number">0</span>, ptoi[y], ptoi[x] + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, V)) % DVS), <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);
+        <span class="hljs-keyword">break</span>;
+      &#125;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>: &#123;
+        z = <span class="hljs-built_in">read</span>() % DVS;
+        <span class="hljs-built_in">add</span>(<span class="hljs-number">0</span>, ptoi[x], ptoi[x] + siz[x], <span class="hljs-number">0</span>, V, z);
+        <span class="hljs-keyword">break</span>;
+      &#125;
+      <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>: &#123;
+        <span class="hljs-built_in">write</span>(<span class="hljs-built_in">ask</span>(<span class="hljs-number">0</span>, ptoi[x], ptoi[x] + siz[x], <span class="hljs-number">0</span>, V)), <span class="hljs-built_in">putchar</span>(<span class="hljs-string">&#x27;\n&#x27;</span>);
+        <span class="hljs-keyword">break</span>;
+      &#125;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;
+</code></pre>
+<h2 id="练习"><a class="markdownIt-Anchor" href="#练习"></a> 练习</h2>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2590">P2590 [ZJOI2008]树的统计</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P2486">P2486 [SDOI2011]染色</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P7735">P7735 [NOI2021] 轻重边</a></p>
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2024 SunsetGlow95&#39;s Blog
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;SunsetGlow95
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+
+
+
+
+    
+</body>
+</html>
