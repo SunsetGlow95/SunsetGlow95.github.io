@@ -27,7 +27,7 @@
 <meta property="og:description" content="18 Cplus。  A：分析（猜）性质，分类讨论，计数，容斥。（明明可以 DP 却写了二项式反演。） B：乱搞：二分、有理数逼近。正解：扫描线思想，在连续域上 DP：折线维护、凸包。记得处理“空”的情况。 *C：线段树分治，太高了。   19 SWERC 2016（QOJ Contest 406&#x2F;Codeforces Gym 101174），with 深海狂鲨 &amp; yukimianya">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-19T12:13:25.000Z">
-<meta property="article:modified_time" content="2024-09-27T01:05:22.684Z">
+<meta property="article:modified_time" content="2024-09-29T08:58:03.354Z">
 <meta property="article:author" content="SunsetGlow95">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -238,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          3.2k 字
         
       </span>
     
@@ -249,7 +249,7 @@
         
         
         
-          23 分钟
+          27 分钟
         
       </span>
     
@@ -299,7 +299,7 @@
 <li>*C：线段树分治，太高了。</li>
 </ul>
 <h2 id="19"><a class="markdownIt-Anchor" href="#19"></a> 19</h2>
-<p>SWERC 2016（QOJ Contest 406/Codeforces Gym 101174），with 深海狂鲨 &amp; yukimianyan. 10 题，余 IJ 未场切。</p>
+<p>SWERC 2016（QOJ Contest 406/Codeforces Gym 101174），with 深海狂鲨 &amp; yukimianyan. 9 题，余 IJ 未场切。</p>
 <h3 id="a-within-arms-reach"><a class="markdownIt-Anchor" href="#a-within-arms-reach"></a> A Within Arm’s Reach</h3>
 <p>写了笨蛋的模拟退火。</p>
 <ul>
@@ -350,7 +350,7 @@
 <p>结论是：重心必然在 dfs 序的中心往上跳的路径上（带权就是带权中心）。其实就是发现向下跳会做，但是不好维护，所以觉得在树上就应该向上跳。但是 dfs 序应用太神秘。</p>
 <p>然后想要查询联通块内每个点到定点的距离。这里用容斥的想法，是全部点到它的距离减去联通块以外的到它的距离，然后子树内的逐个处理有可接受的均摊。</p>
 <p>怎么线段树分治 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mo><mi>log</mi><mo>⁡</mo></mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\log^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0928879999999999em;vertical-align:-0.19444em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8984479999999999em;"><span style="top:-3.1473400000000002em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span> 跑不过 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo>×</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">2\times 10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span> 呢？</p>
-<h3 id="qoj-8981-element-wise-comparison"><a class="markdownIt-Anchor" href="#qoj-8981-element-wise-comparison"></a> QOJ 8981 Element-Wise Comparison</h3>
+<h3 id="qoj-8781-element-wise-comparison"><a class="markdownIt-Anchor" href="#qoj-8781-element-wise-comparison"></a> QOJ 8781 Element-Wise Comparison</h3>
 <p>非常高妙的 <code>bitset</code> 使用。考虑拆解条件，发现是若干个条件的与，然后找到相同的下标，在题意下可以做不带删双指针（即尺取）。</p>
 <h2 id="22"><a class="markdownIt-Anchor" href="#22"></a> 22</h2>
 <p>ARC 184。</p>
@@ -402,6 +402,7 @@
 <p>最短路套 AC 自动机。但是发现一个出边会被走很多次，所以发现其实不用走很多次：就是有一些边大家都会走，发现大家都会走的边就是不考虑其他前缀后走的边，然后这些边只走一遍就可以了。大概分析一下，发现怎么写都是对的，吧（就是，你即便以后的支线有效边都不要也没关系，反正边长不变）。非常好的优化思维。</p>
 <h3 id="vjudge-c来源暂时不明"><a class="markdownIt-Anchor" href="#vjudge-c来源暂时不明"></a> VJudge C（来源暂时不明）</h3>
 <p>等腰直角三角形转分治，对这种类滑动窗口但是不好删的询问做一下尺取。</p>
+<p>如果不要 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>log</mi><mo>⁡</mo></mrow><annotation encoding="application/x-tex">\log</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span></span></span></span>，按照 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>×</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">k\times k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span> 分成矩阵块，所谓“关键点”，然后针对斜线预处理就可以，感觉精细的。</p>
 <h2 id="26"><a class="markdownIt-Anchor" href="#26"></a> 26</h2>
 <p>Zhengrui，毛营，打得不太舒服。B 题在结束前 5min 发现读错题，说明做打比赛程序上还是要先把题目都仔细看一遍。</p>
 <h3 id="a-easy-win"><a class="markdownIt-Anchor" href="#a-easy-win"></a> A Easy Win</h3>
@@ -417,6 +418,37 @@
 <p>预处理就是把特殊点和重心拿出来都跑 BFS。带修就是上点分树在特殊点和重心上更新。</p>
 <p>魔改点分治。实质是：把图剖成几个子图，把跨越的拎出来（好像更像猫树分治），发现总是经过有限个关键点。</p>
 <p>写代码上，一个是不要写错求重心，一个是可以多用给子树染色的办法判定对面的点是否在当前子树内，防止奇怪的事情发生。</p>
+<h2 id="27"><a class="markdownIt-Anchor" href="#27"></a> 27</h2>
+<h3 id="luogu-p3295-scoi2016-萌萌哒"><a class="markdownIt-Anchor" href="#luogu-p3295-scoi2016-萌萌哒"></a> Luogu P3295 [SCOI2016] 萌萌哒</h3>
+<p>神题。</p>
+<p>并查集是容易想到的。直接逐位合并并查集复杂度很高，但是询问次数却很少。所以考虑把大区间拆成一些子区间的与，最后要回答询问时再集体 pushdown。这里其实用 Sparse Table 即可，线段树不好做。那也有另外一个视角就是用倍增理解这个过程。</p>
+<h3 id="zr-2925-逆序对inversion"><a class="markdownIt-Anchor" href="#zr-2925-逆序对inversion"></a> ZR 2925 逆序对(inversion)</h3>
+<p>非常好 Bijection Proof。</p>
+<p>写了题解。</p>
+<h2 id="28"><a class="markdownIt-Anchor" href="#28"></a> 28</h2>
+<p>Cplus 联测。</p>
+<h3 id="a-a"><a class="markdownIt-Anchor" href="#a-a"></a> A a</h3>
+<p>题目名字就是这个，我能怎么办。</p>
+<p>手推，感觉到有简单规律，做完。</p>
+<h3 id="b-b"><a class="markdownIt-Anchor" href="#b-b"></a> B b</h3>
+<p>模拟 DP，发现变化量不大。注意 <code>-INF</code>。</p>
+<h3 id="c-c-cf407d-largest-submatrix-3"><a class="markdownIt-Anchor" href="#c-c-cf407d-largest-submatrix-3"></a> *C c / CF407D Largest Submatrix 3</h3>
+<p>看到矩形，三次方复杂度，想到枚举三条边。然后就有大力递推，就是从三维的邻项推过来（但是可以非常牛地压到只有两维数组）。（？？？妈呀。可能就是，你感觉东西非常多，不容易直接算，而且可复用，所以想要递推。）</p>
+<p>但是我们三次方数组被卡真是太厉害了。感觉是，有序枚举，要会。这不是我们，CSP-S 2022 T1？怎么我现在不会这种题。</p>
+<p>C 可能小于 B，呃呃。</p>
+<h3 id="d-d-arc118e-avoid-permutations"><a class="markdownIt-Anchor" href="#d-d-arc118e-avoid-permutations"></a> D d / ARC118E Avoid Permutations</h3>
+<p>对于严格的“一个都没有”限制，考虑容斥。大小为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">n</span></span></span></span> 的子集系数为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">)</mo><mi>n</mi></msup></mrow><annotation encoding="application/x-tex">(-1)^{n}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">−</span><span class="mord">1</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span>，在 DP 中做这个转移。</p>
+<p>我们容斥。</p>
+<p>写了题解。</p>
+<h2 id="29"><a class="markdownIt-Anchor" href="#29"></a> 29</h2>
+<p>Cplus 省选难度，打的很顺利。</p>
+<h3 id="a-铲雪"><a class="markdownIt-Anchor" href="#a-铲雪"></a> A 铲雪</h3>
+<p>我们 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>998244353</mn></mrow><annotation encoding="application/x-tex">998244353</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">9</span><span class="mord">9</span><span class="mord">8</span><span class="mord">2</span><span class="mord">4</span><span class="mord">4</span><span class="mord">3</span><span class="mord">5</span><span class="mord">3</span></span></span></span> 性质太好了。费马小定理，然后直接线段树和树状数组维护。</p>
+<h3 id="b-抽卡"><a class="markdownIt-Anchor" href="#b-抽卡"></a> B 抽卡</h3>
+<p>DP，关于状态的互推：迭代 60 次即可。不过精准高效的做法是按值域分段，然后解一元二次方程。</p>
+<h3 id="c-樟"><a class="markdownIt-Anchor" href="#c-樟"></a> C 樟</h3>
+<p>非常好 prufer 序列数数。</p>
+<p>写了题解。</p>
 
                 
               </div>
