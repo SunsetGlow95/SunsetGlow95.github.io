@@ -27,8 +27,17 @@
 <meta property="og:description" content="18 Cplus。  A：分析（猜）性质，分类讨论，计数，容斥。（明明可以 DP 却写了二项式反演。） B：乱搞：二分、有理数逼近。正解：扫描线思想，在连续域上 DP：折线维护、凸包。记得处理“空”的情况。 *C：线段树分治，太高了。   19 SWERC 2016（QOJ Contest 406&#x2F;Codeforces Gym 101174），with 深海狂鲨 &amp; yukimianya">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-19T12:13:25.000Z">
-<meta property="article:modified_time" content="2024-10-07T10:25:38.458Z">
+<meta property="article:modified_time" content="2024-10-15T14:00:15.611Z">
 <meta property="article:author" content="SunsetGlow95">
+<meta property="article:tag" content="树上问题">
+<meta property="article:tag" content="ad-hoc">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="计数">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="迭代">
+<meta property="article:tag" content="尺取">
+<meta property="article:tag" content="格路">
+<meta property="article:tag" content="点分治">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -345,7 +354,7 @@
 <h3 id="b-随机"><a class="markdownIt-Anchor" href="#b-随机"></a> B 随机</h3>
 <p>欧拉回路构造。好像可以找规律。</p>
 <h3 id="c-游走"><a class="markdownIt-Anchor" href="#c-游走"></a> C 游走</h3>
-<p>简单数数。树边要开两倍！！！。</p>
+<p>简单数数。树边要开两倍！！！</p>
 <h3 id="d-网络"><a class="markdownIt-Anchor" href="#d-网络"></a> *D 网络</h3>
 <p>结论是：重心必然在 dfs 序的中心往上跳的路径上（带权就是带权中心）。其实就是发现向下跳会做，但是不好维护，所以觉得在树上就应该向上跳。但是 dfs 序应用太神秘。</p>
 <p>然后想要查询联通块内每个点到定点的距离。这里用容斥的想法，是全部点到它的距离减去联通块以外的到它的距离，然后子树内的逐个处理有可接受的均摊。</p>
@@ -489,6 +498,29 @@
 
     </div>
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A0%91%E4%B8%8A%E9%97%AE%E9%A2%98/" class="print-no-link">#树上问题</a>
+      
+        <a href="/tags/ad-hoc/" class="print-no-link">#ad-hoc</a>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="print-no-link">#动态规划</a>
+      
+        <a href="/tags/%E8%AE%A1%E6%95%B0/" class="print-no-link">#计数</a>
+      
+        <a href="/tags/%E8%B4%AA%E5%BF%83/" class="print-no-link">#贪心</a>
+      
+        <a href="/tags/%E8%BF%AD%E4%BB%A3/" class="print-no-link">#迭代</a>
+      
+        <a href="/tags/%E5%B0%BA%E5%8F%96/" class="print-no-link">#尺取</a>
+      
+        <a href="/tags/%E6%A0%BC%E8%B7%AF/" class="print-no-link">#格路</a>
+      
+        <a href="/tags/%E7%82%B9%E5%88%86%E6%B2%BB/" class="print-no-link">#点分治</a>
+      
+    </div>
   
 </div>
 
