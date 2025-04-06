@@ -33,11 +33,11 @@
 <meta property="article:tag" content="ad-hoc">
 <meta property="article:tag" content="动态规划">
 <meta property="article:tag" content="计数">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="点分治">
 <meta property="article:tag" content="迭代">
 <meta property="article:tag" content="尺取">
-<meta property="article:tag" content="贪心">
 <meta property="article:tag" content="格路">
-<meta property="article:tag" content="点分治">
 <meta name="twitter:card" content="summary_large_image">
   
   
@@ -510,15 +510,15 @@
       
         <a href="/tags/%E8%AE%A1%E6%95%B0/" class="print-no-link">#计数</a>
       
+        <a href="/tags/%E8%B4%AA%E5%BF%83/" class="print-no-link">#贪心</a>
+      
+        <a href="/tags/%E7%82%B9%E5%88%86%E6%B2%BB/" class="print-no-link">#点分治</a>
+      
         <a href="/tags/%E8%BF%AD%E4%BB%A3/" class="print-no-link">#迭代</a>
       
         <a href="/tags/%E5%B0%BA%E5%8F%96/" class="print-no-link">#尺取</a>
       
-        <a href="/tags/%E8%B4%AA%E5%BF%83/" class="print-no-link">#贪心</a>
-      
         <a href="/tags/%E6%A0%BC%E8%B7%AF/" class="print-no-link">#格路</a>
-      
-        <a href="/tags/%E7%82%B9%E5%88%86%E6%B2%BB/" class="print-no-link">#点分治</a>
       
     </div>
   
@@ -597,6 +597,50 @@
             </div>
 
             
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"SunsetGlow95/SunsetGlow95.github.io","repo-id":"R_kgDOMxNR0g","category":"Announcements","category-id":"DIC_kwDOMxNR0s4Co1Jo","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN","strict":0,"theme":"noborder_gray","crossorigin":"anonymous"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
           </article>
         </div>
       </div>

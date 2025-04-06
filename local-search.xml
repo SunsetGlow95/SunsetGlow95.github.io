@@ -182,10 +182,6 @@
       
       <tag>动态规划</tag>
       
-      <tag>贪心</tag>
-      
-      <tag>点分治</tag>
-      
       <tag>SMAWK</tag>
       
       <tag>哈希</tag>
@@ -196,6 +192,8 @@
       
       <tag>分类讨论</tag>
       
+      <tag>贪心</tag>
+      
       <tag>概率和期望</tag>
       
       <tag>倍增</tag>
@@ -205,6 +203,8 @@
       <tag>欧拉回路</tag>
       
       <tag>FWT</tag>
+      
+      <tag>点分治</tag>
       
       <tag>分块</tag>
       
@@ -366,15 +366,15 @@
       
       <tag>计数</tag>
       
+      <tag>贪心</tag>
+      
+      <tag>点分治</tag>
+      
       <tag>迭代</tag>
       
       <tag>尺取</tag>
       
-      <tag>贪心</tag>
-      
       <tag>格路</tag>
-      
-      <tag>点分治</tag>
       
     </tags>
     
