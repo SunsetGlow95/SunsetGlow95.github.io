@@ -1,0 +1,1003 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://s2.loli.net/2024/10/29/lUILWGcexEiNZjh.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="SunsetGlow95">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="01AGC068B 01 Graph Construction很有意思的构造题。关键是用简明的办法刻画增量的形状，并保持一点 1 的数目为 $n$ 的原则。 02一场 Luogu Div.2 月赛，一般般，最后一题 5 pts 纯属搞笑。 Luogu P11143 「SFMOI Round I」Strange Cake Game贪心。 Luogu P11144 「SFMOI Round I」Str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - 2024 十月做题记录">
+<meta property="og:url" content="http://sunsetglow95.github.io/sol-2024oct/index.html">
+<meta property="og:site_name" content="SunsetGlow95&#39;s Blog">
+<meta property="og:description" content="01AGC068B 01 Graph Construction很有意思的构造题。关键是用简明的办法刻画增量的形状，并保持一点 1 的数目为 $n$ 的原则。 02一场 Luogu Div.2 月赛，一般般，最后一题 5 pts 纯属搞笑。 Luogu P11143 「SFMOI Round I」Strange Cake Game贪心。 Luogu P11144 「SFMOI Round I」Str">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-07T10:24:22.000Z">
+<meta property="article:modified_time" content="2025-08-30T21:15:34.068Z">
+<meta property="article:author" content="SunsetGlow95">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>题解 - 2024 十月做题记录 - SunsetGlow95&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sunsetglow95.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>SunsetGlow95&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://s2.loli.net/2024/10/21/iC5uDOy7pe3PzJw.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="题解 - 2024 十月做题记录"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-07 18:24" pubdate>
+          2024年10月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          101 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">题解 - 2024 十月做题记录</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="01"><a href="#01" class="headerlink" title="01"></a>01</h2><h3 id="AGC068B-01-Graph-Construction"><a href="#AGC068B-01-Graph-Construction" class="headerlink" title="AGC068B 01 Graph Construction"></a>AGC068B 01 Graph Construction</h3><p>很有意思的构造题。关键是用简明的办法刻画增量的形状，并保持一点 <code>1</code> 的数目为 $n$ 的原则。</p>
+<h2 id="02"><a href="#02" class="headerlink" title="02"></a>02</h2><p>一场 Luogu Div.2 月赛，一般般，最后一题 5 pts 纯属搞笑。</p>
+<h3 id="Luogu-P11143-「SFMOI-Round-I」Strange-Cake-Game"><a href="#Luogu-P11143-「SFMOI-Round-I」Strange-Cake-Game" class="headerlink" title="Luogu P11143 「SFMOI Round I」Strange Cake Game"></a>Luogu P11143 「SFMOI Round I」Strange Cake Game</h3><p>贪心。</p>
+<h3 id="Luogu-P11144-「SFMOI-Round-I」Strange-Madoka-Game"><a href="#Luogu-P11144-「SFMOI-Round-I」Strange-Madoka-Game" class="headerlink" title="Luogu P11144 「SFMOI Round I」Strange Madoka Game"></a>Luogu P11144 「SFMOI Round I」Strange Madoka Game</h3><p>简单模运用交互题。</p>
+<h3 id="Luogu-P11145-「SFMOI-Round-I」Strange-Homura-Game"><a href="#Luogu-P11145-「SFMOI-Round-I」Strange-Homura-Game" class="headerlink" title="Luogu P11145 「SFMOI Round I」Strange Homura Game"></a>Luogu P11145 「SFMOI Round I」Strange Homura Game</h3><p>同上。</p>
+<h3 id="Luogu-P11146-「SFMOI-Round-I」Strange-Train-Game"><a href="#Luogu-P11146-「SFMOI-Round-I」Strange-Train-Game" class="headerlink" title="Luogu P11146 「SFMOI Round I」Strange Train Game"></a>Luogu P11146 「SFMOI Round I」Strange Train Game</h3><p>WC 2024 T3 的区间转前缀和修改做并查集 trick，这次不会再忘了。</p>
+<h3 id="Luogu-P11147-「SFMOI-Round-I」Strange-Dino-Game"><a href="#Luogu-P11147-「SFMOI-Round-I」Strange-Dino-Game" class="headerlink" title="*Luogu P11147 「SFMOI Round I」Strange Dino Game"></a>*Luogu P11147 「SFMOI Round I」Strange Dino Game</h3><p>如果觉得扫描线 <code>set</code> 很麻烦，不妨想想二分……不过可以 <code>set</code>。还没补。</p>
+<h2 id="05"><a href="#05" class="headerlink" title="05"></a>05</h2><p>题单启动。</p>
+<h3 id="Codeforces-1406E-Deleting-Numbers"><a href="#Codeforces-1406E-Deleting-Numbers" class="headerlink" title="Codeforces 1406E Deleting Numbers"></a>Codeforces 1406E Deleting Numbers</h3><p>筛只考虑素数，分块检验一个质因子，剩下的直接试。小心爆 <code>long long</code>，小心死循环。</p>
+<h3 id="Codeforces-1012E-Cycle-sort"><a href="#Codeforces-1012E-Cycle-sort" class="headerlink" title="Codeforces 1012E Cycle sort"></a>Codeforces 1012E Cycle sort</h3><p>先考虑移动元素个数尽量少，那就是让不在原位的数尽量少，贪心匹配。然后和同种元素相关的不同环可以合并（就是欧拉回路）。然后发现可以增加一些代价换取更少的操作次数，让几个环一起轮换。</p>
+<h3 id="Codeforces-1254E-Send-Tree-to-Charlie"><a href="#Codeforces-1254E-Send-Tree-to-Charlie" class="headerlink" title="Codeforces 1254E Send Tree to Charlie"></a>Codeforces 1254E Send Tree to Charlie</h3><p>发现每条边都 swap 一下，就像是自己和周围一圈点做了一次轮换，而只有一个点可以参与交换，把这个点找出来，看看刚好成一个置换环的方案数。注意里外都要找，然后代码逻辑要细心，不要少 <code>if</code>。</p>
+<p>目前为止是独立解答。</p>
+<h3 id="Codeforces-1292E-Rin-and-The-Unknown-Flower"><a href="#Codeforces-1292E-Rin-and-The-Unknown-Flower" class="headerlink" title="Codeforces 1292E Rin and The Unknown Flower"></a>Codeforces 1292E Rin and The Unknown Flower</h3><p>抽象 ad-hoc。发现一个一个问回超代价，那就问一些二元组，然后可以落实两个字母（除了特殊位置），暴力试。如果是 $n=4$，要特殊的办法，惊奇地发现可以压缩次数，一次出就开始枚举（毕竟 $n$ 很小），到最后还没试出必有 <code>OO</code>，那么左右仅有两种办法，所以考虑试 <code>OOO</code>。太深奥了。</p>
+<h3 id="Codeforces-1033E-Hidden-Bipartite-Graph"><a href="#Codeforces-1033E-Hidden-Bipartite-Graph" class="headerlink" title="Codeforces 1033E Hidden Bipartite Graph"></a>Codeforces 1033E Hidden Bipartite Graph</h3><p>绕弯路也可以发现要找生成树，然后惊奇地发现已经分好层了，那就直接 check 即可。</p>
+<h2 id="06"><a href="#06" class="headerlink" title="06"></a>06</h2><p>ZR NOIP 10 连 day 5。说错了，是 NOI Plus。C、D 过难，不补。</p>
+<h3 id="A-签到题"><a href="#A-签到题" class="headerlink" title="A 签到题"></a>A 签到题</h3><p>广义逆康托展开，所以是组合数学。非常好卡常！！要有卡常意识，写运算少点的算法。</p>
+<h3 id="B-白石溪"><a href="#B-白石溪" class="headerlink" title="B 白石溪"></a>B 白石溪</h3><p>发现 Baka’s trick 合并复杂度太高，所以对决策单调性用其他的技巧：分治。把当前分治区间下既定决策的先定下来，发现二分决策点但是总复杂度是 $O(\textrm{len})$，细致讨论一下就只有一只 $\log$。</p>
+<p>调试要关注端点到底能取到哪里，讨论还是要细致点。</p>
+<h3 id="C-海棠仙"><a href="#C-海棠仙" class="headerlink" title="*C 海棠仙"></a>*C 海棠仙</h3><p>大概思路是做扫描线历史和，然后拆条件，条件 2、3 既然有单调性就双指针，用 LCT 维护树形，然后咋地。可以看 PetitSouris 老师的题解。</p>
+<h3 id="D-华心彩"><a href="#D-华心彩" class="headerlink" title="*D 华心彩"></a>*D 华心彩</h3><p>感觉很复杂的图论构造。</p>
+<h3 id="Codeforces-1081G-Mergesort-Strikes-Back"><a href="#Codeforces-1081G-Mergesort-Strikes-Back" class="headerlink" title="Codeforces 1081G Mergesort Strikes Back"></a>Codeforces 1081G Mergesort Strikes Back</h3><p>刻画变种 mergesort 的实质是：最低层保留不动，上推时是给前缀最大值们排序，剩下的跟班都跟在对应的前缀最大值后面。所以最低层的贡献直接计算，每两个最低段之间的合并只关心有多少概率形成前缀最大值和自身的反向偏序，枚举对应的元素前缀和处理一下即可。神题。小心左移溢出导致的 ub。</p>
+<h3 id="Codeforces-1284F-New-Year-and-Social-Network"><a href="#Codeforces-1284F-New-Year-and-Social-Network" class="headerlink" title="Codeforces 1284F New Year and Social Network"></a>Codeforces 1284F New Year and Social Network</h3><p>首先由 Hall 定理，$m$ 条路径的虚树边至少 $m$ 条，所以有完美匹配。发现右边的叶子的父边的匹配有一个端点已经确定，所以考虑减量，而其对应的左树上的行为则是缩点，归纳证明完美匹配存在性总有，所以可行。注意不要写 <code>dep[p] &lt;=&gt; q</code> 这样的愚蠢代码。</p>
+<h2 id="07"><a href="#07" class="headerlink" title="07"></a>07</h2><p>Cplus 联测，状态不错，不过还有余地。</p>
+<h3 id="A-花园（garden）"><a href="#A-花园（garden）" class="headerlink" title="A 花园（garden）"></a>A 花园（garden）</h3><p>枚举，慢算法也能过……有很有道理的 $O(nmk+k^5)$ 算法。</p>
+<h3 id="B-逆序对（inverse）"><a href="#B-逆序对（inverse）" class="headerlink" title="B 逆序对（inverse）"></a>B 逆序对（inverse）</h3><p>最优化问题可以只在「有用」的位置计算答案，然后扫描线。</p>
+<h3 id="C-步行（walk）"><a href="#C-步行（walk）" class="headerlink" title="C 步行（walk）"></a>C 步行（walk）</h3><p>树上环游的重心结论。树上倍增处处用，但事实上树剖常数更小。留意取等和奇数 $\div 2$ 取整问题。细致繁琐的容斥。</p>
+<h3 id="D-航行（sail）"><a href="#D-航行（sail）" class="headerlink" title="D 航行（sail）"></a>D 航行（sail）</h3><p>带环 DP 转移肯定考虑高斯消元。发现有效增量的范围为 $O(\sqrt n)$，状态得到压缩。进一步只做 $v=0$ 的 DP，把转移统一化为 $v=0$ 的状态之间的转移。</p>
+<h3 id="Codeforces-1423M-Milutin’s-Plums"><a href="#Codeforces-1423M-Milutin’s-Plums" class="headerlink" title="Codeforces 1423M Milutin’s Plums"></a>Codeforces 1423M Milutin’s Plums</h3><p>SMAWK 算法板子题，注意需要递归。</p>
+<h2 id="08"><a href="#08" class="headerlink" title="08"></a>08</h2><h3 id="Luogu-P10220-省选联考-2024-迷宫守卫"><a href="#Luogu-P10220-省选联考-2024-迷宫守卫" class="headerlink" title="Luogu P10220 [省选联考 2024] 迷宫守卫"></a>Luogu P10220 [省选联考 2024] 迷宫守卫</h3><p>DP（归并排序转移）预处理代价，然后模拟一次树上 DFS，注意对当前点只有不得不选 $w$ 的情况才选呢。</p>
+<h3 id="Luogu-P5518-MtOI2019-幽灵乐团-莫比乌斯反演基础练习题"><a href="#Luogu-P5518-MtOI2019-幽灵乐团-莫比乌斯反演基础练习题" class="headerlink" title="Luogu P5518 [MtOI2019] 幽灵乐团 / 莫比乌斯反演基础练习题"></a>Luogu P5518 [MtOI2019] 幽灵乐团 / 莫比乌斯反演基础练习题</h3><p>推式子魔法。首先简化原式，然后直接莫反，难点在最后一个式子，必须把内部的式子化成足够快的形式才可以，不能太早知足于整除分块套整除分块。然后就是三元合并两元要多试两种可能。最后上记忆化，把相互抵消的乘法省略就过了。</p>
+<h2 id="09"><a href="#09" class="headerlink" title="09"></a>09</h2><p>Cplus 联测，策略严重失误，低估了 T1 难度，忘记了 DP 造自动机的想法，瞎搞容斥，对 T2 的有效重构树想法来不及写好，T3 有更加简洁的 <code>priority_queue</code> 写法，T4 想不清楚也不会树哈希。感觉是一套好的难题，难的好题。事实上应该把暴力都打一打，然后在 T1 写简单的 DP 写法，T2、T3 应该多花点时间搞搞，也不至于赛时只过了 T3 然后非常靠后。</p>
+<h3 id="A-序列（string）"><a href="#A-序列（string）" class="headerlink" title="A 序列（string）"></a>A 序列（string）</h3><p>非常好造自动机。把六种转移写出来：$o\to o,o\to 1,m\to o, x\to 1,m\to x,x\to x + 1$，然后对于前 $i$ 位定义 $\textrm{x}$ 状态为被修改，用值 $x$ 覆盖；定义 $\textrm{o}$ 状态为未被覆盖，$\textrm{ox}$ 为两种状态都可走（前面两个是只能走一种），然后套上面转移即可，但是这么写分讨太磨人。所以不如让状态变为 $(x,0/1)$ 表示 $\textrm{x}$ 状态末尾值为 $x$，能不能走 $\textrm{o}$，另一类状态是只能走 $\textrm{o}$，常数好像较大，但是好写，虽然没写过。</p>
+<h3 id="B-贪吃蛇（snake）"><a href="#B-贪吃蛇（snake）" class="headerlink" title="B 贪吃蛇（snake）"></a>B 贪吃蛇（snake）</h3><p>基本的想法是在值域上扫，模拟每个点每次挑边界上最小点尝试吞并的过程。后面的步骤确实要熟练弄清楚才好办。</p>
+<p>另一个可用的思路是发现最大值答案必定为 $1$，而从大往小扫的时候，当前连通分量最大值的答案可能与边界最小值相同（或者无解，取决于边界最小值和分量内和的大小关系）。这是删的过程，我们考虑加的过程。从小往大加点，往四周尝试连通。如果邻点已经被加入，那么看自己能不能被吞并，若可以就把答案引到自己来；若未被加入就暂不操作。整个过程并查集即可。</p>
+<h3 id="C-蛋糕（cake）"><a href="#C-蛋糕（cake）" class="headerlink" title="C 蛋糕（cake）"></a>C 蛋糕（cake）</h3><p>考虑 DP，$f(i,j)$ 表示删完前 $i$ 个数，已经做了 $j$ 次全局 $-1$ 操作。这个操作的代价只和后缀严格最大值有关，所以只在严格后缀最大值转移。把方程写出来，有点像是把差分数组做全局取 $\min$ 操作，然后做一些差分数组的前缀 $-1$ 和全局加。发现是个凸包，所以维护所有的拐点、最后一段的斜率、整个函数的截距，用 <code>priority_queue</code> 即可。膜拜 Fantasy_Ball 老师帅气的代码。本人 <code>multiset</code> 被卡成 80 分。</p>
+<h3 id="D-简单树上计数（iso）"><a href="#D-简单树上计数（iso）" class="headerlink" title="D 简单树上计数（iso）"></a>D 简单树上计数（iso）</h3><p>简明的换根方法应用。下文定义 $m$ 为原题的 $(n + 1) \div m$。</p>
+<p>首先我们要会树哈希，做法就是 $f(p)\equiv C+\sum_{q\textrm{ is a son of }p} g(f(q))\pmod x$，其中取模直接用 <code>unsigned</code> 自然溢出即可，$g(x)$ 可以做 xor shift 方法，形如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> ull <span class="hljs-title">func</span><span class="hljs-params">(ull x)</span> </span>&#123;<br>  x ^= x &lt;&lt; <span class="hljs-number">15</span>;<br>  x ^= x &gt;&gt; <span class="hljs-number">25</span>;<br>  x ^= x &lt;&lt; <span class="hljs-number">27</span>;<br>  <span class="hljs-keyword">return</span> x;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>然后你就会了有根树的哈希。接着因为要求新的叶子挂在每个点上，所以考虑换根。静态情况是：每个点维护一个 $\texttt{siz}$ 表示还没被放到一个大小为 $m$ 的分量的点数，从下往上累加，一旦遇到 $\texttt{siz}[p] = m$ 的就建树，$\texttt{siz}[p] &gt; m$ 的都失效。根所在的子树大小为 $m - 1$，就不管它。</p>
+<p>然后要检测，检测的方法就是只考虑挂上叶子后的根所在分量是否出现了 $(n + 1) \div m$ 次，让这个叶子为根来算哈希值是容易的。关于它是否出现了若干次，就是每加入一棵大小为 $m$ 的分量，在分量内换根，算出每一个叶子作为根的时候的树哈希值，去重后丢到哈希表里面就行了。</p>
+<p>接下来考虑全局换根。假设从 $p$ 换到 $q$，每次换根有两种情况：</p>
+<ul>
+<li>如果 $\texttt{siz}[q] &lt; m$，$q$ 不可能另起炉灶，所以做小换根（就是同个分量内的换根，只涉及树哈希值的简单运算，在这里还要做 $\texttt{siz}$ 值的修改）。不过换根后 $p$ 可能会出现一棵大小为 $m$ 的分量，要建，并且更新 $q$ 所在分量内的哈希值，或者更新 $\texttt{siz}$。</li>
+<li>否则，如果 $q$ 有一个建好的分量，就把它删了。然后同样考虑重建 $p$ 分量或更新 $\texttt{siz}$。<strong>注意这里不要老是重新计算 $q$ 分量内哈希值，因此需要在预处理的时候即使分量无效也把哈希值处理出来。</strong></li>
+</ul>
+<p>如果去重做法是排序后 <code>unique</code>，复杂度是 $O(n\log n)$。改哈希表可以做到 $O(n)$，但是跑不过排序后 <code>unique</code>。</p>
+<p>关于复杂度的进一步说明：对于某个当前根所在的连通分量，做小换根的时候复杂度均摊为 $O(1)$，建树最多建 $1$ 次，因为某个子树 $\texttt{siz}$ 一旦达到 $m$ 就会被剥离；大换根只会做 $O(n/m)$ 次，每次 $O(m)$，换根运算次数的总复杂度 $O(n)$。</p>
+<h2 id="10"><a href="#10" class="headerlink" title="10"></a>10</h2><p>Zhengrui，还行，但是 T3 没冲组合数学的正解，满足于 DP，T1 暴力写挂，T2 没有组合数学头脑，唉唉。</p>
+<h3 id="A-Good-Subsegments"><a href="#A-Good-Subsegments" class="headerlink" title="A Good Subsegments"></a>A Good Subsegments</h3><p>哈希。我们不想枚举很多，关键在于总和不会超过最大值的 $\log n$ 倍，所以在最大值处枚举，然后哈希检验，双模取模即可，这样方便。另一种方式是模拟进位然后做异或哈希。</p>
+<h3 id="B-Easy-Sum"><a href="#B-Easy-Sum" class="headerlink" title="B Easy Sum"></a>B Easy Sum</h3><p>看到奇怪的组合数，尤其是形如 $\binom{a+b}{a}$ 的，要想到两点间格路方案数！所以就转化为对于所有 $(0,k)$ 求它到所有 $(a_i,b_i)$ 的方案数和。直接不好做，所以考虑分块（这是可以想到的）。对于每个块内的点，第一次走出块要么在左边界要么在下边界，分开来讨论，块内的贡献暴力算，边界到所有 $(0,k)$ 的做卷积，平衡时间复杂度得到 $O(n\sqrt n\log n)$。块长适当调大以获得更优表现。</p>
+<h3 id="C-Funny-Cost"><a href="#C-Funny-Cost" class="headerlink" title="C Funny Cost"></a>C Funny Cost</h3><p>首先发现最优解区间两两有交，故左端点都在左边、右端点都在右边。然后考虑具体匹配方案，拿最大值讨论，发现形如滑动窗口。冲好的复杂度就是讨论每个点的贡献，从大到小，计算组合系数，由每个窗口是同等地位、然后讨论每个数的放置即可。</p>
+<p>太晚了，其他杂题都来不及写，诶诶。</p>
+<h2 id="11"><a href="#11" class="headerlink" title="11"></a>11</h2><p>Cplus 联测提前享，还行，T3 不会，有点菜。</p>
+<h3 id="A-社团活动（activity）"><a href="#A-社团活动（activity）" class="headerlink" title="A 社团活动（activity）"></a>A 社团活动（activity）</h3><p>区间数据结构板子题。</p>
+<h3 id="B-电梯（lift）"><a href="#B-电梯（lift）" class="headerlink" title="B 电梯（lift）"></a>B 电梯（lift）</h3><p>题解讲得很好。就是盲猜这个背包有非常好的性质可以不做背包，直接往里面加。贪心地从大向小考虑，爆背包就新加一个。同时也可以证明每个大体积其实和体积为 $1$ 的等价。另一种规避讨论的是体积从小往大合并，将第一大和第二大、第三大和第四大……合并。</p>
+<h3 id="C-高速收费（charge）"><a href="#C-高速收费（charge）" class="headerlink" title="C 高速收费（charge）"></a>C 高速收费（charge）</h3><p>这个太牛了。</p>
+<p>平面图最短路等于对偶图最小割，所以就是要把最大流增加 $K$ 的最小费用，做费用流即可。注意无向图最小割的建图方式，双向边都有边权。</p>
+<h3 id="D-抢凳子（chair）"><a href="#D-抢凳子（chair）" class="headerlink" title="D 抢凳子（chair）"></a>D 抢凳子（chair）</h3><p>讨论线性同余，把系数与模数的 $\gcd$ 拎出来算，这个东西发生变化的时候直接暴力重构。求方便可以并查集维护一下冲突的点。但事实上在每个周期，每个余数都只有唯一的根，维护即可。</p>
+<h3 id="Luogu-P7916-CSP-S-2021-交通规划"><a href="#Luogu-P7916-CSP-S-2021-交通规划" class="headerlink" title="Luogu P7916 [CSP-S 2021] 交通规划"></a>Luogu P7916 [CSP-S 2021] 交通规划</h3><p>怨念解除。</p>
+<p>这个割换成平面图最短路，一个无界面如果左右两条线颜色不同就要通过，否则不用。答案形如若干对需要通过的无界面的最短路，由交叉交换的方法可以得到一种最优解可以在环上构成括号匹配，直接区间 DP 即可。这码量太有水平。</p>
+<h2 id="12"><a href="#12" class="headerlink" title="12"></a>12</h2><h3 id="Codeforces-1656H-Equal-LCM-Subsets"><a href="#Codeforces-1656H-Equal-LCM-Subsets" class="headerlink" title="Codeforces 1656H Equal LCM Subsets"></a>Codeforces 1656H Equal LCM Subsets</h3><p>首先我们会做可以质因数分解的做法。然后发现不可以，所以考虑自定义一组数，使得出现的数都可以被唯一分解，那就可以了。</p>
+<h3 id="Codeforces-1764G3-Doremy’s-Perfect-DS-Class-Hard-Version"><a href="#Codeforces-1764G3-Doremy’s-Perfect-DS-Class-Hard-Version" class="headerlink" title="Codeforces 1764G3 Doremy’s Perfect DS Class (Hard Version)"></a>Codeforces 1764G3 Doremy’s Perfect DS Class (Hard Version)</h3><p>能区分 $1$ 的就是问 $2$。先考虑 $n$ 是奇数的方法，就是二分的时候看左右两边哪个多一个落单（这个想法非常简洁化了信息），就往那边走。很有意思的简化写法：总是令左端点为 $1$、右端点为 $n$。</p>
+<p>然后考虑 $n$ 是偶数，这时候发现 $n$ 也被区分了。所以如果遇到两边落单的相等，直接 check $n$ 在哪里。方法是直接问 $n$（要不然还怪浪费的嘞）。</p>
+<p>然后我们就可以做到 $2\lceil\log n\rceil+1$，刚好差一点点。考虑优化。优化的思路应该是希望用上已经给到的信息。然后发现二分区间 $=2$ 的时候是一个突破口。如果 $n$ 为偶数且尚未确定 $n$，这里只做一次就可以分辨；否则一定形如 <code>1 x</code> 或 <code>x 1</code>，这时候上面的“落单”的想法就很好派上用场，我们已经由之前的信息获得 <code>x</code> 在当前二分区间的哪一侧，所以这里也可以只用一次查询。</p>
+<p>妈呀，卡常卡疯了。</p>
+<h3 id="UOJ-891-难度查找"><a href="#UOJ-891-难度查找" class="headerlink" title="UOJ 891 难度查找"></a>UOJ 891 难度查找</h3><p>非常好题。首先用 SMAWK 的想法，考虑提取偶数行。接下来就太高妙了：行列互换！当前层最多往右扩展 $n$ 次，则子矩阵要求到前 $(k-n)/2$ 小。整理一下，我们时时维护边界上凹陷处的点，发现复杂度非常好。证明不证，反正没把我搞到 $4n$。</p>
+<h2 id="13"><a href="#13" class="headerlink" title="13"></a>13</h2><h3 id="ZR-NOIP-10-连-day-6"><a href="#ZR-NOIP-10-连-day-6" class="headerlink" title="ZR NOIP 10 连 day 6"></a>ZR NOIP 10 连 day 6</h3><p>摸了，没打满暴力，T3 如果把表打出来，如何也不好说呢。</p>
+<h4 id="A-触不可及"><a href="#A-触不可及" class="headerlink" title="A 触不可及"></a>A 触不可及</h4><p>$O(n3^{\log_2 n})$。无语了。</p>
+<h4 id="B-璀璨冒险人"><a href="#B-璀璨冒险人" class="headerlink" title="B 璀璨冒险人"></a>B 璀璨冒险人</h4><p>汉诺塔基本想法就是化归，实时维护状态长啥样就行了。</p>
+<h4 id="C-蜃楼"><a href="#C-蜃楼" class="headerlink" title="*C 蜃楼"></a>*C 蜃楼</h4><p>打表发现周期。或者，你非常聪明，观察到了。</p>
+<h4 id="D-我以渺小爱你"><a href="#D-我以渺小爱你" class="headerlink" title="*D 我以渺小爱你"></a>*D 我以渺小爱你</h4><p>神秘如斯。我们数学……</p>
+<h3 id="ARC-185"><a href="#ARC-185" class="headerlink" title="ARC 185"></a>ARC 185</h3><p>打过最简单的一把 ARC，E 题太水。</p>
+<h4 id="A-mod-M-Game-2"><a href="#A-mod-M-Game-2" class="headerlink" title="A mod M Game 2"></a>A mod M Game 2</h4><p>怎么大家做这种题这么快的？？</p>
+<p>注意到 $n&lt;m$，考虑只有 Bob 在千方百计使 Alice 输掉，那就会留一张卡，让 Alice 无论何种方式都会在这里输掉，那就是 Alice 只剩一张卡了。所以看 Bob 可不可能留这么一张卡即可。构造可以看眼题解，反正就是可以构造的。</p>
+<h4 id="B-1-and-1"><a href="#B-1-and-1" class="headerlink" title="B +1 and -1"></a>B +1 and -1</h4><p>每加入一个数肯定希望把它和前面的尽量推平，这是不劣的，模拟这个过程，可以全部推平就是成功。细节是：在已推平的高度极差为 $1$，并且这个高度不发生改变，那个拐点是不会右移的，如果不得不右移那是假了。</p>
+<h4 id="C-Sum-of-Three-Integers"><a href="#C-Sum-of-Three-Integers" class="headerlink" title="C Sum of Three Integers"></a>C Sum of Three Integers</h4><p>对两个东西合并，把乘积记在加和处：想到卷积！！！手动讨论有点繁琐。</p>
+<h4 id="D-Random-Walk-on-Tree"><a href="#D-Random-Walk-on-Tree" class="headerlink" title="D Random Walk on Tree"></a>D Random Walk on Tree</h4><p>（于次日补题。）非常好概率期望考察。</p>
+<p>首先考虑简化版本：$m=1$，也就是要知道怎么考虑分叉。无论是递推还是整体刻画都可以得到答案是 $2(\frac{n}{n}+\frac{n}{n-1}+\ldots+\frac{n}{1})-1$。然后分析单叉变深的情况，但其实这里就可以猜最终答案是上面答案的倍数，然后直接写 $m^2$ 倍上去。当讨论一个叉期望要多少次才能走过叶子回到根（事实上我只关注深度的变化，毕竟最后一个叉到底的叶子概率还是均一的），居然要同时讨论上一个数和下一个数，系数都是 $\frac{1}{2}$。这时候，很好的想法是考虑这个东西的差分，然后就非常清晰了，就是 $m^2$ 倍。最后一次不用回到根，那期望步数是刚好折半嘛。</p>
+<h4 id="E-Adjacent-GCD"><a href="#E-Adjacent-GCD" class="headerlink" title="E Adjacent GCD"></a>E Adjacent GCD</h4><p>$\varphi * I=\textrm{id}$。做完了。</p>
+<h2 id="14"><a href="#14" class="headerlink" title="14"></a>14</h2><p>有点难受，可能是每次周末都会把状态弄坏。丧失代码能力。</p>
+<h3 id="D-数字"><a href="#D-数字" class="headerlink" title="D 数字"></a>D 数字</h3><p>从高到低逐位确定，那还是挺常用的数位 DP 思路。让我调了半天的阻碍：发现习惯上从 $0$ 开始进行过程，但是实际上是 $1$，所以需要从低到高找答案的最高位，而带着 $0$ 从上往下找会增大耗费。</p>
+<p>为什么不压位过不去呢，呵呵。</p>
+<h2 id="15"><a href="#15" class="headerlink" title="15"></a>15</h2><p>Cplus，八中公益赛。该拿的分拿的差不多，就差 20。T3、T4 还挺有意思的。</p>
+<p>顺便，【数据删除】你咋那么强？？？打不过【数据删除】，我打什么 OI？？？</p>
+<h3 id="A-3-idots（string）"><a href="#A-3-idots（string）" class="headerlink" title="A 3 idots（string）"></a>A 3 idots（string）</h3><p>简单题。直接讨论 <code>X</code> 在左侧还是右侧，合法的条件是一个是另一个的子序列。</p>
+<h3 id="B-冒泡排序（sort）"><a href="#B-冒泡排序（sort）" class="headerlink" title="B 冒泡排序（sort）"></a>B 冒泡排序（sort）</h3><p>我也不知道我是怎么会的，很难啊。这里选取的刻画冒泡排序的方法是：把每次 swap 记在较小数上，发现每个数要么成了前缀最大值，要么 swap 次数极差不超过 $1$。算一算每个数会被（作为最小值）swap 几次，一轮轮枚举就可以了。</p>
+<h3 id="C-多重集（set）"><a href="#C-多重集（set）" class="headerlink" title="C 多重集（set）"></a>C 多重集（set）</h3><p>怎么现在不会拆条件了呢？这里涉及对 $\min,\max$ 的特殊处理，既然不是与起来的复合条件，就找出每个情况生效的条件，然后直接丢线段树就行了。</p>
+<h3 id="D-简单题（easy）-Codeforces-878-E-Numbers-on-the-blackboard"><a href="#D-简单题（easy）-Codeforces-878-E-Numbers-on-the-blackboard" class="headerlink" title="D 简单题（easy）/ Codeforces 878 E Numbers on the blackboard"></a>D 简单题（easy）/ Codeforces 878 E Numbers on the blackboard</h3><p>这个题真是神了。贪心学艺不精，啊啊啊啊啊。</p>
+<p>考虑增量，贪心意义下每个数要么继续做右儿子，要么从头开始（其实是新树根的右儿子）（除了第一个数，它只能是最左边）。妈呀。然后每个分量如果是正的，肯定希望继续加，所以肯定往前面并。这个东西扫描线的过程中，用并查集维护一下就行了。（冷知识，左端点并不会让右边的合并与否的决策改变，因为这个过程是每次从右往左做的，而且能做早就做了。）代码上留意各种能否取等的细节。</p>
+<h2 id="16"><a href="#16" class="headerlink" title="16"></a>16</h2><p>Cplus 联测，C、D 都是 ZR A 班讲过的，场上只会暴力，太菜了。题目名字挺有意思的。前两题和后两题 gap 太大。</p>
+<p>顺便，【数据删除】、【数据删除】你们咋那么强？？？打不过【数据删除】，我打什么 OI？？？</p>
+<h3 id="A-扭曲的（distorted）"><a href="#A-扭曲的（distorted）" class="headerlink" title="A 扭曲的（distorted）"></a>A 扭曲的（distorted）</h3><p>有点脑筋急转弯。发现整个方阵被覆盖的充要条件是四个角被覆盖，所以只有九类点功效不同，然后搜索或者分类讨论。</p>
+<h3 id="B-命运（fate）"><a href="#B-命运（fate）" class="headerlink" title="B 命运（fate）"></a>B 命运（fate）</h3><p>简易计数。$x$ 前面的部分就把挂分当作后缀同时做，就不会对相对排名产生额外的影响，只考虑当前的相邻数对，方案数就是 $\prod (a<em>i-a</em>{i-1}+1)$。后面的部分只在乎挂分的递减，不必考虑相对排名，反正怎么挂都不会变，插板即可。</p>
+<h3 id="C-深奥的（abstruse）-Luogu-P9731-CEOI2023-Balance"><a href="#C-深奥的（abstruse）-Luogu-P9731-CEOI2023-Balance" class="headerlink" title="C 深奥的（abstruse）/ Luogu P9731 [CEOI2023] Balance"></a>C 深奥的（abstruse）/ Luogu P9731 [CEOI2023] Balance</h3><p>我们虚点。我们虚点。我们虚点。</p>
+<p>看到 $2$ 的幂想到分治，这是容易，但是把这个分治拎清楚还挺不容易。你想把一个点的所有移动都刻画出来，那直接在分治的时候考虑是否跨越中点，这是可以覆盖全部情况的，直接只考虑交换 $m+k$ 和 $l+k$ 就够了。对于度数为奇的点，诶诶诶，我们考虑把它往虚拟点连边，这样也只要找每个联通块欧拉回路即可，以定向刻画答案，简洁多了。</p>
+<h3 id="D-困境（dilemma）-Codeforces-1707E-Replace"><a href="#D-困境（dilemma）-Codeforces-1707E-Replace" class="headerlink" title="D 困境（dilemma）/ Codeforces 1707E Replace"></a>D 困境（dilemma）/ Codeforces 1707E Replace</h3><p>我们倍增，我们倍增，我们倍增。</p>
+<p>经典观察是把大的区间看作所有大小为二的子区间的并，发现怎么跳都有这个性质（这个其实部分分也有所提示）。然后，我们知道 $[1,n]$ 只会跳到自己，加上跳的模型，所以这里就是可以倍增的！！！唉。代码细节是，诶，如果把这个思想贯彻始终发现明面上写的是双端闭，实际是前闭后开来的。然后 Sparse Table 要特判空区间。</p>
+<p>打了点 duel，不太打得动。感觉这周有点愚钝，注意力涣散，找点有意思的事情做啊。</p>
+<h2 id="17"><a href="#17" class="headerlink" title="17"></a>17</h2><p>Cplus，不咋地，T3 没写离线、T4 没写扫描线暴力真是错完了，本来是有机会 AK 的。</p>
+<h3 id="A-路径（path）"><a href="#A-路径（path）" class="headerlink" title="A 路径（path）"></a>A 路径（path）</h3><p>简单 DAG 上 DP，或者用拓扑序，如果两个点同时在队列里面说明互不可达，否则就是可以。</p>
+<h3 id="B-异或（xor）"><a href="#B-异或（xor）" class="headerlink" title="B 异或（xor）"></a>B 异或（xor）</h3><p>把区间操作看成差分数组上的两个点同时操作，（模拟样例）发现如果一个子集异或和为 $0$ 就可以节省一次。怎么状压都可以。</p>
+<h3 id="C-距离（distance）"><a href="#C-距离（distance）" class="headerlink" title="C 距离（distance）"></a>C 距离（distance）</h3><p>首先考虑简化版本（感谢部分分）想到点分治；所以只要对 $x$ 和 $y$ 同时做点分树上操作即可，但是我们发现在线的话空间是过不了的！！！哈希表也承受不了，所以把所有询问在 $x$ 一维点分治下去，同时对 $y$ 在点分树上做操作，空间复杂度少掉一只 $\log$。其实应该可以继续少，但是估计很难写呢。</p>
+<h3 id="D-花之舞（flower）"><a href="#D-花之舞（flower）" class="headerlink" title="D 花之舞（flower）"></a>D 花之舞（flower）</h3><p>删掉的点至少有一个是一个最优解的端点。</p>
+<p>扫描线。扫描线。扫描线。支持 $O(n^2)$ 扫描线暴力打败常数较大 $O(n\log n\log w)$ 弱正解。</p>
+<p>我常数咋这么大？</p>
+<h3 id="Luogu-P4769-NOI2018-冒泡排序"><a href="#Luogu-P4769-NOI2018-冒泡排序" class="headerlink" title="Luogu P4769 [NOI2018] 冒泡排序"></a>Luogu P4769 [NOI2018] 冒泡排序</h3><p>好题。</p>
+<p>一个数如果只往左走，那么右边没有数小于它；如果只往右走，那么左边没有数大于它。这里的条件化简（重要！）：不存在一个点，使得左边有大于它的数，右边又有小于它的数，也就是不存在子序列 ${a,b,c}$ 满足 $a&gt;b&gt;c$。</p>
+<p>数位 DP 的基本方法是枚举没压到这一位上的所有方案，然后把这一位压到边界再往下做。所以需要一种快速计数的办法。</p>
+<p>打表发现如果没有任何限制，总数是卡特兰数，所以尝试模拟括号序列与满足上述条件的双射，维护一个指针 $i$，初始在第 $0$ 位：</p>
+<ul>
+<li>如果走到左括号，就把 $i$ 向右移动一位；</li>
+<li>如果从左括号走到右括号，就输出 $i-1$；</li>
+<li>如果从右括号走到右括号，就输出最小的没被输出的数。</li>
+</ul>
+<p>这样就建立好了联系。于是每次数数就只要数括号序列的个数，实际上是数不经过一条直线的格路的个数。每次枚举当前位，复杂度是 $O(n^2)$。如果当前位的边界不合法，可能的情况还是可以格路数出来，直接 <code>break</code>。</p>
+<p>每枚举完一次，以后的枚举区间都不超过本次的枚举区间。发现有点像二叉树，不断向右走，而按朴素方法每次都在枚举右儿子区间大小，这不优。我们知道当前位填任意数的总和，用格路算，那可以变为枚举左儿子区间大小，总复杂度就是 $O(n)$。而在 ZR 2997，则是遍历二叉树的每个节点，所以应该遍历较小的子区间，复杂度是 $O(n\log n)$。</p>
+<h3 id="Codeforces-1442F-Diffrentiating-Games"><a href="#Codeforces-1442F-Diffrentiating-Games" class="headerlink" title="Codeforces 1442F Diffrentiating Games"></a>Codeforces 1442F Diffrentiating Games</h3><p>神了，我们博弈论。怎么想到的啊。</p>
+<p>每轮问 $20$ 次，总共只能问 $20$ 个点，别读错题。</p>
+<p>题目强调可以环，想想环如何呢。然后我们就有「很有效率」做法，就是只考虑有自环的情况。发现这样的点不可能必败。而其它部分都是 DAG。</p>
+<p>既然要用 $20$ 个点回答答案，首先要一个 $20$ 个点的完全 DAG，这样才能保证 SG 值互不相同，不会有任意两个点不能被区分。这 $20$ 个点取拓扑序最后 $20$ 个肯定是容易一点。假设这个点集是 $S$，每次一个一个问 $S$ 中的点，信息量最大，同时如果有一次输出 <code>Lose</code> 说明 $x$ 和这个点重合，直接输出即可。</p>
+<p>接着考虑剩下的点，我们令它们都有自环。假设 $x$ 到询问的点有直接连边，下一步直接把 $x$ 移过去状态是必败态，所以必胜；否则无论怎么移都不会走到必败态，自环的点不会输，不同的点是必胜态，所以平手。所以让有自环的点到 $S$ 连边的终点集合两两不同即可。总次数：补完是 $\frac{20\times 19}{2}=190$，剩下的发现 $\binom{20}{3}=1140 &gt; n$，所以每个点最多改 $3$ 次边，加上自环，次数是 $4\times (1000-20)=3920$，总共 $4110$ 次，而且实际上跑不满。</p>
+<h2 id="18"><a href="#18" class="headerlink" title="18"></a>18</h2><p>VJudge 写完了。</p>
+<h3 id="QOJ-9126-Number-of-Abbreviations"><a href="#QOJ-9126-Number-of-Abbreviations" class="headerlink" title="QOJ 9126 Number of Abbreviations"></a>QOJ 9126 Number of Abbreviations</h3><p>一个删除方案对应一个 $t$，但是删除方案可能会到达同一个 $t$，算重首先长度相同，考虑滑动窗口方式 check，如果丢弃的字符和新加的字符相同就会算重，简化一下就是每对相同点对都会算重一次，直接算。</p>
+<h3 id="QOJ-9443-Left-Equals-Right"><a href="#QOJ-9443-Left-Equals-Right" class="headerlink" title="QOJ 9443 Left Equals Right"></a>QOJ 9443 Left Equals Right</h3><p>直接背包吧，两边分别排列即可。</p>
+<h3 id="QOJ-9435-Welcome-to-NPCAPC"><a href="#QOJ-9435-Welcome-to-NPCAPC" class="headerlink" title="QOJ 9435 Welcome to NPCAPC"></a>QOJ 9435 Welcome to NPCAPC</h3><p>理论上可以预处理矩阵的 $2^k$ 幂，然后优化矩阵快速幂，毕竟列矩阵乘起来而已。另一种办法是容斥，算有多少种不包含为子序列。</p>
+<h3 id="QOJ-9116-DRD-String"><a href="#QOJ-9116-DRD-String" class="headerlink" title="QOJ 9116 DRD String"></a>QOJ 9116 DRD String</h3><p>最长 border 模拟 KMP 不好做，考虑取最短 border，只有对 $D$ 的限制是不含 border，从 $O(n^2)$ 发现可以优化为 $O(n)$ 递推，最后把 $R$ 为空的状态减掉。</p>
+<h3 id="QOJ-9122-Japanese-Gift-Money"><a href="#QOJ-9122-Japanese-Gift-Money" class="headerlink" title="QOJ 9122 Japanese Gift Money"></a>QOJ 9122 Japanese Gift Money</h3><p>手模一下发现就是变进制数下有任何一位是奇数即可。然后直接数位 DP 一下。</p>
+<h3 id="QOJ-9442-Music-Game"><a href="#QOJ-9442-Music-Game" class="headerlink" title="QOJ 9442 Music Game"></a>QOJ 9442 Music Game</h3><p>第一个切掉的，呃呃。</p>
+<p>把 DP 写出来（右边往左边贡献），发现交换相邻数只会导致这里 DP 值发生常数的变小，所以可以排序，然后 DP 就可以了，把 $f_0$ 作为未知数，解一元一次同余方程。</p>
+<h3 id="QOJ-9115-Contour-Multiplication"><a href="#QOJ-9115-Contour-Multiplication" class="headerlink" title="QOJ 9115 Contour Multiplication"></a>QOJ 9115 Contour Multiplication</h3><p>异或就考虑 01-Trie。把每个 tag 一起从上往下推，发现复杂度是对的。</p>
+<h3 id="QOJ-9449-New-School-Term"><a href="#QOJ-9449-New-School-Term" class="headerlink" title="QOJ 9449 New School Term"></a>QOJ 9449 New School Term</h3><p>第二个切掉的，呃呃。</p>
+<p>这种直接考虑从大往小贪心，判定有两个条件，一是没有奇环，这个用种类并查集即可；一是可以平分，这个把每个分量的左右差绝对值丢去做背包卷积算方案数 check，要删除分量直接除以这个多项式即可。</p>
+<h3 id="QOJ-9411-Cosmic-Travel"><a href="#QOJ-9411-Cosmic-Travel" class="headerlink" title="QOJ 9411 Cosmic Travel"></a>QOJ 9411 Cosmic Travel</h3><p>还是 01-Trie，预处理每个子树出任何数的答案，每一层多计算本位的贡献，询问就转前缀和然后从上往下模拟，运用预处理的信息即可。</p>
+<h3 id="Luogu-P4897-【模板】最小割树（Gomory-Hu-Tree）"><a href="#Luogu-P4897-【模板】最小割树（Gomory-Hu-Tree）" class="headerlink" title="Luogu P4897 【模板】最小割树（Gomory-Hu Tree）"></a>Luogu P4897 【模板】最小割树（Gomory-Hu Tree）</h3><p>注意每次连边是在选中的源汇之间连，就可以了。原理就是：假设 $S-T$ 最小割为 $C(S,T)$，把 $V$ 分为 $V_S$ 和 $V_T$，则 $\forall x\in V_S, y\in V_T, |C(x,y)|\le |C(S,T)|$，因为这组割就在那里。</p>
+<h3 id="Luogu-P5632-【模板】Stoer-Wagner"><a href="#Luogu-P5632-【模板】Stoer-Wagner" class="headerlink" title="Luogu P5632 【模板】Stoer-Wagner"></a>Luogu P5632 【模板】Stoer-Wagner</h3><p>不太会证。假设我现在有两个点 $s,t$，求出了它们的最小割，以后我就可以把它们缩成一个点考虑。我们找一种比较好的选择 $s,t$ 的方式。就是每次在当前图维护一个集合 $A$，令 $w(x)=\sum_{y\in A}e(y,x)$，每次把 $w(x)$ 值最大的 $x$ 加入 $A$，可以证明最后一个加入 $A$ 的点 $t$，满足 $\forall s\in A/{t},C(s,t)=w(t)$。不太会证。</p>
+<h3 id="Luogu-P3227-LOJ-2384-HNOI2013-切糕"><a href="#Luogu-P3227-LOJ-2384-HNOI2013-切糕" class="headerlink" title="Luogu P3227 / LOJ 2384 [HNOI2013] 切糕"></a>Luogu P3227 / LOJ 2384 [HNOI2013] 切糕</h3><p>这就是我的 Luogu 800 AC，呵呵。对 $x,y$ 平面考虑，每个点只有一个决策，所以求最小割，一个点应该是一条从 $S$ 到 $T$ 的路径，每条边分别是对应的决策，取一个即可。相邻决策离得过远会不合法，具体而言就是 $|x<em>1-x_2|&gt;D$ 会不合法，也就是 $x_1-x_2&gt;D\land x_2-x_1&gt;D$。对于 $x_1-x_2&gt;D$，割不合法就是在 $x_1$ 的出发点往 $x_2$ 的后面还有一条边权为 $\inf$ 的边，其实就是往 $p_i$ 向 $p’</em>{i-D}$ 连边。特判 $D=1$。</p>
+<h2 id="19"><a href="#19" class="headerlink" title="19"></a>19</h2><p>Cplus 联测，场上会 D 却没写完，输。顺便，【数据删除】你咋那么强？？？打不过【数据删除】，我打什么 OI？？？</p>
+<h3 id="A-冒泡排序（bubble）"><a href="#A-冒泡排序（bubble）" class="headerlink" title="A 冒泡排序（bubble）"></a>A 冒泡排序（bubble）</h3><p>实际上就是对 $\bmod k$ 同余类排序。</p>
+<h3 id="B-染色（color）"><a href="#B-染色（color）" class="headerlink" title="B 染色（color）"></a>B 染色（color）</h3><p>条件化简！！不要拘泥于必须谨慎书写的 DP。首先留意到只要算 $\bmod 2$，所以考虑 <code>bitset</code>。考虑判定，注意到从 $a$ 可以到达 $a’$ 的条件是把相邻点缩起来变成 $b$ 和 $b’$，满足 $b’$ 是 $b$ 的子序列。所以数 $b’$ 个数后再考虑有多少个 $a’$，这个是可以组合数算的，而组合数即使不用 Lucas，直接 $O(\frac{n^2}{w})$ 杨辉三角也是可以的。每个 <code>bitset</code> 第 $i$ 位表示长 $i$ 的子序列，毕竟我们只关心长度和字符。从右往左的话，直接对每个首字符维护对应的 <code>bitset</code>，同时维护一个全局异或和，模拟一下就可以了。</p>
+<h3 id="C-图（graph）"><a href="#C-图（graph）" class="headerlink" title="*C 图（graph）"></a>*C 图（graph）</h3><p>不可做。毕竟我做的题少，这什么套路完全不懂啊。</p>
+<h3 id="D-山峦（mountain）"><a href="#D-山峦（mountain）" class="headerlink" title="D 山峦（mountain）"></a>D 山峦（mountain）</h3><p>很好难题。正解是状态数 DP，然后做高维后缀和，听说还要判一些无解。其实直接转格路，不越转不交，带 $x$ 做 LGV 然后拉插还原多项式即可，复杂度瓶颈居然是每次算单点值，单点次数为 $O(n^2)$，$O(n^2)$ 个点，插值 $O(n^3)$ 次，复杂度来到 $O(n^7)$，绷。代码细节在于：插 $t$ 个值次数会来到 $x^t$，要算到这一位；然后好好算偏移量。</p>
+<h2 id="20"><a href="#20" class="headerlink" title="20"></a>20</h2><p>ZR NOIP 十连 Day 7。原题太多被 unr 了。T4 我们数数真是太厉害了。</p>
+<p>今天晚上理一理后面自己可以多做一点的小目标。</p>
+<p>感觉不会的题主要集中在计数、DP、数据结构（无论是序列还是二维还是树形）、贪心、逆天图论，倍增也不会做，还有点观察题。感觉啥都要做，要不要板刷 Ynoi 捏，或者做点模拟。</p>
+<h3 id="A-水题-Mini"><a href="#A-水题-Mini" class="headerlink" title="A 水题 Mini"></a>A 水题 Mini</h3><p>既然随意重排，感觉一下在一些限制下才会爆最优解，应该是把两个数组排序后有序地匹配，然后直接 DP 即可。</p>
+<h3 id="B-水题"><a href="#B-水题" class="headerlink" title="B 水题"></a>B 水题</h3><p>感觉就非常二分，有单调性。两个人能到的范围都是一个区间，如果下一个点没人能到就失败，如果只有一个人就让他过去，如果两个人都能到，嘿嘿，现在的状态变成一个人变成废人，另一个人还保持原来的区间，但总共有两种决策。共同点是一定有一个人过去了，可以发现把不走的那个人的区间变为这两个人的当前区间取并后，总是有合法对应方案的。</p>
+<p>C 是原，QOJ 9411，就在上面。</p>
+<h3 id="D-水题-Pro-Max"><a href="#D-水题-Pro-Max" class="headerlink" title="D 水题 Pro Max"></a>D 水题 Pro Max</h3><p>非常好计数 DP，还带容斥，多久没有带脑子计数 DP 了呢。</p>
+<p>众数感觉很难刻画，但是众数不超过某个数好像有点办法。枚举 $i$，只要算有多少个序列满足每个数出现次数都不超过 $i$ 即可。这里容斥是可以想到的，钦定 $j$ 种数超限，乘上 $(-1)^j$ 的系数即可。复杂的在于怎么不算重不算漏。这时候的钦定大法！！！只在最后 $i+1$ 个把这个超限的数钦定下来（就应该这么设啊！），令 $f_{j,k}$ 表示已经钦定了 $j$ 种数超限，填了 $k$ 位，转移就考虑下一个空位，两种转移是填没钦定的数和新钦定一种数。本题卡常，可以考虑巴雷特约减或者卡寻址。</p>
+<h2 id="21"><a href="#21" class="headerlink" title="21"></a>21</h2><p>MX-S，打破防了，T2、3 跟博弈爆了，T4 弃疗。</p>
+<h3 id="A-youyou-的垃圾桶（wxyt）"><a href="#A-youyou-的垃圾桶（wxyt）" class="headerlink" title="A youyou 的垃圾桶（wxyt）"></a>A youyou 的垃圾桶（wxyt）</h3><p>整体只会做 $\log$ 次，剩下的二分即可。一种 $O(n\log n+q)$ 的更优做法是利用答案的单调递减，维护差分数组，手动减小答案即可。</p>
+<h3 id="B-youyou-不喜欢夏天（summer）"><a href="#B-youyou-不喜欢夏天（summer）" class="headerlink" title="B youyou 不喜欢夏天（summer）"></a>B youyou 不喜欢夏天（summer）</h3><p>场上不会，盒盒。</p>
+<p>对 <code>01</code> 的处理是要点，要么它选了至少 $2m$ 个是只选 <code>1</code>，多出来的都有正收益，要么全部都是两个都选，其余的决策不优，这是关键。DP 是平凡的。</p>
+<h3 id="C-youyou-的序列-II（seq）"><a href="#C-youyou-的序列-II（seq）" class="headerlink" title="C youyou 的序列 II（seq）"></a>C youyou 的序列 II（seq）</h3><p>抽象博弈，抽象代码。</p>
+<p>yy 的两个限制是同向的，所以要么可以选到最大长度，要么选不了，如果一个点不能被任何一个可以选的区间覆盖，那它对 yy 的防守是没用的。youyou 要把所有数标记为红，首先所有数要能被标记为红，就要每个数都不超过 $w_1$。假设现在有一些蓝色格子，youyou 无法把所有数都一下子标记为红，就是 yy 总是有一些区间，把 A 染红 B 还不是红的，那么把 A 染回去就可以了，那 youyou 就前功尽弃了。所以条件是 youyou 可以一下子把 yy 的区间全部染红。</p>
+<h3 id="D-youyou-的三进制数（ternary）"><a href="#D-youyou-的三进制数（ternary）" class="headerlink" title="*D youyou 的三进制数（ternary）"></a>*D youyou 的三进制数（ternary）</h3><p>不会。</p>
+<h3 id="Luogu-P6328-我是仙人掌"><a href="#Luogu-P6328-我是仙人掌" class="headerlink" title="Luogu P6328 我是仙人掌"></a>Luogu P6328 我是仙人掌</h3><p>发现 $n$ 很小，对每个点都处理出距离不超过 $i$ 的点是可以承受的复杂度。但是每个询问都形如“或”，所以考虑 <code>bitset</code> 模拟这个或操作，仍然是可以承受的。</p>
+<h3 id="Luogu-P6327-区间加区间-sin-和"><a href="#Luogu-P6327-区间加区间-sin-和" class="headerlink" title="Luogu P6327 区间加区间 sin 和"></a>Luogu P6327 区间加区间 sin 和</h3><p>使用三角形的和差公式同时维护 $\sin$ 和和 $\cos$ 和即可。</p>
+<h2 id="22"><a href="#22" class="headerlink" title="22"></a>22</h2><p>Cplus，题目不错，T4 场上没写完，纯笨，T1 挂分了。</p>
+<h3 id="A-town"><a href="#A-town" class="headerlink" title="A town"></a>A town</h3><p>从下往上。一条边可以被断，当且仅当下面的分量异或和为 $x$，断完之后会与 $0$ 等价，所以一个联通块的异或和只可能是 ${s_i,s_i\oplus x}$ 之一，直接数就可以了。对每个点，先考虑儿子往上 merge，再考虑自己的父边是否断开，要注意如果是根是不可以做后者的转移的！否则 $x=0$ 的时候会多算。</p>
+<h3 id="B-str"><a href="#B-str" class="headerlink" title="B str"></a>B str</h3><p>考虑针对左端点 DP，假设 $i$ 接在前驱 $j$ 后面，如果 $j$ 后缀大于 $i$ 后缀，发现是没用的，否则 $j$ 无论多长都可以，$i$ 从 LCP 时候开始全上即可，LCP 可以 $O(n^2)$ 递推。</p>
+<h3 id="C-perm-P4778-Counting-swaps"><a href="#C-perm-P4778-Counting-swaps" class="headerlink" title="C perm / P4778 Counting swaps"></a>C perm / P4778 Counting swaps</h3><p>拆成每个置换环的问题，发现答案是 $n^{n-2}$，组合一下即可。这里的证明？？</p>
+<h3 id="D-number"><a href="#D-number" class="headerlink" title="D number"></a>D number</h3><p>造自动机（这个还挺难的，只能搜索或者用严谨的推理，有大样例的话还行），矩阵快速幂。如果 $t\le 10^6$，就要光速幂。虽说，其实是等比矩阵列求和，导致我场上写不完，有点菜。</p>
+<h2 id="23"><a href="#23" class="headerlink" title="23"></a>23</h2><p>联测。这么出题不会被喷么。</p>
+<h3 id="A-mex-序列-Codeforces-1613D-MEX-Sequences"><a href="#A-mex-序列-Codeforces-1613D-MEX-Sequences" class="headerlink" title="A mex 序列 / Codeforces 1613D MEX Sequences"></a>A mex 序列 / Codeforces 1613D MEX Sequences</h3><p>DP，状态只包括 $\operatorname{mex}$ 和是否存在 $\operatorname{mex}+1$，单次转移 $O(1)$。</p>
+<h3 id="B-判断题-P5326-ZJOI2019-开关"><a href="#B-判断题-P5326-ZJOI2019-开关" class="headerlink" title="B 判断题 / P5326 [ZJOI2019] 开关"></a>B 判断题 / P5326 [ZJOI2019] 开关</h3><p>神了，九条可怜。集合幂级数魔法啊。</p>
+<p>写一下式子，下面用异或卷积做。令 $g<em>=p_i$（这里表示概率而非输入的数），$f$ 为答案，有 $f=f\ast g+cx^{\varnothing}+\sum_S x^S$（$f</em>{\varnothing}=0$ 要特殊修正）。手动做 FWT 得到 $f’<em>S=f’_Sg’_S+c+2^n[S=\varnothing]$，$S=\varnothing$ 时 $g’</em>\varnothing=1$，$c=-2^n$，否则 $f’_S=\frac{c}{1-g’_S}$。</p>
+<script type="math/tex; mode=display">\begin{aligned}
+
+f_S&=\frac{1}{2^n}\sum_T (-1)^{|S\cap T|}f'_T \\
+
+&=\frac{f'_\varnothing}{2^n}+\frac{1}{2^n}\sum_{T\neq\varnothing} (-1)^{|S\cap T|}\frac{c}{1-g'_T}
+
+\end{aligned}</script><p>$S=\varnothing$ 时 $0 = \frac{f’<em>\varnothing}{2^n}+\frac{1}{2^n}\sum</em>{T\neq\varnothing}\frac{c}{1-g’_T}$。</p>
+<script type="math/tex; mode=display">\begin{aligned}
+
+f_S&=\frac{1}{2^n}\sum_{T\neq\varnothing} ((-1)^{|S\cap T|}-1)\frac{c}{1-g'_T} \\
+
+&= \sum_{T\neq\varnothing} \frac{2[|S\cap T|\equiv 1 \pmod 2]}{\sum_i p_i-\sum_i (-1)^{[i\in T]}p_i} \\
+
+&= \sum_{T\neq\varnothing} \frac{2[|S\cap T|\equiv 1 \pmod 2]}{\sum_i 2[i\in T]p_i} \\
+
+&= \sum_{T\neq\varnothing} \frac{[|S\cap T|\equiv 1 \pmod 2]}{\sum_{i\in T}p_i}
+
+\end{aligned}</script><p>对 $\sum_i p_i$ DP 计数即可。</p>
+<h3 id="C-连通性-P8860-动态图连通性"><a href="#C-连通性-P8860-动态图连通性" class="headerlink" title="C 连通性 / P8860 动态图连通性"></a>C 连通性 / P8860 动态图连通性</h3><p>非常好最短路题目。</p>
+<p>首先我会乱搞，随便找一条路径，如果影响这条路径就尝试重构。然后，考虑是不是可以找到某一条最优的路径，假设 $t_i$ 表示第 $i$ 条边第一次被删的时间，那么这条路径满足 $\sum 2^{q-t_i}$ 最小（没出现过的边权为 $0$）。这里我们就可以主席树了，但是还不够。考虑在 Dijkstra 算法过程中只需要能够正确地比较两条路径的大小即可。假设有两条路径，末边的起点分别是 $a,b$，末边长度分别为 $e_a,e_b$，它们现在同时躺在堆里，既然是同时，说明两条路径的长度都不小于 $\min(d_a,d_b)$，不妨令 $d_a\le d_b,d_a+e_a\ge d_b$，如果 $d_a+e_a&gt;d_b+e_b$，则 $e_a&gt;e_b$。$e_a\le e_b$ 时，总有 $d_a+e_a\le d_b+e_b$，所以比较 $d+e$ 和比较 $e$ 是等价的。【我是不是在写批话？】</p>
+<h3 id="D-数颜色"><a href="#D-数颜色" class="headerlink" title="D 数颜色"></a>D 数颜色</h3><p>我们数据结构……好难写啊，为什么点分树常数这么大。</p>
+<p>既然数颜色，考虑邻域中的某个颜色的点，只要存在就让此颜色加一。发现虚树中这样的点形成一个联通块。这里对于“这样的点 $p$”明确一下限制：$r_p+\operatorname{dis}(p,x)\le d$，其中 $r_p$ 表示虚树内离 $p$ 最近的此颜色的点与 $p$ 的距离。也就是说，这个虚树中的点被激活，当且仅当至少有一个该颜色的点被激活。数联通块，想到点边容斥，即点数减边数为联通块数。边存在当且仅当两端都存在，所以边的邻域其实是两个点的邻域交。这里可能出现不存在中点的情况，为了规避繁琐写法可以直接把每条边倍长，则必然存在中点。然后就变为树上邻域数点了，这个点分树一下就可以了。每次询问逐级上跳，需要二分，毕竟有 $r$ 的存在，所以复杂度是 $O(n\log n+q\log^2 n)$。目前感觉常数很大，有无优化呢。</p>
+<h2 id="24"><a href="#24" class="headerlink" title="24"></a>24</h2><p>Cplus，T3 挂分，T4 注意力不集中。</p>
+<h3 id="A-法国"><a href="#A-法国" class="headerlink" title="A 法国"></a>A 法国</h3><p>这次学聪明了，答案单调递增，每次尝试能不能往下开。如果分母改变就重新计算，这里次数是调和级数。需要在线做单点加和区间求和，用树状数组，总复杂度 $O(n+q+V\log^2 V)$。</p>
+<h3 id="B-酒杯"><a href="#B-酒杯" class="headerlink" title="B 酒杯"></a>B 酒杯</h3><p>感觉不用生成函数太难理解怎么想到倍增的。每一行的转移都有点不一样，想到还挺不容易的。</p>
+<p>从递推式开始，$F<em>i(x)$ 是每行的指数型生成函数，$G_i(x)=1-e^{2^i x}$，有 $F_i(x)=F</em>{i-1}(x)G<em>{i-1}(x)$，$F_0(x)=1$。这个求积考虑倍增，令 $H_i(x)=\prod</em>{0\le k&lt;i}G<em>k(x)$，有 $H_i(x)=H</em>{i-1}(x)H_{i-1}(2^{i-1}x)$，乘到答案去也是同理的。</p>
+<h3 id="C-铲雪"><a href="#C-铲雪" class="headerlink" title="C 铲雪"></a>C 铲雪</h3><p>可持久化李超线段树。注意判无解宁愿使用 <code>&gt;= INF - EPS</code>……</p>
+<h3 id="D-飒妃客厮-·-啊瑞-CodeChef-TASUFFIX"><a href="#D-飒妃客厮-·-啊瑞-CodeChef-TASUFFIX" class="headerlink" title="D 飒妃客厮 · 啊瑞 / CodeChef - TASUFFIX"></a>D 飒妃客厮 · 啊瑞 / CodeChef - TASUFFIX</h3><p>冷静分析，对于 SA 中相邻的两个点 $i,j$：</p>
+<ul>
+<li>若 $s_j&gt;s_i$，必然符合条件，在“摇聚”的条件下有 $s_j=s_i+1$。</li>
+<li>若 $s<em>j=s_i$，仍然要符合 SA 的性质，则要满足 $\textrm{rk}</em>{i+1}&lt;\textrm{rk}_{j+1}$。注意，空串的 $\textrm{rk}$ 为极小值，而非极大值（虽然我没有挂这里）。</li>
+</ul>
+<p>所以只要满足，$s_j$ 就会有两种决策，否则没有。直接用文艺平衡树维护区间操作，每一段内部计数、段的“末端”（就是内部无法计数的地方，一个段只有一对）计数、段间计数。复杂度 $O(m\log n)$。</p>
+<p>代码细节包括：reverse 操作要交换左右儿子（这个没写也是没谁了）；段内无论是递增还是递减，除去末端每一对都是可以贡献的，这个手动讨论一下就发现了。</p>
+<h2 id="26"><a href="#26" class="headerlink" title="26"></a>26</h2><h3 id="Luogu-P8867-NOIP2022-建造军营"><a href="#Luogu-P8867-NOIP2022-建造军营" class="headerlink" title="Luogu P8867 [NOIP2022] 建造军营"></a>Luogu P8867 [NOIP2022] 建造军营</h3><p>缩点，树上 DP，以点为本位，限制就是联通的树边必选，其它随便。注意点不一定呈一个联通块哦。</p>
+<h3 id="CSP-S-2024"><a href="#CSP-S-2024" class="headerlink" title="CSP-S 2024"></a>CSP-S 2024</h3><p>CSP-S 2024。不是很想写游记，既没啥仪式感，也没啥值得大书特书的情节，只知道脑袋没放歌，输麻了，但好像也没啥办法。T4 没有对着部分分打，以为 140 min 时间总是充裕的，可以冲，还是菜了，大意了。又是和二叉树爆了的一场。</p>
+<p>必须铭记：若没有 public 文件夹，手动建立。</p>
+<h4 id="A-决斗"><a href="#A-决斗" class="headerlink" title="A 决斗"></a>A 决斗</h4><p>分析一下，就是求众数出现次数。</p>
+<h4 id="B-超速检测"><a href="#B-超速检测" class="headerlink" title="B 超速检测"></a>B 超速检测</h4><p>分加速、匀速、减速讨论，留意二分细节，然后区间不为空就是计入，最后若干个区间，避免特殊讨论就按右端点排序，贪心选最靠右的。</p>
+<h4 id="C-染色"><a href="#C-染色" class="headerlink" title="C 染色"></a>C 染色</h4><p>DP，$f<em>i$ 表示两个指针分别在 $i,i-1$ 时候的最优答案，发现以 $a</em>{i-1}$为下标开个桶，全局操作打个 tag 即可。</p>
+<h4 id="D-擂台游戏"><a href="#D-擂台游戏" class="headerlink" title="*D 擂台游戏"></a>*D 擂台游戏</h4><p>我怎么知道这道题不可做呢。场上尝试 $O(tn\log n)$ 失败了，打了 $O(tn^2\log n)$。</p>
+<h2 id="27"><a href="#27" class="headerlink" title="27"></a>27</h2><p>对本周的期待：把 CSP-S T4 补了，Ynoi 的 P5354 写一下，迷宫守卫补一下，感觉数据结构是比较明确可以加训的点。其它的，图论观察、容斥、DP 状态设计这些，做到再说，其实把以前的 AtCoder 没补完的题补一补都差不多了。</p>
+<h3 id="ZR-NOIP-十连-Day-8"><a href="#ZR-NOIP-十连-Day-8" class="headerlink" title="ZR NOIP 十连 Day 8"></a>ZR NOIP 十连 Day 8</h3><p>摸鱼，怎么大家都不发挥。</p>
+<h4 id="A-说谎"><a href="#A-说谎" class="headerlink" title="A 说谎"></a>A 说谎</h4><p>无脑做法：爆搜找规律。</p>
+<h4 id="B-离歌"><a href="#B-离歌" class="headerlink" title="B 离歌"></a>B 离歌</h4><p>一般子序列计数，且模式串很短，直接考虑矩阵乘法的形式，用树上前缀和拆一拆。感觉空间好像撑不住，就多跑几次 dfs。</p>
+<h4 id="C-爱错"><a href="#C-爱错" class="headerlink" title="C 爱错"></a>C 爱错</h4><p>容易想到的是找一个比较大的数，用一个 2 操作和一个 1 操作找到一个 $n$ 的倍数，假设这个是 $m=kn$。$k$ 为奇数的时候直接问 $\lfloor\frac{3n}{2}\rfloor$，这个数一定卡在两个 $n$ 的倍数之间（考场上没想到是 $\frac{3}{2}$ 呜呜）。否则就要二分 $n$ 有几个 $2$ 因子，其实也就是二分 $k$ 有几个，这里需要特判 $n$ 是 $2$ 的幂的情况。但是现在次数还是太大，是 $2+\log \log n$。我们考虑找的这个比较大的数是随机随出来的，那么随 $t$ 次，期望 $2$ 的最大次数约是 $\log t$，这个其实就是倒过来算一算错误率。所以只要在这个大小内二分 $k$ 中 $2$ 的次数即可。</p>
+<h4 id="D-过火"><a href="#D-过火" class="headerlink" title="D 过火"></a>D 过火</h4><p>对单个分析得到结论是：从大到小排，答案是 $\sum a_i(\lfloor\frac{i}{k}\rfloor+1)$。如果是在线，就是把 $n$ 个元素拍成矩阵，取短边，用平衡树做即可。但是我们可以离线，所以考虑直接把全部数离线下来。$k$ 可以很小，所以指针本位不好做，所以对值域分块。每次操作就是把一个点设为 0、另一个设为 1，这两块重构，中间的要快速支持指针右移/左移 1，就是考虑块内的变化，以 $\textrm{rk}\bmod k$ 为标准分等价类，类数是 $\min{b,k}$ 的。清晰还是挺好做的。要开 <code>__int128</code>，不过 std 忘了，不过不影响场上得分！</p>
+<h3 id="ARC-186"><a href="#ARC-186" class="headerlink" title="ARC 186"></a>ARC 186</h3><p>只会 BD，有点奇怪吧。</p>
+<h4 id="B-Typical-Permutation-Descriptor"><a href="#B-Typical-Permutation-Descriptor" class="headerlink" title="B Typical Permutation Descriptor"></a>B Typical Permutation Descriptor</h4><p>刻画，发现画成树后，$0\sim n$ 是一个 dfs 序，固定根的时候每个儿子的大小顺序一定，其它的随便排。</p>
+<h4 id="D-Polish-Mania"><a href="#D-Polish-Mania" class="headerlink" title="D Polish Mania"></a>D Polish Mania</h4><p>刻画，看看如何判定，像是你有一个累加器，每次把下一个数加上去，然后减一，如果中途不为负数且最后是 $-1$ 就判定正确，发现这就是不越过某条直线的格路，对字典序的刻画也是套路，详见冒泡排序一题。</p>
+<h4 id="C-Ball-and-Box"><a href="#C-Ball-and-Box" class="headerlink" title="C Ball and Box"></a>C Ball and Box</h4><p>次日补题。赛场上策略假了，以为只会买 $m$ 个盒子，过不去样例，难绷。</p>
+<p>策略应该是这样：假设 Mr. Box 选择集合 $S$，那么首先要求 $|S|\ge m$，Mr. Ball 会掐容量最小的加到满，然后逼迫往下买盒子，或者对方不干了。收益就是容量最大的 $m-1$ 个只有 $1$ 的容量，其它都会用满，减去买背包的花费。这个枚举最小容量的，实时贪心地维护较大容量的策略即可。</p>
+<h4 id="A-Underclued"><a href="#A-Underclued" class="headerlink" title="A Underclued"></a>A Underclued</h4><p>次日补题。神了哥们。</p>
+<p>看到矩阵，并且行和列有一定独立性，一种图论建模方式是建成二分图。然后就简单一点，一条边非 fixed 当且仅当它在一个 SCC 里面，然后直接做三维背包就可以了（左侧被定过 SCC 的点数，右侧被定过 SCC 的点数，还有非 fixed 的边数）。</p>
+<h4 id="E-Missing-Subsequence"><a href="#E-Missing-Subsequence" class="headerlink" title="E Missing Subsequence"></a>E Missing Subsequence</h4><p>神神神，刻画、分类讨论的大神题目。下面规定 $f(x)$ 是题目求的那个集合，不限序列长度。一个小性质：这样的序列一定包含所有长度小于 $m$ 的合法数列为子序列。</p>
+<p>考虑其它子序列里面，如果首位就是 $x<em>1$，假设 $x_1$ 首次出现在 $a_i$（必然存在啊），则有 ${a</em>{i+1},\ldots,a_n}\in f({x_2,\ldots,x_m})$。如果首位不是 $x_1$，后面的要存在，最难的是要求 ${x’_1,x_2,\ldots,x_m}$ 存在：</p>
+<ul>
+<li>如果 $x<em>1=x_2$，那么要求所有其它的数都在 $a_1,\ldots,a</em>{i-1}$ 出现，这样后面的 ${x_3,\ldots,x_m}$ 必定存在，$x’_1,x_2$ 也存在了。</li>
+<li>发现关键其实是 $x_2$ 的出现，$x_1\neq x_2$ 时假设 $x_2$ 在 $a_i$ 前面最后一次出现是 $a_j$（这里和题解写的不一样，尚未理解），那么要求所有其它的数都在 $a_j$ 之前出现过。</li>
+</ul>
+<p>然后每次加一个数就是从后一位的状态往前面加一个串，这个形式是背包卷积。</p>
+<p>后日补题完毕。</p>
+<h2 id="29"><a href="#29" class="headerlink" title="29"></a>29</h2><p>我哪知道到处都是刻画，我该怎么办？</p>
+<h3 id="A-随机游走-walk"><a href="#A-随机游走-walk" class="headerlink" title="A 随机游走(walk)"></a>A 随机游走(walk)</h3><p>邻项交换。</p>
+<h3 id="B-分发奖励-reward"><a href="#B-分发奖励-reward" class="headerlink" title="B 分发奖励(reward)"></a>B 分发奖励(reward)</h3><p>扫描线，线段树。</p>
+<h3 id="C-卡路里-calorie"><a href="#C-卡路里-calorie" class="headerlink" title="C 卡路里(calorie)"></a>C 卡路里(calorie)</h3><p>单调栈，二维前缀和。还有决策单调性做法，服了，把 $n$ 开到 $5000$ 全部突突了。</p>
+<h3 id="D-传话游戏-message"><a href="#D-传话游戏-message" class="headerlink" title="D 传话游戏(message)"></a>D 传话游戏(message)</h3><p>这个太神了，但是没想到多项式做法有点可惜，可能太摆了。考场上就想到一个演绎的办法是：每个数删掉的时候，保证删掉后的后继与它不相等。却没有进一步简化条件再做，急了。而且部分分写挂，既然把所有颜色减去 $1$ 判定就应该判是不是 $0$，而且组合数也把 $n-1$ 写成 $n$，唉。</p>
+<p>把这个判定条件形式化一下就是，假设 $S<em>1$ 的第 $i$ 位存活到 $S</em>{t<em>i}$ 为止，那么要求 $\nexists i&lt;j,a_i=a_j,\min</em>{i\le k<j}t_k<t_j$。所以要把计数对象转为更加熟悉的数列，并且继续做到令 $j$ 为满足 $j>i,t_j&gt;t_i$ 的最小值，则 $a_j\neq a_i$。然后来数数列。这个条件转化很重要。</p>
+<p>向右看齐，想到单调栈，实际就是要把区间最大值拿出来，做区间 DP，每个区间向右看齐的对象是开的右端点，现在我们的状态设计有三维：区间左端点、右端点、最大值（这里，钦定同样为最大的取最左的，因为这里只是钦定了左侧的看齐对象，必须严格大于左侧，右侧可以不必）。转移可以前缀和优化，剩下的优化空间在最大值一维，最大值取决于 $n$，所以考虑这一位有没有什么特点。</p>
+<p>接下来一步非常魔幻，不过应该对这种只涉及加法和乘法的区间 DP 都适用。我们认为 $f_{l,r,i}$ 对于同一组 $(l,r)$ 而言，是一个关于 $i$ 的多项式，次数为 $r-l$，也就是说它的前缀和的多项式的次数为 $r-l+1$，把转移式拉出来就可以证明了。另，这个多项式在 DP 中不好转移，但是我们可以直接拉插。嗯，这题就做完了。</p>
+<h3 id="Luogu-P5435-基于值域预处理的快速-GCD"><a href="#Luogu-P5435-基于值域预处理的快速-GCD" class="headerlink" title="Luogu P5435 基于值域预处理的快速 GCD"></a>Luogu P5435 基于值域预处理的快速 GCD</h3><p>想要 $O(1)$ gcd，必须预处理，$\sqrt V$ 以内的可以在 $O(V)$ 时间预处理完毕，所以对于每个询问，想要把它分成一些不超过 $O(\sqrt V)$ 的数的乘积。分解的障碍是，可能有一个很大的质因子，不过质数求 gcd 挺容易的，所以也挺接受的。所以假想最优时每个 $V$ 以内的数 $x$ 都可以写成三个数 $(x_1,x_2,x_3)$ 的乘积，这三个数要么不超过 $\sqrt x$，要么是质数。</p>
+<p>也就是希望最小值最大，那就会希望先把大的质因子丢进去，然后再用小的把它平均一些。事实上这是可以的，形式化地，令 $x$ 的最小质因子为 $d$，$\frac{x}{d}$ 的分解从小到大为 $(x’_1,x’_2,x’_3)$，则 ${x_1,x_2,x_3}={dx’_1,x’_2,x’_3}$。$x=1$ 分解是 $(1,1,1)$。</p>
+<p>证明：考虑 $x$ 只有不超过 $3$ 个质因子，它们不会同时乘在同一位，所以每个数要么是 $1$ 要么是质数。对于其它情况，必有 $d\le x^{\frac{1}{4}}$，则 $x’_1\le \sqrt[3]{\frac{x}{d}}$，$dx’_1\le\sqrt x$。</p>
+<h2 id="30"><a href="#30" class="headerlink" title="30"></a>30</h2><p>每次 ty round 都会挂飞，不过这个 T2 确实是不擅长的，但不妨碍我完全不想补它。加训数据结构。</p>
+<h3 id="A-铭记-remember"><a href="#A-铭记-remember" class="headerlink" title="A 铭记(remember)"></a>A 铭记(remember)</h3><p>位运算求和，经典想法是拆位。</p>
+<h3 id="B-世界-world"><a href="#B-世界-world" class="headerlink" title="*B 世界(world)"></a>*B 世界(world)</h3><p>刻画一下，发现只会往右走，最后才可能回头。所以算每一个前缀 $\min$ 到底的答案，然后前后以 $2$ 的代价来回推就行。前面几个 gap 的规则是比较大的几个会被推平成某个值 $v$ <strong>或 $v-1$</strong>，二分。具体算，感觉有点繁琐，冷却一下吧。</p>
+<h3 id="C-桥梁-bridge"><a href="#C-桥梁-bridge" class="headerlink" title="C 桥梁(bridge)"></a>C 桥梁(bridge)</h3><p>好像有简洁一点的做法。直观理解就是，把关键边和关键点拎出来，其它的直接求最小生成森林，然后把虚森林拉出来，枚举决策。写挂的点：虚树加入的 LCA 可能比当前链顶还高，要判栈空。</p>
+<h3 id="D-生长-growing"><a href="#D-生长-growing" class="headerlink" title="*D 生长(growing)"></a>*D 生长(growing)</h3><p>好像是比较神奇的数据结构，把<strong>合并</strong>拉出来，还有什么单调性，还没研究。</p>
+<h2 id="31"><a href="#31" class="headerlink" title="31"></a>31</h2><p>原。</p>
+<h3 id="A-草莓-guiltiness"><a href="#A-草莓-guiltiness" class="headerlink" title="A 草莓(guiltiness)"></a>A 草莓(guiltiness)</h3><p>邻项交换贪心。</p>
+<h3 id="B-三色-color"><a href="#B-三色-color" class="headerlink" title="B 三色(color)"></a>B 三色(color)</h3><p>三个指针为 DP 状态，发现与上一个最末指针差异很小，一个点位一旦被删除永不复用，单维护变化，维护行、列和，维护有效状态。</p>
+<h3 id="C-博弈-game"><a href="#C-博弈-game" class="headerlink" title="C 博弈(game)"></a>C 博弈(game)</h3><p>打表得到结论，从低到高位建 01-Trie 来算。</p>
+<p>D 是 1024 打的 D。</p>
+<h3 id="Luogu-P5354-Ynoi2017-由乃的-OJ"><a href="#Luogu-P5354-Ynoi2017-由乃的-OJ" class="headerlink" title="Luogu P5354 [Ynoi2017] 由乃的 OJ"></a>Luogu P5354 [Ynoi2017] 由乃的 OJ</h3><p>树剖、线段树。位运算做到 $O(1)$ 合并。</p>
+<h3 id="Project-Euler-813-XOR-Powers"><a href="#Project-Euler-813-XOR-Powers" class="headerlink" title="Project Euler 813 XOR-Powers"></a>Project Euler 813 XOR-Powers</h3><p>提交于 Hydro 域 stdtr1。</p>
+<p>每次都是做卷积，考虑用 FFT 的方式，奇偶位分开，往下做。</p>
+<h3 id="Codeforces-1519H-Chests-and-Keys"><a href="#Codeforces-1519H-Chests-and-Keys" class="headerlink" title="Codeforces 1519H Chests and Keys"></a>Codeforces 1519H Chests and Keys</h3><p>神了。发现可以用流刻画，用霍尔定理说明左边一定满流，直接枚举匹配。暂时不知道比较直观的理解方法。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>题解 - 2024 十月做题记录</div>
+      <div>http://sunsetglow95.github.io/sol-2024oct/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>SunsetGlow95</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/sol-2024nov/" title="题解 - 2024 十一月做题记录">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">题解 - 2024 十一月做题记录</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/sol-AIZU2993/" title="题解 - Aizu 2993 Invariant Tree">
+                        <span class="hidden-mobile">题解 - Aizu 2993 Invariant Tree</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"SunsetGlow95/SunsetGlow95.github.io","repo-id":"R_kgDOMxNR0g","category":"Announcements","category-id":"DIC_kwDOMxNR0s4Co1Jo","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN","strict":0,"theme":"noborder_gray","crossorigin":"anonymous"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

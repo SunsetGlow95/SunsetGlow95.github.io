@@ -1,0 +1,856 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="https://s2.loli.net/2024/10/29/lUILWGcexEiNZjh.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="SunsetGlow95">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="18Cplus。  A：分析（猜）性质，分类讨论，计数，容斥。（明明可以 DP 却写了二项式反演。） B：乱搞：二分、有理数逼近。正解：扫描线思想，在连续域上 DP：折线维护、凸包。记得处理“空”的情况。 *C：线段树分治，太高了。  19SWERC 2016（QOJ Contest 406&#x2F;Codeforces Gym 101174），with 深海狂鲨 &amp; yukimianyan. 9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题解 - 2024 九月做题记录">
+<meta property="og:url" content="http://sunsetglow95.github.io/sol-2024sep/index.html">
+<meta property="og:site_name" content="SunsetGlow95&#39;s Blog">
+<meta property="og:description" content="18Cplus。  A：分析（猜）性质，分类讨论，计数，容斥。（明明可以 DP 却写了二项式反演。） B：乱搞：二分、有理数逼近。正解：扫描线思想，在连续域上 DP：折线维护、凸包。记得处理“空”的情况。 *C：线段树分治，太高了。  19SWERC 2016（QOJ Contest 406&#x2F;Codeforces Gym 101174），with 深海狂鲨 &amp; yukimianyan. 9">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-19T12:13:25.000Z">
+<meta property="article:modified_time" content="2025-08-30T21:16:45.918Z">
+<meta property="article:author" content="SunsetGlow95">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>题解 - 2024 九月做题记录 - SunsetGlow95&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"sunsetglow95.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>SunsetGlow95&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://s2.loli.net/2024/10/21/iC5uDOy7pe3PzJw.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="题解 - 2024 九月做题记录"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-09-19 20:13" pubdate>
+          2024年9月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">题解 - 2024 九月做题记录</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="18"><a href="#18" class="headerlink" title="18"></a>18</h2><p>Cplus。</p>
+<ul>
+<li>A：分析（<del>猜</del>）性质，分类讨论，计数，容斥。（明明可以 DP 却写了二项式反演。）</li>
+<li>B：乱搞：二分、有理数逼近。正解：扫描线思想，在连续域上 DP：折线维护、凸包。<em>记得处理“空”的情况。</em></li>
+<li>*C：线段树分治，太高了。</li>
+</ul>
+<h2 id="19"><a href="#19" class="headerlink" title="19"></a>19</h2><p>SWERC 2016（QOJ Contest 406/Codeforces Gym 101174），with 深海狂鲨 &amp; yukimianyan. 9 题，余 IJ 未场切。</p>
+<h3 id="A-Within-Arm’s-Reach"><a href="#A-Within-Arm’s-Reach" class="headerlink" title="A Within Arm’s Reach"></a>A Within Arm’s Reach</h3><p>写了笨蛋的模拟退火。</p>
+<ul>
+<li>不要偷懒写差分数组，写绝对角度。</li>
+<li>做修改时正负都要做。</li>
+</ul>
+<p>正解是发现两条臂可以解决很多状态，然后在对应的线段上二分，拿三角函数解出来就可以了。</p>
+<h3 id="B-Briding-Eve"><a href="#B-Briding-Eve" class="headerlink" title="B Briding Eve"></a>B Briding Eve</h3><p>把每个点化成一次函数，找交点，分类讨论后离散化，做前缀加或后缀加，然后求全局最值。</p>
+<h3 id="E-Passwords"><a href="#E-Passwords" class="headerlink" title="E Passwords"></a>E Passwords</h3><p>AC 自动机 DP 套路题。注意不要想当然地用差分统计……</p>
+<h3 id="F-Performance-Review"><a href="#F-Performance-Review" class="headerlink" title="F Performance Review"></a>F Performance Review</h3><p>写了愚蠢的启发式合并。其实结合 dfs 序二维数点一下就可以了。</p>
+<h3 id="G-Cairo-Corridor"><a href="#G-Cairo-Corridor" class="headerlink" title="G Cairo Corridor"></a>G Cairo Corridor</h3><p>队友写了线段树分治，来生成每个点被删的所有情况。事实上似乎可以缩二度点，然后讨论：</p>
+<ul>
+<li>只有至多 $4$ 个点度数为 $1$。</li>
+<li>只有至多 $6$ 个点度数不小于 $3$。（？？？）</li>
+</ul>
+<h3 id="I-The-White-Rabbit-Pocket-Watch"><a href="#I-The-White-Rabbit-Pocket-Watch" class="headerlink" title="I The White Rabbit Pocket Watch"></a>I The White Rabbit Pocket Watch</h3><p>高斯消元后直接最短路即可。之所以没做出来是忽略了：“you’ll be able to find how long it takes you.”要读题。</p>
+<h3 id="J-Risky-Lottery"><a href="#J-Risky-Lottery" class="headerlink" title="J Risky Lottery"></a>J Risky Lottery</h3><p>抽象迭代思维。</p>
+<p>发现最终状态下，选每一个数字能赢的概率相同。否则，就有一个人可以改进自己的策略了（赌最大的概率）。</p>
+<p>所以考虑迭代。每次算出每个数字能赢的概率，如果高于平均数就把选择它的概率调高，否则调低。</p>
+<p>可是为啥退火跑不出来？不太懂。但是这个迭代……真是服了。</p>
+<p>dfs 得写快点，不然跑不动。</p>
+<h3 id="C-D-H-K"><a href="#C-D-H-K" class="headerlink" title="*C, D, H, K"></a>*C, D, H, K</h3><p>听说不难，不看了。</p>
+<h3 id="Codeforces-1762D-GCD-Queries"><a href="#Codeforces-1762D-GCD-Queries" class="headerlink" title="Codeforces 1762D GCD Queries"></a>Codeforces 1762D GCD Queries</h3><p>直接考虑 $n=3$ 的情景。</p>
+<h2 id="20"><a href="#20" class="headerlink" title="20"></a>20</h2><h3 id="Codeforces-1416E-Split"><a href="#Codeforces-1416E-Split" class="headerlink" title="Codeforces 1416E Split"></a>Codeforces 1416E Split</h3><p>扫描线 DP。DP 和 <code>set</code> 维护区间集有代码细节，留意负域。</p>
+<h3 id="Luogu-P7831-CCO2021-Travelling-Merchant"><a href="#Luogu-P7831-CCO2021-Travelling-Merchant" class="headerlink" title="Luogu P7831 [CCO2021] Travelling Merchant"></a>Luogu P7831 [CCO2021] Travelling Merchant</h3><p>以终为始，从大到小转移。高妙图论。</p>
+<h3 id="Luogu-P1587-NOI2016-循环之美"><a href="#Luogu-P1587-NOI2016-循环之美" class="headerlink" title="Luogu P1587 [NOI2016] 循环之美"></a>Luogu P1587 [NOI2016] 循环之美</h3><p>有序化简莫反，杜教筛。找到递归关系。一题多解哦。</p>
+<h2 id="21"><a href="#21" class="headerlink" title="21"></a>21</h2><p>ZR NOIP 10 连 day 4。</p>
+<h3 id="A-朔望"><a href="#A-朔望" class="headerlink" title="A 朔望"></a>A 朔望</h3><p>可以 <code>unsigned long long</code> 高精度。但是乘积的模等于模的乘积的模。</p>
+<h3 id="B-随机"><a href="#B-随机" class="headerlink" title="B 随机"></a>B 随机</h3><p>欧拉回路构造。好像可以找规律。</p>
+<h3 id="C-游走"><a href="#C-游走" class="headerlink" title="C 游走"></a>C 游走</h3><p>简单数数。树边要开两倍！！！。</p>
+<h3 id="D-网络"><a href="#D-网络" class="headerlink" title="*D 网络"></a>*D 网络</h3><p>结论是：重心必然在 dfs 序的中心往上跳的路径上（带权就是带权中心）。其实就是发现向下跳会做，但是不好维护，所以觉得在树上就应该向上跳。但是 dfs 序应用太神秘。</p>
+<p>然后想要查询联通块内每个点到定点的距离。这里用容斥的想法，是全部点到它的距离减去联通块以外的到它的距离，然后子树内的逐个处理有可接受的均摊。</p>
+<p>怎么线段树分治 $\log^2$ 跑不过 $2\times 10^5$ 呢？</p>
+<h3 id="QOJ-8781-Element-Wise-Comparison"><a href="#QOJ-8781-Element-Wise-Comparison" class="headerlink" title="QOJ 8781 Element-Wise Comparison"></a>QOJ 8781 Element-Wise Comparison</h3><p>非常高妙的 <code>bitset</code> 使用。考虑拆解条件，发现是若干个条件的与，然后找到相同的下标，在题意下可以做不带删双指针（即尺取）。</p>
+<h2 id="22"><a href="#22" class="headerlink" title="22"></a>22</h2><p>ARC 184。</p>
+<h3 id="A-Appraiser"><a href="#A-Appraiser" class="headerlink" title="A Appraiser"></a>A Appraiser</h3><p>交互。提取“相同”的优势。</p>
+<h3 id="B-C-D-E"><a href="#B-C-D-E" class="headerlink" title="*B, C, D, E"></a>*B, C, D, E</h3><p>全部不会。菜。B 是：状压 DP，但是赛场上失败，以为可以构造呢。</p>
+<h2 id="23"><a href="#23" class="headerlink" title="23"></a>23</h2><p>Cplus。A：单元答案使用二分，但是可以暴力枚举；B：简单数概率，但是不要想当然暴力；C：晦涩的贪心使用，构造，小心正负边界；D：线段树题，不要忘记 $-1$。</p>
+<h3 id="Luogu-P3266-JLOI2015-骗我呢"><a href="#Luogu-P3266-JLOI2015-骗我呢" class="headerlink" title="Luogu P3266 [JLOI2015] 骗我呢"></a>Luogu P3266 [JLOI2015] 骗我呢</h3><p>关键是注意到格路计数。看到范围扭曲的简单 DP 式考虑。然后反射容斥，记得输入不要写反。</p>
+<h3 id="Luogu-P5068-Ynoi2015-我回来了"><a href="#Luogu-P5068-Ynoi2015-我回来了" class="headerlink" title="Luogu P5068 [Ynoi2015] 我回来了"></a>Luogu P5068 [Ynoi2015] 我回来了</h3><p>调和级数暴力，主客转换，对线段树每个节点做一个 <code>vector</code> 作为 tag。写了快读要用。</p>
+<h3 id="Luogu-P4690-Ynoi2016-镜中的昆虫"><a href="#Luogu-P4690-Ynoi2016-镜中的昆虫" class="headerlink" title="Luogu P4690 [Ynoi2016] 镜中的昆虫"></a>Luogu P4690 [Ynoi2016] 镜中的昆虫</h3><p>元素种类数转 <code>(pre[i],i)</code> 的数点。CDQ 分治。读好题目范围，不要写着 $10^9$ 开了 $10^5$。</p>
+<h3 id="Codeforces-1458E-Nim-Shortcuts-1866I-Imagination-Castle"><a href="#Codeforces-1458E-Nim-Shortcuts-1866I-Imagination-Castle" class="headerlink" title="Codeforces 1458E Nim Shortcuts / 1866I Imagination Castle"></a>Codeforces 1458E Nim Shortcuts / 1866I Imagination Castle</h3><p>模拟 DP/nim 游戏。好诡异的 <code>set</code> 使用。</p>
+<p>另外的规划：发现很多时候主要是计数（包括动态规划）、数据结构和树会出的比较难，所以主要是这两个方面。字符串，不好说会不会考，但要做几个题。至于写挂的情况，感觉是大脑要清楚，逻辑要完整，然后可以自信点放松点，找找状态看吧。蔡队是补题怪物吧……</p>
+<h2 id="24"><a href="#24" class="headerlink" title="24"></a>24</h2><p>Zhengrui，省选难度，严重挂分，被 T2 拖后腿。</p>
+<h3 id="A-1410-超简单题"><a href="#A-1410-超简单题" class="headerlink" title="A 1410 超简单题"></a>A 1410 超简单题</h3><p>子序列自动机，DAG 上类重剖。</p>
+<p>记得开 <code>long long</code>！！</p>
+<h3 id="B-1411-更简单题"><a href="#B-1411-更简单题" class="headerlink" title="B 1411 更简单题"></a>B 1411 更简单题</h3><p>读题（这题面并不好）。发现想要做很多次循环卷积（那就老老实实尝试去做啊），既然浮点数：猜测概率会越来越均匀（或分块），减免操作。</p>
+<p>能写 TLE 不要写没有道理的 WA，比如省去高次项。阴间题不能太耗时间。</p>
+<h3 id="C-1412-最简单题"><a href="#C-1412-最简单题" class="headerlink" title="C 1412 最简单题"></a>C 1412 最简单题</h3><p>猜测结论/化简条件，拟阵贪心（其实就是感觉它非常贪心，然后看能不能类最小生成树算法）。</p>
+<p>贪心学艺不精。好题好题，可看可看。</p>
+<h3 id="Codeforces-1987E-Wonderful-Tree"><a href="#Codeforces-1987E-Wonderful-Tree" class="headerlink" title="Codeforces 1987E Wonderful Tree"></a>Codeforces 1987E Wonderful Tree</h3><p>简单题。贪心，递推。</p>
+<h3 id="Codeforces-1548B-Integers-Have-Friends"><a href="#Codeforces-1548B-Integers-Have-Friends" class="headerlink" title="Codeforces 1548B Integers Have Friends"></a>Codeforces 1548B Integers Have Friends</h3><p>尺取记得清空问题。（也可以 Sparse Table 二分。）</p>
+<h3 id="Codeforces-1495E-Qingshan-and-Daniel"><a href="#Codeforces-1495E-Qingshan-and-Daniel" class="headerlink" title="Codeforces 1495E Qingshan and Daniel"></a>Codeforces 1495E Qingshan and Daniel</h3><p>很有意思的如简单题。分析性质，发现有一边会全部死掉，然后顺下来一个一个耗即可。</p>
+<h2 id="25"><a href="#25" class="headerlink" title="25"></a>25</h2><p>Cplus，也是 Becoder 公益赛，NOIP 难度，T3 想挂了，没对拍但稳定性尚可，所以可能要经常打比赛才有感觉。</p>
+<h3 id="A-多线并行（multi）"><a href="#A-多线并行（multi）" class="headerlink" title="A 多线并行（multi）"></a>A 多线并行（multi）</h3><p>简明的贪心。</p>
+<h3 id="B-空当接球（ball）-QOJ-1963-Squid-Game-大力加强"><a href="#B-空当接球（ball）-QOJ-1963-Squid-Game-大力加强" class="headerlink" title="B 空当接球（ball）/ QOJ 1963 Squid Game 大力加强"></a>B 空当接球（ball）/ QOJ 1963 Squid Game 大力加强</h3><p>非常神秘的构造题，好题好题。致敬喵了个喵。</p>
+<p>首先由奇偶性想到二进制，想要把最低位往上推，但是这样要做非常多次（$O(n\log nm)$）。感觉非常宽松，然后由二进制要想到 01 Trie！加（减）运算由低到高位的 01 Trie 维护，然后做一点自底向上的贪心最低匹配（AGC018F）。然后就对了，嗯嗯（你发现势能增长飞快，复杂度几乎线性）。</p>
+<p>然后发现化简完后还不够小，不能满足题目条件，还有 $O(\log nm)$ 个数，超过了 $2$ 个。所以必须跳出二进制的框架。考虑把最小值一直变小（怎么想到的？），能稳定实现这个的运算是模运算，所以尝试构造一下模运算的写法，那就非常好了。</p>
+<h3 id="C-列序号括（bracket）"><a href="#C-列序号括（bracket）" class="headerlink" title="C 列序号括（bracket）"></a>C 列序号括（bracket）</h3><p>冷知识，两只 $\log$ 可以通过 $10^6$，跑得也很快。好的好的。</p>
+<p>题解做法：既然是括号序列题，一般从内括号到外括号有单调的决策，所以发现外括号删里面必全删。以为从括号序列变为树，结果发现就是要在序列上面做（？）。从后往前，倍增维护。</p>
+<p>其实，用树分析到单调栈的结构就可以倒着做，尝试加入大还是不加入大，更为简易呢。但是要讨论最后没有不合法右括号的后缀，容易想挂。</p>
+<h3 id="D-可爱路径（path）-QOJ-5034-gt-lt"><a href="#D-可爱路径（path）-QOJ-5034-gt-lt" class="headerlink" title="*D 可爱路径（path）/ QOJ 5034 &gt;.&lt;"></a>*D 可爱路径（path）/ QOJ 5034 &gt;.&lt;</h3><p>最短路套 AC 自动机。但是发现一个出边会被走很多次，所以发现其实不用走很多次：就是有一些边大家都会走，发现大家都会走的边就是不考虑其他前缀后走的边，然后这些边只走一遍就可以了。大概分析一下，发现怎么写都是对的，吧（就是，你即便以后的支线有效边都不要也没关系，反正边长不变）。非常好的优化思维。</p>
+<p>等等，被 hack 了？？</p>
+<h3 id="Kilonova-2797-Triunghi"><a href="#Kilonova-2797-Triunghi" class="headerlink" title="Kilonova 2797 Triunghi"></a>Kilonova 2797 Triunghi</h3><p>等腰直角三角形转分治，对这种类滑动窗口但是不好删的询问做一下尺取。</p>
+<p>如果不要 $\log$，按照 $k\times k$ 分成矩阵块，所谓“关键点”，然后针对斜线预处理就可以，感觉精细的。</p>
+<h2 id="26"><a href="#26" class="headerlink" title="26"></a>26</h2><p>Zhengrui，毛营，打得不太舒服。B 题在结束前 5min 发现读错题，说明做打比赛程序上还是要先把题目都仔细看一遍。</p>
+<h3 id="A-Easy-Win"><a href="#A-Easy-Win" class="headerlink" title="A Easy Win"></a>A Easy Win</h3><p>用 SG 函数把要求的转化为 $\oplus (a_i \bmod x)$，转成 $a_i-x\lfloor\frac{a_i}{x}\rfloor$，猜想调和计数枚举每个区间，至此都是简单的。</p>
+<p>想要做区间查询 $a_i-x$ 的异或和。并不好做，所以由 $\oplus$ 想到每位的独立性，逐位枚举。观察在值域线段上，对于一个 $x$，$y-x$ 在第 $d$ 位上的分布是以 $2^d$ 为周期的纹路，所以可以用这种纹路做前缀和，然后特殊地处理边界。实在是想象学。</p>
+<h3 id="B-Cells-Blocking"><a href="#B-Cells-Blocking" class="headerlink" title="B Cells Blocking"></a>B Cells Blocking</h3><p>无路可走，首先猜想和割点有关。接下来的步骤就比较想象学。顺便有一个基本原则：从左上到右下的路径长为 $n+m-1$。</p>
+<p>考虑极左下和极右上的两条路径（下文命名为 $L$ 和 $R$），可以发现所有可能的路径都被夹在中间。所以割点是这两条路的交。要割两个点。首先至少有一个在 $L$ 上（其实对任意一条合法路径都符合，但是这么钦定比较方便找另一个点），枚举这一个，命名为 $P$。$P$ 为割点的情况简易处理，只讨论 $P$ 非割点。然后在新图找新的 $L$（$R$ 是没变），然后继续做割一个点的情形。现在的焦点来到如何快速找到新的 $L$ 和 $R$ 的交。</p>
+<p>既然 $P$ 被 ban，当走到 $P$ 的这个步数，就要走到另一个合法的点 $P’$，其余的都没有关系。处理出对于每个点作为 $P’$ 时的答案，然后就只要找出 $P’$ 即可。既然是第二左下，那就刚好是同步数的斜线上 $P$ 的后继。</p>
+<h3 id="C-Giant-Penguin"><a href="#C-Giant-Penguin" class="headerlink" title="C Giant Penguin"></a>C Giant Penguin</h3><p>当换根、深度这些要素感觉到，就要考虑点分治，这个没啥问题。（感觉英文译名更符合其实质呢，centroid decomposition。）</p>
+<p>对于非树边，强行把与之相关的 $k$ 个点拎出来（取任意一端即可），这样子如果要跨越子树，要么经过重心，要么经过特殊点。</p>
+<p>预处理就是把特殊点和重心拿出来都跑 BFS。带修就是上点分树在特殊点和重心上更新。</p>
+<p>魔改点分治。实质是：把图剖成几个子图，把跨越的拎出来（好像更像猫树分治），发现总是经过有限个关键点。</p>
+<p>写代码上，一个是不要写错求重心，一个是可以多用给子树染色的办法判定对面的点是否在当前子树内，防止奇怪的事情发生。</p>
+<h2 id="27"><a href="#27" class="headerlink" title="27"></a>27</h2><h3 id="Luogu-P3295-SCOI2016-萌萌哒"><a href="#Luogu-P3295-SCOI2016-萌萌哒" class="headerlink" title="Luogu P3295 [SCOI2016] 萌萌哒"></a>Luogu P3295 [SCOI2016] 萌萌哒</h3><p>神题。</p>
+<p>并查集是容易想到的。直接逐位合并并查集复杂度很高，但是询问次数却很少。所以考虑把大区间拆成一些子区间的与，最后要回答询问时再集体 pushdown。这里其实用 Sparse Table 即可，线段树不好做。那也有另外一个视角就是用倍增理解这个过程。</p>
+<h3 id="ZR-2925-逆序对-inversion"><a href="#ZR-2925-逆序对-inversion" class="headerlink" title="ZR 2925 逆序对(inversion)"></a>ZR 2925 逆序对(inversion)</h3><p>非常好 Bijection Proof。</p>
+<p>写了题解。</p>
+<h2 id="28"><a href="#28" class="headerlink" title="28"></a>28</h2><p>Cplus 联测。</p>
+<h3 id="A-a"><a href="#A-a" class="headerlink" title="A a"></a>A a</h3><p>题目名字就是这个，我能怎么办。</p>
+<p>手推，感觉到有简单规律，做完。</p>
+<h3 id="B-b"><a href="#B-b" class="headerlink" title="B b"></a>B b</h3><p>模拟 DP，发现变化量不大。注意 <code>-INF</code>。</p>
+<h3 id="C-c-Codeforces-407D-Largest-Submatrix-3"><a href="#C-c-Codeforces-407D-Largest-Submatrix-3" class="headerlink" title="*C c / Codeforces 407D Largest Submatrix 3"></a>*C c / Codeforces 407D Largest Submatrix 3</h3><p>看到矩形，三次方复杂度，想到枚举三条边。然后就有大力递推，就是从三维的邻项推过来（但是可以非常牛地压到只有两维数组）。（？？？妈呀。可能就是，你感觉东西非常多，不容易直接算，而且可复用，所以想要递推。）</p>
+<p>但是我们三次方数组被卡真是太厉害了。感觉是，有序枚举，要会。这不是我们，CSP-S 2022 T1？怎么我现在不会这种题。</p>
+<p>C 可能小于 B，呃呃。</p>
+<h3 id="D-d-ARC118E-Avoid-Permutations"><a href="#D-d-ARC118E-Avoid-Permutations" class="headerlink" title="D d / ARC118E Avoid Permutations"></a>D d / ARC118E Avoid Permutations</h3><p>对于严格的“一个都没有”限制，考虑容斥。大小为 $n$ 的子集系数为 $(-1)^{n}$，在 DP 中做这个转移。</p>
+<p>我们容斥。</p>
+<p>写了题解。</p>
+<h2 id="29"><a href="#29" class="headerlink" title="29"></a>29</h2><p>Cplus 省选难度，打的很顺利。</p>
+<p>AGC 068，一道题都不会。</p>
+<h3 id="A-铲雪"><a href="#A-铲雪" class="headerlink" title="A 铲雪"></a>A 铲雪</h3><p>我们 $998244353$ 能做 NTT 模数，性质太好了。费马小定理，然后直接线段树和树状数组维护。</p>
+<h3 id="B-抽卡"><a href="#B-抽卡" class="headerlink" title="B 抽卡"></a>B 抽卡</h3><p>DP，关于状态的互推：迭代 60 次即可。不过精准高效的做法是按值域分段，然后解方程。</p>
+<h3 id="C-樟-Aizu-2993-Invariant-Tree"><a href="#C-樟-Aizu-2993-Invariant-Tree" class="headerlink" title="C 樟 / Aizu 2993 Invariant Tree"></a>C 樟 / Aizu 2993 Invariant Tree</h3><p>非常好 prufer 序列数数。</p>
+<p>写了题解。</p>
+<h2 id="30"><a href="#30" class="headerlink" title="30"></a>30</h2><p>Cplus 联测，打得不太好。</p>
+<h3 id="A-人机识别（iamhuman）"><a href="#A-人机识别（iamhuman）" class="headerlink" title="A 人机识别（iamhuman）"></a>A 人机识别（iamhuman）</h3><p>简单构造，由 $\log$ 函数的凸性即可。还没想更深入的思考，关于出现循环的字符串。</p>
+<h3 id="B-字符画（picture）"><a href="#B-字符画（picture）" class="headerlink" title="*B 字符画（picture）"></a>*B 字符画（picture）</h3><p>灵感大王图形构造。对于 $n=300$ 要特殊的图形。</p>
+<h3 id="C-能量（energy）"><a href="#C-能量（energy）" class="headerlink" title="*C 能量（energy）"></a>*C 能量（energy）</h3><p>还未仔细研究，大体是维护 DP，寻找凸性。</p>
+<h3 id="D-最小生成树（mst）"><a href="#D-最小生成树（mst）" class="headerlink" title="*D 最小生成树（mst）"></a>*D 最小生成树（mst）</h3><p>从最小生成树到 Kruskal 重构树，在其上动态 DP 即可。这个东西可以被认为是树的“等效链”。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>题解 - 2024 九月做题记录</div>
+      <div>http://sunsetglow95.github.io/sol-2024sep/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>SunsetGlow95</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年9月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/note-simulated-annealing/" title="学习笔记 - 模拟退火">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">学习笔记 - 模拟退火</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/sol-CF1310D/" title="题解 - Codeforces 1310D Tourism">
+                        <span class="hidden-mobile">题解 - Codeforces 1310D Tourism</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"SunsetGlow95/SunsetGlow95.github.io","repo-id":"R_kgDOMxNR0g","category":"Announcements","category-id":"DIC_kwDOMxNR0s4Co1Jo","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"bottom","lang":"zh-CN","strict":0,"theme":"noborder_gray","crossorigin":"anonymous"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
