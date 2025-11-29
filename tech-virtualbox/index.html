@@ -19,12 +19,12 @@
   <meta name="author" content="SunsetGlow95">
   <meta name="keywords" content="">
   
-    <meta name="description" content="版本选择 动机是本人想要安装 NOI Linux 虚拟机，然后下载不下来。最后发现最旧支持本机芯片（Apple M3，属 ARM）的 Ubuntu Desktop 是 Ubuntu Desktop 25。毅然决然下载 Ubuntu Desktop 25。  共享文件夹 首先下载功能扩展包，sudo apt install virtualbox-ext-pack。 然后就是在 Virtualbox">
+    <meta name="description" content="版本选择动机是本人想要安装 NOI Linux 虚拟机，然后下载不下来。最后发现最旧支持本机芯片（Apple M3，属 ARM）的 Ubuntu Desktop 是 Ubuntu Desktop 25。毅然决然下载 Ubuntu Desktop 25。 共享文件夹首先下载功能扩展包，sudo apt install virtualbox-ext-pack。 然后就是在 Virtualbox 配置里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="踩坑记录 - Mac 使用 Virtualbox 安装 Linux Ubuntu Desktop 虚拟机">
 <meta property="og:url" content="http://sunsetglow95.github.io/tech-virtualbox/index.html">
 <meta property="og:site_name" content="SunsetGlow95&#39;s Blog">
-<meta property="og:description" content="版本选择 动机是本人想要安装 NOI Linux 虚拟机，然后下载不下来。最后发现最旧支持本机芯片（Apple M3，属 ARM）的 Ubuntu Desktop 是 Ubuntu Desktop 25。毅然决然下载 Ubuntu Desktop 25。  共享文件夹 首先下载功能扩展包，sudo apt install virtualbox-ext-pack。 然后就是在 Virtualbox">
+<meta property="og:description" content="版本选择动机是本人想要安装 NOI Linux 虚拟机，然后下载不下来。最后发现最旧支持本机芯片（Apple M3，属 ARM）的 Ubuntu Desktop 是 Ubuntu Desktop 25。毅然决然下载 Ubuntu Desktop 25。 共享文件夹首先下载功能扩展包，sudo apt install virtualbox-ext-pack。 然后就是在 Virtualbox 配置里">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-26T08:00:00.000Z">
 <meta property="article:modified_time" content="2025-08-30T21:38:50.432Z">
@@ -313,17 +313,14 @@
             
               <div class="markdown-body">
                 
-                <h2 id="版本选择"><a class="markdownIt-Anchor" href="#版本选择"></a> 版本选择</h2>
-<p>动机是本人想要安装 NOI Linux 虚拟机，然后下载不下来。最后发现最旧支持本机芯片（Apple M3，属 ARM）的 Ubuntu Desktop 是 Ubuntu Desktop 25。毅然决然下载 Ubuntu Desktop 25。</p>
-<h2 id="共享文件夹"><a class="markdownIt-Anchor" href="#共享文件夹"></a> 共享文件夹</h2>
-<p>首先下载功能扩展包，<code>sudo apt install virtualbox-ext-pack</code>。</p>
+                <h2 id="版本选择"><a href="#版本选择" class="headerlink" title="版本选择"></a>版本选择</h2><p>动机是本人想要安装 NOI Linux 虚拟机，然后下载不下来。最后发现最旧支持本机芯片（Apple M3，属 ARM）的 Ubuntu Desktop 是 Ubuntu Desktop 25。毅然决然下载 Ubuntu Desktop 25。</p>
+<h2 id="共享文件夹"><a href="#共享文件夹" class="headerlink" title="共享文件夹"></a>共享文件夹</h2><p>首先下载功能扩展包，<code>sudo apt install virtualbox-ext-pack</code>。</p>
 <p>然后就是在 Virtualbox 配置里面写好配置（默认即可，不用写挂载点路径）。但是本人并未就此挂载成功，而且也没有找到 <code>vboxsf</code> 用户组，即使手动挂载也还要修改权限，文件夹属于 <code>root</code>。</p>
 <p>所以我们修改 <code>/etc/fstab</code>，添加以下内容：</p>
 <p><code>FILENAME /MOUNT-POINT-PATH vboxsf uid=1000,gid=1000 0 0</code></p>
 <p>FILENAME 是 Virtualbox 配置处的文件夹名称，MOUNT-POINT-PATH 是虚拟机的挂载文件夹，<code>uid=1000,gid=1000</code> 是指这个挂载让权限归到“我”这个用户，而“我”的用户 ID 和用户组 ID 都是 1000，因此这里可以根据你对权限的意愿，修改为其他用户组。</p>
 <p>重启之后就行了。</p>
-<h2 id="中文输入法"><a class="markdownIt-Anchor" href="#中文输入法"></a> 中文输入法</h2>
-<p>设置里面，Keyboard -&gt; Input Sources -&gt; <code>+</code>。</p>
+<h2 id="中文输入法"><a href="#中文输入法" class="headerlink" title="中文输入法"></a>中文输入法</h2><p>设置里面，Keyboard -&gt; Input Sources -&gt; <code>+</code>。</p>
 
                 
               </div>

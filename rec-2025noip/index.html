@@ -19,15 +19,15 @@
   <meta name="author" content="SunsetGlow95">
   <meta name="keywords" content="">
   
-    <meta name="description" content="还能释怀吗。 30min 口头 AK。 30min T1+T2。T2 时间复杂度是 $O(2^knk\log k\ \alpha(n))$ 的，TLE 可能性微存，复杂度卡得有点满，我只是相信它能过，赛场上懒得造大数据，如果 T 了那就 T 了吧。 1.5h T3，卡常，做法是 $O(L+n\log n)$ 的，空间复杂度是 $O(L|\sum|)$ 的。初版代码开空间 0.4s，建 Trie 0">
+    <meta name="description" content="天呐。 Day -2信心赛预期 $100+80+60+40$，T2 挂成 $56$，原来是诡谲做法少了一个 case。结果一看题解，发现 T2 T4 都是奶龙题。T2 就是那种扫描线然后枚举一下转移 DS 存一下就线性了，T4 就是那种二维偏序，然后有唐人认为 tag 不可以放在一起求和，当前做法下限两只 $n$。 Day -1上午调了点以前没调完的题，中午回家。下午直接睡觉，14:00~18:0">
 <meta property="og:type" content="article">
-<meta property="og:title" content="游记 - CSP-S 2025">
-<meta property="og:url" content="http://sunsetglow95.github.io/rec-2025csp-s/index.html">
+<meta property="og:title" content="游记 - NOIP 2025">
+<meta property="og:url" content="http://sunsetglow95.github.io/rec-2025noip/index.html">
 <meta property="og:site_name" content="SunsetGlow95&#39;s Blog">
-<meta property="og:description" content="还能释怀吗。 30min 口头 AK。 30min T1+T2。T2 时间复杂度是 $O(2^knk\log k\ \alpha(n))$ 的，TLE 可能性微存，复杂度卡得有点满，我只是相信它能过，赛场上懒得造大数据，如果 T 了那就 T 了吧。 1.5h T3，卡常，做法是 $O(L+n\log n)$ 的，空间复杂度是 $O(L|\sum|)$ 的。初版代码开空间 0.4s，建 Trie 0">
+<meta property="og:description" content="天呐。 Day -2信心赛预期 $100+80+60+40$，T2 挂成 $56$，原来是诡谲做法少了一个 case。结果一看题解，发现 T2 T4 都是奶龙题。T2 就是那种扫描线然后枚举一下转移 DS 存一下就线性了，T4 就是那种二维偏序，然后有唐人认为 tag 不可以放在一起求和，当前做法下限两只 $n$。 Day -1上午调了点以前没调完的题，中午回家。下午直接睡觉，14:00~18:0">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-10-03T13:52:07.000Z">
-<meta property="article:modified_time" content="2025-11-17T15:01:07.235Z">
+<meta property="article:published_time" content="2025-11-29T07:12:42.000Z">
+<meta property="article:modified_time" content="2025-11-29T08:15:10.947Z">
 <meta property="article:author" content="SunsetGlow95">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -35,7 +35,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>游记 - CSP-S 2025 - SunsetGlow95&#39;s Blog</title>
+  <title>游记 - NOIP 2025 - SunsetGlow95&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -228,7 +228,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="游记 - CSP-S 2025"></span>
+            <span id="subtitle" data-typed-text="游记 - NOIP 2025"></span>
           
         </div>
 
@@ -239,8 +239,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-10-03 21:52" pubdate>
-          2025年10月3日 晚上
+        <time datetime="2025-11-29 15:12" pubdate>
+          2025年11月29日 下午
         </time>
       </span>
     
@@ -251,7 +251,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          485 字
+          1.4k 字
         
       </span>
     
@@ -262,7 +262,7 @@
         
         
         
-          5 分钟
+          12 分钟
         
       </span>
     
@@ -308,24 +308,49 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">游记 - CSP-S 2025</h1>
+            <h1 id="seo-header">游记 - NOIP 2025</h1>
             
             
               <div class="markdown-body">
                 
-                <p>还能释怀吗。</p>
-<p>30min 口头 AK。</p>
-<p>30min T1+T2。T2 时间复杂度是 $O(2^knk\log k\ \alpha(n))$ 的，TLE 可能性微存，复杂度卡得有点满，我只是相信它能过，赛场上懒得造大数据，如果 T 了那就 T 了吧。</p>
-<p>1.5h T3，卡常，做法是 $O(L+n\log n)$ 的，空间复杂度是 $O(L|\sum|)$ 的。初版代码开空间 0.4s，建 Trie 0.4s，拼点其他的就 1.1s 了。最后把 Trie 空间折半，做到了时间减半。没对拍，TLE 和 WA 可能性微存。</p>
-<p>1.5h T4，死活过不去小样例。25 min 写完初版代码，这个的 35 min 后发现本来要做的 01 取反没做到。做法大概是考虑数列的前缀和和人类的数值都单调，然后只需要维护加入一个位和加入一个人类。感觉是对的。由于不会部分分所以只写了 $O(n!)$，$O(2^n\text{poly}(n))$ 来不及写。</p>
-<p>11.3 发现加入一个位的时候允许了最后一天的面试者面试失败刚好超限的情形，加入两个 <code>if</code> 语句，通过洛谷民间数据。</p>
-<p>我的 OI 生涯大概也就到这里了吧。倨傲，自卑，孤独，疲倦，散漫，缓慢，失误，恐惧，绝望，顿悟，痛苦，到最后甚至连原谅自己都做不到。</p>
-<p>聪明如我，连 $|t_1|\neq |t_2|$ 都会判。</p>
-<p>聪明如我，当天上午 VP 前天晚上的 CF，1h 过那个我不擅长的 E，过了那个少量细节的数数。</p>
-<p>这就是上天对背叛者、高傲者、懒人、蠢人、恶人的惩罚。</p>
-<p>upd: $100+80+100+8$。T4 修正版通过正式数据。</p>
-<p>没有经历过创伤的人当然会一直顺利，可是一旦遇到了创伤，即使是同个机房的同学也多少会看觑，我还可以拿什么去面对那个只靠分数来评判我的恶魔呢？</p>
-<p>我退役了。对。</p>
+                <p>天呐。</p>
+<h2 id="Day-2"><a href="#Day-2" class="headerlink" title="Day -2"></a>Day -2</h2><p>信心赛预期 $100+80+60+40$，T2 挂成 $56$，原来是诡谲做法少了一个 case。结果一看题解，发现 T2 T4 都是奶龙题。T2 就是那种扫描线然后枚举一下转移 DS 存一下就线性了，T4 就是那种二维偏序，然后有唐人认为 tag 不可以放在一起求和，当前做法下限两只 $n$。</p>
+<h2 id="Day-1"><a href="#Day-1" class="headerlink" title="Day -1"></a>Day -1</h2><p>上午调了点以前没调完的题，中午回家。下午直接睡觉，14:00~18:00，还是被叫醒的。</p>
+<p>观看“为什么康熙是洪承畴儿子的假说能引起这么大的反响？”。</p>
+<p>00:00 上床睡觉。</p>
+<h2 id="Dream"><a href="#Dream" class="headerlink" title="Dream"></a>Dream</h2><p>梦见自己参加 NOI D 类，D1 200+，去吃大排档，D2 个位数分数，D3（？）缺考，在外面玩（？）。喜提铜牌中位。</p>
+<p>第二段梦是 NOIP 在江苏考，然后乘坐神秘学弟的敞篷车，我就坐在天窗上面，要是上面有东西车就往下缩（？），然后载到了某个小区，可能是宾馆吧。第二天醒来出去买早餐，要了一个土豆一个蛋，然后被削皮削成了两个“核”，大概指甲盖大小吧。然后发现已经 8:26 了，去宾馆打家长电话，家长在广州（？）炒股（？），没法把我送到考场。然后我就（莫名其妙地）到了考场，找不到入口。<strong>我说我的 OI 生涯，这么久以来的努力，就因为这么扯淡的原因全部付之东流了。</strong></p>
+<h2 id="On-site"><a href="#On-site" class="headerlink" title="On site"></a>On site</h2><p>然后我就惊醒了，6:26。</p>
+<p>被神仙考场吓哭了。GDFZ 考场 5。</p>
+<p><code>!noip@nov29.2025:dream</code>。真艺术。</p>
+<p>机子正常。</p>
+<p>T1 好长啊。看一看。好像不会。</p>
+<p>T4，果然是数据结构。T3 放棵树，T4 序列 DS，跟去年一样嘛，那肯定大家都 AK 了。诶，是不是简单题？分治肯定有很多分……什么？25？……subtask 好像都能拼？</p>
+<p>T3 800？MEX，棋无常树？树形背包搞一搞，三只 $n$ 好像比较简单，应该很多分吧。什么？48？那不倒闭了。不对，我真的会 $n^3$ 吗？……$f(u,i,j)$ 表示 $u$ 子树内 MEX 是 $i$，还剩 $j$ 个数没定。卷。怎么是 $O(n^4)$ 的啊？</p>
+<p>T2……好长啊。好难啊。无法刻画。</p>
+<p>T1……是不是 $x_i,y_i$ 绑一起就行了……</p>
+<p>此时已经过去了 1h。</p>
+<p>算了先写写 T1。哦要开 <code>long long</code>。</p>
+<p>过样例了。</p>
+<p>T2，诶那我通过 $m$ 直接知道最大价值和是多少了，那可能是个绿。怎么样例 1 错完了？哦原来是当前状态下的最大价值和。……还能刻画吗……</p>
+<p>先写 T4 吧。分治复杂度是不是很好啊，不过 $l,r$ 跨度大的时候好像就倒闭了，还是只有 $O(nq\log n)$……最后一组样例 10s，跑进 2s 的样例的 subtask 分数总和是 35……</p>
+<p>T3 搓一搓，好像可以预先定下来每个点造成的贡献：是链剖分上子链的 top 到自己的距离，那就变成定一个 $b<em>u$ 满足 $\sum</em>{v\in \text{subtree}(u)} b_v\le \text{size}_u$，然后…… $O(n^2m)$？搓一搓……还挺快的嘞。76pts 到手，丢掉。</p>
+<p>想起来 T4 分析复杂度的时候其实是对 $R$ 取 $\min$ 的，加一下，马上多过了很多。C 性质不能做？……好像没有很好的做法。</p>
+<p>过个 T2。刻画一下形态，必然是某个 2 由于前面提前取了一个 1 被 pass 了，所以枚举一下，2 后面可能取一个 1，合并起来就是后缀有一个 $2^k$ 系数。然后前面的条件，感觉像是组合数区间和？</p>
+<p>诶怎么样例 2 爆完了？抓一组样例，暴力，调试语句，哎呀我怎么暴力都写挂了，看看都是什么 case，是不是算错了……</p>
+<p>怎么只剩 1h 了啊？……但是我也只有 T2 能做了，不是吗。如果打出来 $100+0+x+y$，那高二就真的完蛋了吧。</p>
+<p>诶不对，我 <code>for</code> 一下看看是不是组合数错了，我怎么想怎么觉得其他的部分应该是对的啊。诶，组合数就是对的？看来是前面的“组合数区间和”错了。</p>
+<p>那就是组合数区间卷起来……<em>可以范德蒙德？好像不行？有一个上下界</em>……不管了样例都过了，68 可能是可以冲过去的，丢掉吧。</p>
+<p>此时 12:45。$100+68+76+65$。如果不挂分，如果不卡时间，如果没有编译器 bug。</p>
+<p>4.5h 的轰隆隆心脏跳动声呢。</p>
+<p>交给上天吧。</p>
+<p>我想这可能是 4 个奶龙题，但是我有一些很简单的道理没有想清楚。</p>
+<h2 id="Aftermath"><a href="#Aftermath" class="headerlink" title="Aftermath"></a>Aftermath</h2><p>是的，我有一些很简单的道理没有想清楚。</p>
+<p>就是说这个 T2，你知道吗，我在 $a$ 里选几个，$b$ 里选几个，加起来要选 $k$ 个，我们只要枚举一下左边选了几个，就可以加一只 $n$ 了。（虽说按我那个垃圾写法，改掉也是 $O(n^2\log n)$）。</p>
+<p>就是说这个 T4，我们注意到可以倍增预处理。</p>
+<p>就是说这个 T3，你考虑每个点可以选择对某个连续段做贡献，那当然是选最长连续段啦。然后 $f(i,j)$ 表示定了最长连续段是 $j$，手动拉一下链。</p>
+<p>就是说所有人都 $100+100+x+100$ 了。</p>
+<p>这场没有打到 $341$ 真是可惜。其实只是我太菜了，一紧张什么都不会了，纯靠肌肉记忆。这个 T4 在赛场上冲不出来完全是情有可原的，但是这个 T2，……也许我就是菜吧。</p>
 
                 
               </div>
@@ -364,8 +389,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>游记 - CSP-S 2025</div>
-      <div>http://sunsetglow95.github.io/rec-2025csp-s/</div>
+      <div>游记 - NOIP 2025</div>
+      <div>http://sunsetglow95.github.io/rec-2025noip/</div>
     </div>
     <div class="license-meta">
       
@@ -377,7 +402,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年10月3日</div>
+          <div>2025年11月29日</div>
         </div>
       
       
@@ -409,18 +434,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/sol-ARC210D/" title="题解 - ARC210D Independent Set Game">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">题解 - ARC210D Independent Set Game</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/rec-2025njusc/" title="游记 - NJUSC 2025">
-                        <span class="hidden-mobile">游记 - NJUSC 2025</span>
+                      <a href="/sol-LGP14464/" title="题解 - 海底列車（collapse）">
+                        <span class="hidden-mobile">题解 - 海底列車（collapse）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

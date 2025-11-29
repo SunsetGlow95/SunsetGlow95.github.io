@@ -19,23 +19,25 @@
   <meta name="author" content="SunsetGlow95">
   <meta name="keywords" content="">
   
-    <meta name="description" content="还能释怀吗。 30min 口头 AK。 30min T1+T2。T2 时间复杂度是 $O(2^knk\log k\ \alpha(n))$ 的，TLE 可能性微存，复杂度卡得有点满，我只是相信它能过，赛场上懒得造大数据，如果 T 了那就 T 了吧。 1.5h T3，卡常，做法是 $O(L+n\log n)$ 的，空间复杂度是 $O(L|\sum|)$ 的。初版代码开空间 0.4s，建 Trie 0">
+    <meta name="description" content="愚蠢的 $2n$ 次数做法，除了代码短一点点和好想就没啥优势了。 简述题意给两棵有根树 $T_1,T_2$，每次可以交换 $T_1$ 中某两个距离为偶的点的父亲，问能否在 $2n$ 次操作内将 $T_1$ 变成 $T_2$。$n\le 5000$。 解法对于一棵树，黑白染色，两种颜色的点的度数集合分别记为 $S_0,S_1$，则 $(S_0,S_1)$ 这个无序二元组相同的两棵树，他们都是可以互相">
 <meta property="og:type" content="article">
-<meta property="og:title" content="游记 - CSP-S 2025">
-<meta property="og:url" content="http://sunsetglow95.github.io/rec-2025csp-s/index.html">
+<meta property="og:title" content="题解 - 海底列車（collapse）">
+<meta property="og:url" content="http://sunsetglow95.github.io/sol-LGP14464/index.html">
 <meta property="og:site_name" content="SunsetGlow95&#39;s Blog">
-<meta property="og:description" content="还能释怀吗。 30min 口头 AK。 30min T1+T2。T2 时间复杂度是 $O(2^knk\log k\ \alpha(n))$ 的，TLE 可能性微存，复杂度卡得有点满，我只是相信它能过，赛场上懒得造大数据，如果 T 了那就 T 了吧。 1.5h T3，卡常，做法是 $O(L+n\log n)$ 的，空间复杂度是 $O(L|\sum|)$ 的。初版代码开空间 0.4s，建 Trie 0">
+<meta property="og:description" content="愚蠢的 $2n$ 次数做法，除了代码短一点点和好想就没啥优势了。 简述题意给两棵有根树 $T_1,T_2$，每次可以交换 $T_1$ 中某两个距离为偶的点的父亲，问能否在 $2n$ 次操作内将 $T_1$ 变成 $T_2$。$n\le 5000$。 解法对于一棵树，黑白染色，两种颜色的点的度数集合分别记为 $S_0,S_1$，则 $(S_0,S_1)$ 这个无序二元组相同的两棵树，他们都是可以互相">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-10-03T13:52:07.000Z">
-<meta property="article:modified_time" content="2025-11-17T15:01:07.235Z">
+<meta property="article:published_time" content="2025-11-24T23:53:33.000Z">
+<meta property="article:modified_time" content="2025-11-29T08:17:07.260Z">
 <meta property="article:author" content="SunsetGlow95">
+<meta property="article:tag" content="树">
+<meta property="article:tag" content="构造">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>游记 - CSP-S 2025 - SunsetGlow95&#39;s Blog</title>
+  <title>题解 - 海底列車（collapse） - SunsetGlow95&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -228,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="游记 - CSP-S 2025"></span>
+            <span id="subtitle" data-typed-text="题解 - 海底列車（collapse）"></span>
           
         </div>
 
@@ -239,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-10-03 21:52" pubdate>
-          2025年10月3日 晚上
+        <time datetime="2025-11-25 07:53" pubdate>
+          2025年11月25日 早上
         </time>
       </span>
     
@@ -251,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          485 字
+          483 字
         
       </span>
     
@@ -308,24 +310,28 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">游记 - CSP-S 2025</h1>
+            <h1 id="seo-header">题解 - 海底列車（collapse）</h1>
             
             
               <div class="markdown-body">
                 
-                <p>还能释怀吗。</p>
-<p>30min 口头 AK。</p>
-<p>30min T1+T2。T2 时间复杂度是 $O(2^knk\log k\ \alpha(n))$ 的，TLE 可能性微存，复杂度卡得有点满，我只是相信它能过，赛场上懒得造大数据，如果 T 了那就 T 了吧。</p>
-<p>1.5h T3，卡常，做法是 $O(L+n\log n)$ 的，空间复杂度是 $O(L|\sum|)$ 的。初版代码开空间 0.4s，建 Trie 0.4s，拼点其他的就 1.1s 了。最后把 Trie 空间折半，做到了时间减半。没对拍，TLE 和 WA 可能性微存。</p>
-<p>1.5h T4，死活过不去小样例。25 min 写完初版代码，这个的 35 min 后发现本来要做的 01 取反没做到。做法大概是考虑数列的前缀和和人类的数值都单调，然后只需要维护加入一个位和加入一个人类。感觉是对的。由于不会部分分所以只写了 $O(n!)$，$O(2^n\text{poly}(n))$ 来不及写。</p>
-<p>11.3 发现加入一个位的时候允许了最后一天的面试者面试失败刚好超限的情形，加入两个 <code>if</code> 语句，通过洛谷民间数据。</p>
-<p>我的 OI 生涯大概也就到这里了吧。倨傲，自卑，孤独，疲倦，散漫，缓慢，失误，恐惧，绝望，顿悟，痛苦，到最后甚至连原谅自己都做不到。</p>
-<p>聪明如我，连 $|t_1|\neq |t_2|$ 都会判。</p>
-<p>聪明如我，当天上午 VP 前天晚上的 CF，1h 过那个我不擅长的 E，过了那个少量细节的数数。</p>
-<p>这就是上天对背叛者、高傲者、懒人、蠢人、恶人的惩罚。</p>
-<p>upd: $100+80+100+8$。T4 修正版通过正式数据。</p>
-<p>没有经历过创伤的人当然会一直顺利，可是一旦遇到了创伤，即使是同个机房的同学也多少会看觑，我还可以拿什么去面对那个只靠分数来评判我的恶魔呢？</p>
-<p>我退役了。对。</p>
+                <p>愚蠢的 $2n$ 次数做法，除了代码短一点点和好想就没啥优势了。</p>
+<h2 id="简述题意"><a href="#简述题意" class="headerlink" title="简述题意"></a>简述题意</h2><p>给两棵有根树 $T_1,T_2$，每次可以交换 $T_1$ 中某两个距离为偶的点的父亲，问能否在 $2n$ 次操作内将 $T_1$ 变成 $T_2$。$n\le 5000$。</p>
+<h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>对于一棵树，黑白染色，两种颜色的点的度数集合分别记为 $S_0,S_1$，则 $(S_0,S_1)$ 这个无序二元组相同的两棵树，他们都是可以互相转化的。这个东西的必要性是显然的（操作不会改变点的度数），我们考虑用构造把它的充分性得出来。</p>
+<p>考虑只根据 $(S_0,S_1)$ 生成一棵树 $T_x$，然后让等价类里面所有的 $T$ 都可以在 $n$ 次操作之内和它转化，我们就可以得到 $T_1\to T_x\to T_2$。</p>
+<p>我们发现只要每次我们在 $T_x$ 上接上去一个叶子，$T$ 上就一定可以操作。具体来说，每次操作是：</p>
+<ul>
+<li>如果 $1\in S_0$，那么把这个 $1$ 对应的节点和 $S_1$ 中一个用某种方式定下来的非 $1$ 度点相连，在此之后这条边应当视作不存在（毕竟它不能再发生改变了）；</li>
+<li>否则必定有 $1\in S_1$，对称地操作即可。</li>
+</ul>
+<p>当我想要在 $T_1,T_2$（以下直接称为 $T$）连起来一条边 $x\to y$，其中 $x$ 是叶子：</p>
+<ul>
+<li>如果这条边存在，pass；</li>
+<li>令 $y\to x$ 路径上的第二个点是 $p$，$x\to y$ 路径上的第二个点是 $s$，$y$ 的任意一个不是 $p$ 的邻点是 $t$，那么一次操作我们进行 $(x,t)$。</li>
+<li>容易发现由于 $x$ 度数为 $1$，每次只是把一个叶子剥出去，不影响后续操作。</li>
+</ul>
+<p>模拟以上过程需注意绝对不可以让 $T$ 的编号影响其和 $T_x$ 之间的转化。</p>
+<p>暴力模拟，复杂度 $O(n^2)$。</p>
 
                 
               </div>
@@ -344,7 +350,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%B8%B8%E8%AE%B0/" class="category-chain-item">游记</a>
+  <a href="/categories/%E9%A2%98%E8%A7%A3/" class="category-chain-item">题解</a>
   
   
 
@@ -356,6 +362,15 @@
     </div>
   
   
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%A0%91/" class="print-no-link">#树</a>
+      
+        <a href="/tags/%E6%9E%84%E9%80%A0/" class="print-no-link">#构造</a>
+      
+    </div>
+  
 </div>
 
 
@@ -364,8 +379,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>游记 - CSP-S 2025</div>
-      <div>http://sunsetglow95.github.io/rec-2025csp-s/</div>
+      <div>题解 - 海底列車（collapse）</div>
+      <div>http://sunsetglow95.github.io/sol-LGP14464/</div>
     </div>
     <div class="license-meta">
       
@@ -377,7 +392,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年10月3日</div>
+          <div>2025年11月25日</div>
         </div>
       
       
@@ -409,9 +424,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/sol-ARC210D/" title="题解 - ARC210D Independent Set Game">
+                      <a href="/rec-2025noip/" title="游记 - NOIP 2025">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">题解 - ARC210D Independent Set Game</span>
+                        <span class="hidden-mobile">游记 - NOIP 2025</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -419,8 +434,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/rec-2025njusc/" title="游记 - NJUSC 2025">
-                        <span class="hidden-mobile">游记 - NJUSC 2025</span>
+                      <a href="/sol-ARC210D/" title="题解 - ARC210D Independent Set Game">
+                        <span class="hidden-mobile">题解 - ARC210D Independent Set Game</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
