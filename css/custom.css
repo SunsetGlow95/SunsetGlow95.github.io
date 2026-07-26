@@ -1,0 +1,65 @@
+/* ========== 卡片基础样式 ========== */
+.index-card {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ========== 亮色模式 ========== */
+.index-card[data-category="随笔"] {
+    background-color: hsl(350, 64%, 88%);
+}
+.index-card[data-category="随笔"]:hover {
+    background-color: hsl(350, 64%, 80%);
+}
+
+.index-card[data-category="题解"] {
+    background-color: hsl(19, 43%, 88%);
+}
+.index-card[data-category="题解"]:hover {
+    background-color: hsl(19, 43%, 80%);
+}
+
+.index-card[data-category="事记"] {
+    background-color: hsl(40, 100%, 88%);
+}
+.index-card[data-category="事记"]:hover {
+    background-color: hsl(40, 100%, 80%);
+}
+
+.index-card[data-category="笔记"] {
+    background-color: hsl(20, 92%, 88%);
+}
+.index-card[data-category="笔记"]:hover {
+    background-color: hsl(20, 92%, 80%);
+}
+
+/* ========== 暗色模式 ========== */
+[data-user-color-scheme="dark"] .index-card[data-category="事记"] {
+    background-color: hsl(221, 49%, 30%);
+}
+[data-user-color-scheme="dark"] .index-card[data-category="事记"]:hover {
+    background-color: hsl(221, 49%, 38%);
+}
+
+[data-user-color-scheme="dark"] .index-card[data-category="笔记"] {
+    background-color: hsl(196, 46%, 30%);
+}
+[data-user-color-scheme="dark"] .index-card[data-category="笔记"]:hover {
+    background-color: hsl(196, 46%, 38%);
+}
+
+[data-user-color-scheme="dark"] .index-card[data-category="题解"] {
+    background-color: hsl(180, 7%, 30%);
+}
+[data-user-color-scheme="dark"] .index-card[data-category="题解"]:hover {
+    background-color: hsl(180, 7%, 38%);
+}
+
+[data-user-color-scheme="dark"] .index-card[data-category="随笔"] {
+    background-color: hsl(260, 10%, 30%);
+}
+[data-user-color-scheme="dark"] .index-card[data-category="随笔"]:hover {
+    background-color: hsl(260, 10%, 38%);
+}
